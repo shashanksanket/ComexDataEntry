@@ -2,23 +2,23 @@
 <template style="z-index:1000; margin-top:200px;">
 	<div>
 		<Navbar/>
-		<div style="margin:50px">
+		<div class="root2" style="">
 			<div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
-				<h5 class="mb-0">
+				<h5 class="mainTitle">
 					Add Bulk Entries
 				</h5>
 
 
 			</div>
 			<validation-observer ref="registerForm">
-				<b-form @reset="onReset" class="auth-register-form mt-2 ml-2 mr-2">
-					<b-form-group label="File" label-for="file">
+				<b-form class="upload" @reset="onReset" >
+					<b-form-group  label="Upload File" label-for="file">
 						<b-form-file accept=".csv" v-on:change="uploadCsv($event)" v-model="file" />
 					</b-form-group>
 
 
-
-					<b-button variant="primary" size="lg" type="submit" @click.prevent="addInBulk">
+<br/>
+					<b-button style="margin-left:100px; " variant="primary" size="lg" type="submit" @click.prevent="addInBulk">
 						Save
 					</b-button>
 					<br /><small class="text-danger">{{ errors }}</small>
@@ -136,12 +136,51 @@ export default {
 </script>
 <style lang="scss">
 
-.form{
-	display: flex;
-	flex-direction: column;
-	flex-wrap:wrap;
-	height: 500px;
-	width: auto;
+
+.root2{
+	padding: 50px 86px !important;
+gap: 8px;
+
+// width: 80%;
+// height: 1122px;
+// left: 54px;
+// top: 168.02px;
+margin-top: 25px;
+margin-left: 50px;
+margin-right: 50px;
+margin-bottom: 50px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+border-radius: 10px;
+}
+.mainTitle{
+width: 262px;
+height: 38px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+line-height: 38px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.2px;
+
+color: #ab7ef8;
+
+}
+.upload{
+	box-sizing: border-box;
+margin: auto;
+width: 481px;
+height: 373px;
+padding: 90px;
+
+border: 2px dashed #888888;
+border-radius: 12px;
 }
 
 </style>

@@ -1,12 +1,13 @@
 <template>
 <div>
-	<b-navbar toggleable="lg" type="dark" variant="primary">
-	  <b-navbar-brand href="#">ComexComputer</b-navbar-brand>
+	<b-navbar toggleable="lg" type="light" variant="">
+	  <b-navbar-brand style="margin-top:15px;" href="#"><img height="70px" src="./logo.png"></b-navbar-brand>
   
-	  <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+	  <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
   
 	  <b-collapse id="nav-collapse" is-nav>
-		<b-navbar-nav style="margin-left:150px;">
+	
+		<b-navbar-nav style="margin-top:40px; margin-left: 10%; margin-right: auto;">
 		  <b-nav-item @click="redirect('addSingle')">Add Single Entry</b-nav-item>
 		  <b-nav-item @click="redirect('addBulk')">Add Bulk Entries</b-nav-item>
 		  <b-nav-item @click="redirect('downloadLatest')">Download Latest Entries</b-nav-item>
@@ -15,8 +16,8 @@
 
 		</b-navbar-nav>
 	  </b-collapse>
-	  <b-navbar-nav style="margin-right:50px;">
-		<img style="width:65px;" src="./Mtnl.svg"/>
+	  <b-navbar-nav style="">
+		<!-- <img style="width:65px;" src="./Mtnl.svg"/> -->
 	  </b-navbar-nav>
 	</b-navbar>
   </div>
@@ -94,5 +95,13 @@ import { mapMutations, mapActions, mapState } from "vuex";
   <style>
 *{
 	font-weight:bolder ;
+}
+.navbar{
+	height: 90px;
+
+
+/* Primary / Light blue */
+
+background: #e1e5f1;
 }
 </style>

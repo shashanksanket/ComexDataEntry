@@ -3,12 +3,16 @@
 	<div>
 		<Navbar/>
 		<div>
-			<div style="margin-top:50px; margin-left:250px; width:500px;">
+			<div class="root1">
 		<template>
-			<div class="d-flex justify-content-between align-items-center ">
-				<h2>
-					<center>Add Single Entries</center>
+			<div >
 				<br/>
+				<br/>
+				<h2 class="mainTitle ">
+					Add Single Entries
+				<br/>
+				<br/>
+
 					
 				</h2>
 			
@@ -16,71 +20,82 @@
 			</div>
 			<validation-observer ref="registerForm">
 				<b-form class="form" @submit.prevent>
-					
-				<b-form-group style="margin-left:20px;" id="fieldset-1" label="Enter Name"
+				<br/><br/>
+				<div>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter Name"
 					label-for="input-1">
 					<b-form-input id="input-1" v-model="Name"  ></b-form-input>
 				</b-form-group>
 				
-				<b-form-group style="margin-left:20px;" id="fieldset-2" label="Enter Address"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-2" label="Enter Address"
 					label-for="input-2" >
 					<b-form-input id="input-2" v-model="Address"  ></b-form-input>
 				</b-form-group>
 			
-				<b-form-group style="margin-left:20px;" id="fieldset-3"  label="Enter CA NO"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-3"  label="Enter CA NO"
 					label-for="input-3" >
 					<b-form-input id="input-3" v-model="CaNo"  ></b-form-input>
 				</b-form-group>
-			
-				<b-form-group style="margin-left:20px;" id="fieldset-4" label="Enter Tel No"
+			</div>
+			<div>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-4" label="Enter Tel No"
 					label-for="input-4" >
 					<b-form-input id="input-4" v-model="TelNo"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-5" label="Enter Plan"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-5" label="Enter Plan"
 					label-for="input-5" >
 					<b-form-input id="input-5" v-model="Plan"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-6" label="Enter Type Of Plan"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-6" label="Enter Type Of Plan"
 					label-for="input-6" >
 					<b-form-input id="input-6" v-model="TypeOfPlan"  ></b-form-input>
 				</b-form-group>
-			
-				<b-form-group style="margin-left:20px;" id="fieldset-7" label="Enter Date Of Installation"
+			</div>
+			<div>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Date Of Installation"
 					label-for="input-7" >
 					<b-form-input id="input-7" v-model="DateOfInstallation"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-8" label="Enter Type Of Connection"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-8" label="Enter Type Of Connection"
 					label-for="input-8" >
 					<b-form-input id="input-8" v-model="TypeOfConnection"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-9" label="Enter Voip Ip Address"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-9" label="Enter Voip Ip Address"
 					label-for="input-9" >
 					<b-form-input id="input-9" v-model="VoipIpAddress"  ></b-form-input>
 				</b-form-group>
-			
-				<b-form-group style="margin-left:20px;" id="fieldset-10" label="Enter VLAN ID"
+			</div>
+			<div>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-10" label="Enter VLAN ID"
 					label-for="input-10" >
 					<b-form-input id="input-10" v-model="VlanId"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-11"  label="Enter OLT Id"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-11"  label="Enter OLT Id"
 					label-for="input-11" >
-					<b-form-select id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)" :options="optionsOltId"></b-form-select>
+					<b-form-select style="width:197px" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)" :options="optionsOltId"></b-form-select>
 
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-13" label="Enter OLT Name"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-13" label="Enter OLT Name"
 					label-for="input-13" >
-					<b-form-select id="input-13" v-model="OltName" v-on:change="onSelectOltName(OltName)" :options="optionsOltName"></b-form-select>
+					<b-form-select style="width:197px" id="input-13" v-model="OltName" v-on:change="onSelectOltName(OltName)" :options="optionsOltName"></b-form-select>
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-14" label="Enter Pon No"
+			</div>
+			<div>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Enter Pon No"
 					label-for="input-14" >
-					<b-form-select id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
+					<b-form-select style="width:197px" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
 
 				</b-form-group>
-				<b-form-group style="margin-left:20px;" id="fieldset-14" label="Enter Ont/Onu S/n MacAddress"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Enter Ont/Onu S/n MacAddress"
 					label-for="input-14" >
-					<b-form-input id="input-14" v-model="Ont_Onu_Sn_Macadress"  ></b-form-input>
+					<b-form-input style="width:475px" id="input-14" v-model="Ont_Onu_Sn_Macadress"  ></b-form-input>
 				</b-form-group>
-			<b-button type="submit" variant="primary" @click="onSubmit()" style="margin: 20px; width:300px">Submit</b-button>
+			</div>
+			<br/>
+			<div>
+			<b-button type="submit" variant="primary" @click="onSubmit()" style="margin-left: 80px; width:150px">Submit</b-button>
+
+			</div>
 		
 			
 		</b-form>
@@ -189,6 +204,7 @@ reset(){
 	this.CaNo = '',
 	this.TelNo = '',
 	this.Plan = '',
+	this.TypeOfPlan = '',
 	this.Month = '',
 	this.DateOfInstallation = '',
 	this.TypeOfConnection = '',
@@ -222,14 +238,68 @@ reset(){
 
 </script>
 <style lang="scss">
-
 .form{
-	display: flex;
-	flex-direction: column;
-	flex-wrap:wrap;
-	height: 500px;
-	width: auto;
 }
+.form div{
+	display: flex;
+	flex-direction: row;
+	
+}
+
+.title{
+	width: 171px;
+height: 28px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 22px;
+line-height: 28px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.2px;
+
+color: #000000;
+}
+.root1{
+padding: 30px 86px ;
+gap: 8px;
+
+// width: 80%;
+// height: 1122px;
+// left: 54px;
+// top: 168.02px;
+margin-top: 15px;
+margin-left: 50px;
+margin-right: 50px;
+margin-bottom: 50px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+border-radius: 10px;
+}
+.mainTitle{
+width: 262px;
+height: 38px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+line-height: 38px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.2px;
+
+color: #ab7ef8;
+
+}
+
 
 </style>
 	

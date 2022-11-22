@@ -69,8 +69,9 @@
     "sequelize": "^5.22.5",
     "serve-favicon": "^2.5.0",
     "unique-random": "^3.0.0",
-    "uuid": "^9.0.0"
-    },
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
+  },
   "devDependencies": {
     "sequelize-auto-migrations-v2": "^1.2.1",
     "sequelize-cli": "^6.4.1"

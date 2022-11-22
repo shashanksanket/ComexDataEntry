@@ -3,7 +3,7 @@
 	<div>
 		<Navbar />
 		<div>
-			<div style="margin-top:50px; margin-left:250px; width:500px;">
+			<div class="root4" style="">
 				<template>
 					<div class="d-flex justify-content-between align-items-center ">
 						<h2>
@@ -160,6 +160,23 @@ export default {
 	flex-wrap: wrap;
 	height: 500px;
 	width: auto;
+}
+.root4{
+	padding: 50px 86px !important;
+gap: 8px;
+
+// width: 80%;
+// height: 1122px;
+// left: 54px;
+// top: 168.02px;
+margin-top: 25px;
+margin-left: 50px;
+margin-right: 50px;
+margin-bottom: 50px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+border-radius: 10px;
 }
 </style>
 	

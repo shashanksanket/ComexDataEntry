@@ -106,6 +106,7 @@ export default {
 </script>
 <style>
   #app{
-    background-color: white;
+    background: #e1e5f1;
+
   }
 </style>

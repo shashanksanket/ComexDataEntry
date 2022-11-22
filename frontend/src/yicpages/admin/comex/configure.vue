@@ -3,7 +3,7 @@
 	<div>
 		<Navbar />
 		<div>
-			<div style="margin-top:50px; margin-left:250px; width:500px;">
+			<div class="root5" style="">
 				<template>
 					<div class="d-flex justify-content-between align-items-center ">
 						<h2>
@@ -17,23 +17,23 @@
 					<validation-observer ref="registerForm">
 						<b-form class="form" @submit.prevent>
 
-							<b-form-group style="margin-left:20px;" id="fieldset-1" label="Enter OLT Id"
+							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter OLT Id"
 								label-for="input-1">
 								<b-form-input id="input-2" v-model="OltId"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:20px;" id="fieldset-1" label="Enter OLT Name"
+							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter OLT Name"
 								label-for="input-1">
 								<b-form-input id="input-2" v-model="OltName"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:20px;" id="fieldset-2" label="Pon Number"
+							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-2" label="Pon Number"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="ponNo"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:20px;" id="fieldset-2" label="Start Range"
+							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-2" label="Start Range"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="startRange"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:20px;" id="fieldset-2" label="End Range"
+							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-2" label="End Range"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="endRange"></b-form-input>
 							</b-form-group>
@@ -147,6 +147,23 @@ export default {
 	flex-wrap: wrap;
 	height: 500px;
 	width: auto;
+}
+.root5{
+	padding: 20px 86px !important;
+gap: 5px;
+
+// width: 80%;
+// height: 1122px;
+// left: 54px;
+// top: 168.02px;
+margin-top: 25px;
+margin-left: 50px;
+margin-right: 50px;
+margin-bottom: 30px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+border-radius: 10px;
 }
 </style>
 	

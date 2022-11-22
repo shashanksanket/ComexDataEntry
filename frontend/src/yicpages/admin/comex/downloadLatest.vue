@@ -2,20 +2,20 @@
 <template style="z-index:1000; margin-top:200px;">
 	<div>
 		<Navbar />
-		<div>
-			<div style="margin-top:50px; margin-left:250px; width:500px;">
+		<div class="root3">
+			<div style="">
 				<template>
 					<div class="d-flex justify-content-between align-items-center ">
-						<h2>
-							<center>Download Updated Entries</center>
-							<br />
-							<br />
-							<br />
-							<b-button type="Submit" variant="primary" @click="Download()">Download</b-button>
-						</h2>
-
-
+						<h5 class="mainTitle">
+					Download Entries
+				</h5>
 					</div>
+					<h2>
+						<center>Download File
+						<b-button style="margin:20px;" type="Submit" variant="primary" @click="Download()">Download</b-button>
+					</center>
+					<icon><img style="" src="../download.svg"></icon>
+					</h2>
 					<b-modal ok-only v-model="success">
 					<p v-if="error">{{error}}</p>
 					<p v-else>Your Data is Downloaded!</p>
@@ -126,6 +126,41 @@ export default {
 	flex-wrap: wrap;
 	height: 500px;
 	width: auto;
+}
+.root3{
+	padding: 55px 86px ;
+gap: 8px;
+
+// width: 80%;
+// height: 1122px;
+// left: 54px;
+// top: 168.02px;
+margin-top: 35px;
+margin-left: 50px;
+margin-right: 50px;
+margin-bottom: 50px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+border-radius: 10px;
+}
+.mainTitle{
+width: 262px;
+height: 38px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+line-height: 38px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.2px;
+
+color: #ab7ef8;
+
 }
 </style>
 	
