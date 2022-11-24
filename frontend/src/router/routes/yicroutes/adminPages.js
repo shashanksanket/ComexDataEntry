@@ -1,5 +1,5 @@
 export default [
-
+  
   {
     path:'/adminDashboard',
     name:'adminDashboard',
@@ -9,6 +9,15 @@ export default [
       
     },
   },
+      {
+        path:'/',
+        name:'adminDashboard1',
+        component: () => import("@/yicpages/admin/comex/addSingle.vue"),
+        meta: {
+          layout: "full",
+          
+        },
+    },
     
       {
         path: '/addSingle',

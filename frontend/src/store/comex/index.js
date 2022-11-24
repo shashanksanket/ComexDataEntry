@@ -108,7 +108,7 @@ export default {
 				}
 			})
 			commit('SET_RES',res.data)
-			const res2 = await feathersClient.service('api/oltps').find({
+			const res2 = await feathersClient.service('/api/oltps').find({
 				query: {
 					OltName: payload.OltName,
 					ponNo: payload.PonNo
