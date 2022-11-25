@@ -6,6 +6,7 @@ import comex from './comex'
 import app from './app'
 import verticalMenu from './vertical-menu'
 import appConfig from './app-config'
+import auth from './auth'
 
 
 Vue.use(Vuex)
@@ -15,7 +16,8 @@ export default new Vuex.Store({
     comex,
     verticalMenu,
     appConfig,
-    app
+    app,
+    auth
     
   },
   //plugins: [...servicePlugins],

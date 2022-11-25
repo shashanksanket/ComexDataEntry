@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 // Routes
 import yicroutes from './routes/yicroutes'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,27 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, _, next) => {
+let isLoggedIn = router.app.$store.getters['auth/isAuthenticated']
+if (!isLoggedIn){
+  await router.app.$store.dispatch('auth/loginUserWithJwt')
+  isLoggedIn = router.app.$store.getters['auth/isAuthentcated']
+}
+if (!to.meta.authReq){
+  return next()
+}
+if (!isLoggedIn){
+  return next({name: 'login'})
+}
+if (isLoggedIn && to.meta.authReq){
+  return next()
+}
+if (isLoggedIn && !to.meta.authReq){
+  return next({name: 'adminDashboard'})
+}
 
+if(!isLoggedIn && to.meta.authReq){
+  return next({name: 'login'})
+}
   
   
   return next()

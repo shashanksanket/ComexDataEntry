@@ -6,11 +6,14 @@ import { iff, discard } from 'feathers-hooks-common'
 
 const hostprefix = window.location.hostname.split('.')[0];
 let apiUrl = ''
-switch (hostprefix) {
-  default:
-    apiUrl = 'http://localhost:3030'
-    break;
-}
+
+if (hostprefix!='localhost'){
+  apiUrl = 'http://3.108.254.29'
+
+}else{
+  apiUrl = 'http://localhost:3030'
+  }
+  
 
 // const socket = io(apiUrl, {transports: ['websocket']})
 
@@ -19,7 +22,7 @@ const restClient = rest(apiUrl)
 
 const feathersClient = feathers()
   .configure(restClient.fetch(window.fetch.bind(window)))
-  .configure(auth({ storage: window.localStorage, path: 'api/authentication' }))
+  .configure(auth({ storage: window.localStorage, path: '/api/authentication' }))
   .hooks({
     before: {
       all: [
