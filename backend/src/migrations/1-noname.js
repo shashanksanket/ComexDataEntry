@@ -7,13 +7,14 @@ var Sequelize = require('sequelize');
  *
  * createTable "datas", deps: []
  * createTable "oltps", deps: []
+ * createTable "users", deps: []
  *
  **/
 
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2022-11-20T17:32:12.077Z",
+    "created": "2022-11-25T20:02:57.356Z",
     "comment": ""
 };
 
@@ -149,6 +150,58 @@ var migrationCommands = [{
                     "type": Sequelize.INTEGER,
                     "field": "endRange",
                     "allowNull": true
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "field": "createdAt",
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "field": "updatedAt",
+                    "allowNull": false
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "users",
+            {
+                "id": {
+                    "type": Sequelize.INTEGER,
+                    "field": "id",
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false
+                },
+                "firstName": {
+                    "type": Sequelize.STRING,
+                    "field": "firstName",
+                    "allowNull": false
+                },
+                "lastName": {
+                    "type": Sequelize.STRING,
+                    "field": "lastName",
+                    "allowNull": false
+                },
+                "phoneNumber": {
+                    "type": Sequelize.STRING,
+                    "field": "phoneNumber",
+                    "allowNull": false
+                },
+                "password": {
+                    "type": Sequelize.STRING,
+                    "field": "password",
+                    "allowNull": false
+                },
+                "email": {
+                    "type": Sequelize.STRING,
+                    "field": "email",
+                    "unique": true,
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
