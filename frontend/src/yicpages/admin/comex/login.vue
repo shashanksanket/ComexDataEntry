@@ -165,5 +165,13 @@ export default {
 	color: #ab7ef8;
 
 }
+
+@media screen and (max-width: 1000px) {
+.rootLogin{
+	padding: 45px 46px;
+	gap: 4px;
+	width: 80%;
+}
+}
 </style>
 	

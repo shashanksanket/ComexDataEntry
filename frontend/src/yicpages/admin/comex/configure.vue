@@ -17,31 +17,33 @@
 					<validation-observer ref="registerForm">
 						<b-form class="form" @submit.prevent>
 
-							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter OLT Id"
+							<b-form-group style="margin:10px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter OLT Id"
 								label-for="input-1">
 								<b-form-input id="input-2" v-model="OltId"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter OLT Name"
+							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter OLT Name"
 								label-for="input-1">
 								<b-form-input id="input-2" v-model="OltName"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-2" label="Pon Number"
+							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="Pon Number"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="ponNo"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-2" label="Start Range"
+							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="Start Range"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="startRange"></b-form-input>
 							</b-form-group>
-							<b-form-group style="margin-left:80px; margin-left:20px; display: flex; flex-direction: column;" id="fieldset-2" label="End Range"
+							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="End Range"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="endRange"></b-form-input>
 							</b-form-group>
 
 
 
-							<b-button type="submit" variant="primary" @click="onSubmit()"
+							<b-button v-if="($mq === 'largeDevices' || $mq === 'mediumDevices')" type="submit" variant="primary" @click="onSubmit()"
 								style="margin: 20px; width:300px">Submit</b-button>
+							<b-button v-if="($mq === 'smallDevices')" type="submit" variant="primary" @click="onSubmit()"
+								style="margin: auto; width:=100%">Submit</b-button>
 
 
 						</b-form>
@@ -71,7 +73,16 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapMutations, mapActions, mapState } from "vuex";
 import Password from "vue-password-strength-meter";
+import Vue from 'vue'
+import VueMq from 'vue-mq'
 
+Vue.use(VueMq, {
+  breakpoints: {
+    smallDevices: 600,
+    mediumDevices: 1200,
+    largeDevices: Infinity,
+  }
+})
 
 export default {
 	components: {
@@ -149,16 +160,17 @@ export default {
 	width: auto;
 }
 .root5{
-	padding: 20px 86px !important;
+	padding: 20px 16px !important;
 gap: 5px;
 
 // width: 80%;
 // height: 1122px;
 // left: 54px;
 // top: 168.02px;
+
 margin-top: 25px;
-margin-left: 50px;
-margin-right: 50px;
+margin-left: 30px;
+margin-right: 30px;
 margin-bottom: 30px;
 
 background: #FFFFFF;

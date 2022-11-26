@@ -3,15 +3,18 @@
 	<div>
 		<Navbar/>
 		<div class="root2" style="">
-			<div class="d-flex justify-content-between align-items-center content-sidebar-header px-2 py-1">
-				<h5 class="mainTitle">
+			<div style="width: 100%">
+				<h5 v-if="($mq === 'largeDevices') || $mq === 'mediumDevices'" class="mainTitleb">
 					Add Bulk Entries
 				</h5>
+				<p v-if="($mq === 'smallDevices' )" class="mainTtileMobileb">
+					Add Bulk Entries
+				</p>
 
 
 			</div>
 			<validation-observer ref="registerForm">
-				<b-form class="upload" @reset="onReset" >
+				<b-form v-if="($mq === 'largeDevices') || $mq === 'mediumDevices'" class="upload" @reset="onReset" >
 					<b-form-group  label="Upload File" label-for="file">
 						<b-form-file accept=".csv" v-on:change="uploadCsv($event)" v-model="file" />
 					</b-form-group>
@@ -19,6 +22,24 @@
 
 <br/>
 					<b-button style="margin-left:100px; " variant="primary" size="lg" type="submit" @click.prevent="addInBulk">
+						Save
+					</b-button>
+					<br /><small class="text-danger">{{ errors }}</small>
+				</b-form>
+				<b-modal ok-only v-model="success">
+					<p v-if="error">{{error}}</p>
+					<p v-else>Your Data is uploaded!</p>
+				</b-modal>
+			</validation-observer>
+			<validation-observer ref="registerForm">
+				<b-form v-if="($mq === 'smallDevices' )" class="uploadMobile" @reset="onReset" >
+					<b-form-group  label="Upload File" label-for="file">
+						<b-form-file accept=".csv" v-on:change="uploadCsv($event)" v-model="file" />
+					</b-form-group>
+
+
+<br/>
+					<b-button style="" variant="primary" size="lg" type="submit" @click.prevent="addInBulk">
 						Save
 					</b-button>
 					<br /><small class="text-danger">{{ errors }}</small>
@@ -47,8 +68,16 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapMutations, mapActions, mapState } from "vuex";
 import Password from "vue-password-strength-meter";
 import Papa from 'papaparse';
+import Vue from 'vue'
+import VueMq from 'vue-mq'
 
-
+Vue.use(VueMq, {
+  breakpoints: {
+    smallDevices: 600,
+    mediumDevices: 1200,
+    largeDevices: Infinity,
+  }
+})
 
 export default {
 	components: {
@@ -138,7 +167,7 @@ export default {
 
 
 .root2{
-	padding: 50px 86px !important;
+	padding: 50px 20px !important;
 gap: 8px;
 
 // width: 80%;
@@ -154,20 +183,20 @@ background: #FFFFFF;
 box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
 border-radius: 10px;
 }
-.mainTitle{
-width: 262px;
-height: 38px;
+.mainTitleb{
+// width: 262px;
+// height: 38px;
 
 font-family: 'Mulish';
 font-style: normal;
 font-weight: 600;
 font-size: 30px;
-line-height: 38px;
+// line-height: 38px;
 /* identical to box height */
-display: flex;
+// display: flex;
 align-items: center;
 text-align: center;
-letter-spacing: 0.2px;
+// letter-spacing: 0.2px;
 
 color: #ab7ef8;
 
@@ -181,6 +210,31 @@ padding: 90px;
 
 border: 2px dashed #888888;
 border-radius: 12px;
+}
+@media screen and (max-width: 1000px) {
+.mainTtileMobileb{
+	width: 100% !important;
+	font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+color: #ab7ef8;
+align-items: center;
+text-align: center;
+margin-bottom: 30%;
+
+}
+.uploadMobile{
+	box-sizing: border-box;
+margin: auto;
+width: 100%;
+// height: 50%;
+padding: 30px;
+
+border: 2px dashed #888888;
+border-radius: 22px;
+}
+
 }
 
 </style>

@@ -5,16 +5,16 @@
 		<div class="root3">
 			<div style="">
 				<template>
-					<div class="d-flex justify-content-between align-items-center ">
+					<div class=" ">
 						<h5 class="mainTitle">
 					Download Entries
 				</h5>
 					</div>
-					<h2>
+					<h2 style="display: flex; flex-direction:column; ">
+						<icon style="margin-top:5%; margin-bottom: 10%; margin-left:auto ; margin-right: auto;"><img  src="../download.svg"></icon>
 						<center>Download File
-						<b-button style="margin:20px;" type="Submit" variant="primary" @click="Download()">Download</b-button>
+						<b-button style="margin:auto;  " type="Submit" variant="primary" @click="Download()">Download</b-button>
 					</center>
-					<icon><img style="" src="../download.svg"></icon>
 					</h2>
 					<b-modal ok-only v-model="success">
 					<p v-if="error">{{error}}</p>
@@ -45,6 +45,7 @@ import Password from "vue-password-strength-meter";
 // import { jsonToCSV } from 'vue-papaparse'
 import VuePapaParse from 'vue-papa-parse'
 import Papa from 'papaparse'
+import { positive } from '@/@core/utils/validations/validations'
 
 
 
@@ -128,7 +129,7 @@ export default {
 	width: auto;
 }
 .root3{
-	padding: 55px 86px ;
+	padding: 55px 30px ;
 gap: 8px;
 
 // width: 80%;

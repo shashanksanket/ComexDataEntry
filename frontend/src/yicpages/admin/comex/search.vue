@@ -4,7 +4,7 @@
 		<Navbar />
 		<div>
 			<div class="root4" style="">
-				<template>
+				<template v-if="( $mq === 'largeDevices' || $mq === 'mediumDevices')">
 					<div class="d-flex justify-content-between align-items-center ">
 						<h2>
 							<center>Search Any Entires</center>
@@ -27,7 +27,60 @@
 					</div>
 					<br /><br />
 					<h3>Search Results</h3>
-					<b-table style="width:1000px;" ref="data" class="position-relative" :items="searchRes" responsive
+					<b-table style="width:100%;" ref="data" class="position-relative" :items="searchRes" responsive
+						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
+						<template #cell(title)="data">
+
+						</template>
+					</b-table>
+					<br /><br />
+					<div v-if="leftVlan">
+						<h4>These Vlan Ids are left for new connections in {{ this.searchRes[0].PonNo }}:-</h4>
+						<br><br>
+						Total:- {{leftVlan.length}}
+						<br><br>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="row">#</th>
+									<th scope="col">VLAN ID</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="id in leftVlan">
+									<th scope="row">{{leftVlan.indexOf(id)+1}}</th>
+									<td>{{id}}</td>
+								</tr>
+								
+								
+							</tbody>
+						</table>
+
+					</div>
+				</template>
+				<template v-if="($mq === 'smallDevices' )">
+					<div class=" ">
+						<h2>
+							<center>Search Any Entires</center>
+							<br />
+
+						</h2>
+					</div>
+					<div class="">
+						
+						<b-form-input style="margin-bottom:20px;" v-model="searchQueryOLTP" class="d-inline-block mr-1" placeholder="Enter OLT Name" />
+						<b-form-input style="margin-bottom:20px;" v-model="searchQueryPON" class="d-inline-block mr-1"
+							placeholder="Enter Pon Number" />
+
+						<b-button variant="primary" @click="search()">
+							<span class="text-nowrap">Search</span>
+						</b-button>
+
+					</div>
+					<br /><br />
+					<h3>Search Results</h3>
+					<b-table style="width:100%;" ref="data" class="position-relative" :items="searchRes" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
 
@@ -79,8 +132,15 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapMutations, mapActions, mapState } from "vuex";
 import Password from "vue-password-strength-meter";
-
-
+import Vue from 'vue'
+import VueMq from 'vue-mq'
+Vue.use(VueMq, {
+  breakpoints: {
+    smallDevices: 600,
+    mediumDevices: 1200,
+    largeDevices: Infinity,
+  }
+})
 export default {
 	components: {
 		BSidebar,
@@ -162,16 +222,16 @@ export default {
 	width: auto;
 }
 .root4{
-	padding: 50px 86px !important;
+	padding: 50px 26px !important;
 gap: 8px;
 
-// width: 80%;
+// width: 100%;
 // height: 1122px;
 // left: 54px;
 // top: 168.02px;
 margin-top: 25px;
-margin-left: 50px;
-margin-right: 50px;
+margin-left: 20px;
+margin-right: 20px;
 margin-bottom: 50px;
 
 background: #FFFFFF;
