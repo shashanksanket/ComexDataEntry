@@ -101,16 +101,12 @@ export default {
 		searchEntry: async ({commit, state}, payload)=>{
 			commit('SET_RES','')
 			const res = await feathersClient.service('/api/datas').find({
-				query: {
-					OltName: payload.OltName,
-					OltId: payload.OltId,
-					PonNo: payload.PonNo,
-				}
+				query: payload
 			})
 			commit('SET_RES',res.data)
 			const res2 = await feathersClient.service('/api/oltps').find({
 				query: {
-					OltName: payload.OltName,
+					OltId: payload.OltId,
 					ponNo: payload.PonNo
 				}
 			})
@@ -158,13 +154,25 @@ export default {
 			const res = await feathersClient.service('/api/oltps').find({
 				query:{
 					$total : true,
-					OltName: payload.OltName
+					OltName: payload.OltName,
+					OltId: payload.OltId
 				}
 			})
 			for(var i=0; i<res.length; i++){
 				state.PonNoOptions.push(res[i].ponNo)
 			}
+			for(var i=0; i<res.length; i++){
+				if(!state.PonNoOptions.includes(res[i].ponNo)){
+					state.PonNoOptions.push(res[i].ponNo)
+				}
+				
+			}
+		},
+		deleteEntry: async ({commit,state},payload)=>{
+			await feathersClient.service('/api/datas').remove(payload.id,{
+			})
 		}
+
 		
 	},
 }

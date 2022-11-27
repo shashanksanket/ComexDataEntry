@@ -4,7 +4,7 @@
 		<Navbar />
 		<div>
 			<div class="root4" style="">
-				<template v-if="( $mq === 'largeDevices' || $mq === 'mediumDevices')">
+				<template v-if="($mq === 'largeDevices' || $mq === 'mediumDevices')">
 					<div class="d-flex justify-content-between align-items-center ">
 						<h2>
 							<center>Search Any Entires</center>
@@ -12,15 +12,37 @@
 
 						</h2>
 					</div>
-					<div class="d-flex align-items-center justify-content-end">
+					<b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
+						{{ text }}
+					</b-button>
+					<div v-if="searchByOlt" class="">
+
+						<b-form-group class="input" id="fieldset-14" label="Select Olt Id" label-for="input-14">
+							<b-form-select :options="optionsOltId" v-on:change="optionPonNum" v-model="searchQueryOLTP"
+								class="d-inline-block mr-1" placeholder="Enter OLT Id" />
+						</b-form-group>
+						<b-form-group class="input" style=" display: flex; flex-direction: column;" id="fieldset-14"
+							label="Enter Pon No" label-for="input-14">
+
+							<b-form-select :options="optionPons" v-model="searchQueryPON" class="d-inline-block mr-1"
+								placeholder="Select Pon Number" />
+
+						</b-form-group>
+
+
+						<b-button variant="primary" @click="searchByOltId()">
+							<span class="text-nowrap">Search</span>
+						</b-button>
+
+					</div>
+					<div v-if="!searchByOlt" class="d-flex align-items-center justify-content-end">
 						<div>
 
 						</div>
-						<b-form-input v-model="searchQueryOLTP" class="d-inline-block mr-1" placeholder="Enter OLT Name" />
-						<b-form-input v-model="searchQueryPON" class="d-inline-block mr-1"
-							placeholder="Enter Pon Number" />
+						<b-form-input v-model="searchQueryTelNo" class="d-inline-block mr-1"
+							placeholder="Enter Telephone Number" />
 
-						<b-button variant="primary" @click="search()">
+						<b-button variant="primary" @click="searchByTelno()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -32,34 +54,50 @@
 						<template #cell(title)="data">
 
 						</template>
+						<template #cell(Actions)="data">
+
+							<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
+
+								<template #button-content>
+									<img src="./more-vertical.svg" size="16" class="align-middle text-body" />
+								</template>
+								
+
+								<b-dropdown-item @click="deleteRow(data.item.id)">
+									<img src="./trash.svg" size="16" class="align-middle text-body" />
+
+									<span class="align-middle ml-50">Delete</span>
+								</b-dropdown-item>
+							</b-dropdown>
+						</template>
 					</b-table>
 					<br /><br />
-					<div v-if="leftVlan">
+					<div v-if="leftVlan && showVlan">
 						<h4>These Vlan Ids are left for new connections in {{ this.searchRes[0].PonNo }}:-</h4>
 						<br><br>
-						Total:- {{leftVlan.length}}
+						Total:- {{ leftVlan.length }}
 						<br><br>
 						<table class="table">
 							<thead>
 								<tr>
 									<th scope="row">#</th>
 									<th scope="col">VLAN ID</th>
-									
+
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="id in leftVlan">
-									<th scope="row">{{leftVlan.indexOf(id)+1}}</th>
-									<td>{{id}}</td>
+									<th scope="row">{{ leftVlan.indexOf(id) + 1 }}</th>
+									<td>{{ id }}</td>
 								</tr>
-								
-								
+
+
 							</tbody>
 						</table>
 
 					</div>
 				</template>
-				<template v-if="($mq === 'smallDevices' )">
+				<template v-if="($mq === 'smallDevices')">
 					<div class=" ">
 						<h2>
 							<center>Search Any Entires</center>
@@ -67,13 +105,35 @@
 
 						</h2>
 					</div>
-					<div class="">
-						
-						<b-form-input style="margin-bottom:20px;" v-model="searchQueryOLTP" class="d-inline-block mr-1" placeholder="Enter OLT Name" />
-						<b-form-input style="margin-bottom:20px;" v-model="searchQueryPON" class="d-inline-block mr-1"
-							placeholder="Enter Pon Number" />
+					<b-button style="margin-bottom:20px" @click="searchByFunc()">
+						{{ text }}
+					</b-button>
+					<div v-if="searchByOlt" class="">
 
-						<b-button variant="primary" @click="search()">
+						<b-form-group class="input" id="fieldset-14" label="Select Olt Id" label-for="input-14">
+							<b-form-select :options="optionsOltId" v-on:change="optionPonNum" v-model="searchQueryOLTP"
+								class="d-inline-block mr-1" placeholder="Enter OLT Id" />
+						</b-form-group>
+						<b-form-group class="input" style=" display: flex; flex-direction: column;" id="fieldset-14"
+							label="Enter Pon No" label-for="input-14">
+
+							<b-form-select :options="optionPons" v-model="searchQueryPON" class="d-inline-block mr-1"
+								placeholder="Select Pon Number" />
+
+						</b-form-group>
+						<b-button variant="primary" @click="searchByOltId()">
+							<span class="text-nowrap">Search</span>
+						</b-button>
+
+					</div>
+					<div v-if="!searchByOlt" class="d-flex align-items-center justify-content-end">
+						<div>
+
+						</div>
+						<b-form-input v-model="searchQueryTelNo" class="d-inline-block mr-1"
+							placeholder="Enter Telephone Number" />
+
+						<b-button variant="primary" @click="searchByTelno()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -85,33 +145,53 @@
 						<template #cell(title)="data">
 
 						</template>
+						<template #cell(Actions)="data">
+
+							<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
+
+								<template #button-content>
+									<img src="./more-vertical.svg" size="16" class="align-middle text-body" />
+								</template>
+								
+
+								<b-dropdown-item @click="deleteRow(data.item.id)">
+									<img src="./trash.svg" size="16" class="align-middle text-body" />
+
+									<span class="align-middle ml-50">Delete</span>
+								</b-dropdown-item>
+							</b-dropdown>
+						</template>
 					</b-table>
 					<br /><br />
-					<div v-if="leftVlan">
+					<div v-if="leftVlan && showVlan">
 						<h4>These Vlan Ids are left for new connections in {{ this.searchRes[0].PonNo }}:-</h4>
 						<br><br>
-						Total:- {{leftVlan.length}}
+						Total:- {{ leftVlan.length }}
 						<br><br>
 						<table class="table">
 							<thead>
 								<tr>
 									<th scope="row">#</th>
 									<th scope="col">VLAN ID</th>
-									
+
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="id in leftVlan">
-									<th scope="row">{{leftVlan.indexOf(id)+1}}</th>
-									<td>{{id}}</td>
+									<th scope="row">{{ leftVlan.indexOf(id) + 1 }}</th>
+									<td>{{ id }}</td>
 								</tr>
-								
-								
+
+
 							</tbody>
 						</table>
 
 					</div>
 				</template>
+				<b-modal ok-only v-model="deleteModal" title="Entry Deleted">
+					<p class="my-4">Entry Deleted Successfully</p>
+
+				</b-modal>
 
 			</div>
 		</div>
@@ -121,7 +201,7 @@
 
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-	BSidebar, BTable, BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect
+	BSidebar, BTable, BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect,BDropdown, BDropdownItem
 } from 'bootstrap-vue'
 import { ref } from '@vue/composition-api'
 import Ripple from 'vue-ripple-directive'
@@ -135,11 +215,11 @@ import Password from "vue-password-strength-meter";
 import Vue from 'vue'
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
-  breakpoints: {
-    smallDevices: 600,
-    mediumDevices: 1200,
-    largeDevices: Infinity,
-  }
+	breakpoints: {
+		smallDevices: 600,
+		mediumDevices: 1200,
+		largeDevices: Infinity,
+	}
 })
 export default {
 	components: {
@@ -150,10 +230,12 @@ export default {
 		BFormInput,
 		BFormInvalidFeedback,
 		BButton,
+		BDropdownItem,
 		vSelect,
 		BModal,
 		Navbar,
 		BTable,
+		BDropdown,
 		BFormSelect,
 
 		// Form Validation
@@ -171,8 +253,15 @@ export default {
 	},
 	data() {
 		return {
+			deleteModal: false,
+			searchBy: '',
+			optionPons: '',
+			text: 'Search By Telephone number',
+			searchByOlt: true,
 			searchQueryPON: '',
 			searchQueryOLTP: '',
+			searchQueryTelNo: '',
+			showVlan: false,
 			tableColumns: [
 				{ key: 'Name' },
 				{ key: 'Address' },
@@ -180,7 +269,9 @@ export default {
 				{ key: 'TelNo' },
 				{ key: 'VoipIpAddress' },
 				{ key: 'PonNo' },
-				{ key: 'VlanId' }
+				{ key: 'VlanId' },
+				{ key: 'Actions' }
+
 			],
 			leftVlanData: [
 				{ key: 'VlanId' },
@@ -192,10 +283,65 @@ export default {
 	methods: {
 		...mapActions({
 			searchData: "comex/searchEntry",
+			optionsOlt: "comex/optionsOlt",
+			optionsPon: "comex/optionsPon",
+			// editEntry: "comex/editEntry",
+			deleteEntry: "comex/deleteEntry",
 		}),
-		async search() {
-			await this.searchData({ OLTP: this.searchQueryOLTP, PonNo: this.searchQueryPON })
-		}
+		searchByFunc() {
+			this.searchByOlt = !this.searchByOlt
+			if (this.searchByOlt) {
+
+				this.text = 'Search By Telephone Number'
+			}
+			else {
+				this.text = 'Search By OLT'
+
+			}
+		},
+		async searchByTelno() {
+			await this.searchData({ TelNo: this.searchQueryTelNo })
+		},
+		async searchByOltId() {
+			if (this.searchQueryPON != 'All') {
+
+				this.showVlan = true
+				await this.searchData({ OltId: this.searchQueryOLTP, PonNo: this.searchQueryPON })
+			} else {
+				this.showVlan = false
+
+				await this.searchData({ OltId: this.searchQueryOLTP })
+			}
+		},
+		async optionPonNum() {
+			await this.optionsPon({ OltId: this.searchQueryOLTP })
+			let arr = this.optionsPonNo
+			let arr1 = ['All']
+			this.optionPons = arr1.concat(arr)
+			console.log(this.optionsPons)
+		},
+		// async editRow(val) {
+		// 	this.editModal = true
+		// 	await this.editEntry([val.id, { Name: val.Name, Address: val.Address, CaNo: val.CaNo, TelNo: val.TelNo, Plan: val.Plan, TypeOPlan: val.TypeOfPlan, DateOfInstallation: val.DateOfInstallation, TypeOfConnection: val.TypeOfConnection, VoipIpAddress: val.VoipIpAddress, VlanId: val.VlanId, OltId: val.OltId, OltName: val.OltName, PonNo: val.PonNo, Ont_Onu_Sn_Macadress: val.Ont_Onu_Sn_Macadress }])
+		// },
+		async deleteRow(val) {
+			await this.deleteEntry({ id: val })
+			if (this.searchByOlt) {
+
+				await this.searchByOltId()
+			} else {
+
+				await this.searchByTelno()
+			}
+			this.deleteModal = true
+
+
+		},
+	},
+	async mounted() {
+		await this.optionsOlt()
+		this.optionsPonNo.push('SELECT OLT')
+
 	},
 
 	computed: {
@@ -205,6 +351,12 @@ export default {
 			},
 			leftVlan: (state) => {
 				return state.comex.leftVlanId
+			},
+			optionsOltId: (state) => {
+				return state.comex.OltIdOptions
+			},
+			optionsPonNo: (state) => {
+				return state.comex.PonNoOptions
 			}
 
 		}),
@@ -213,7 +365,6 @@ export default {
 
 </script>
 <style lang="scss">
-
 .form {
 	display: flex;
 	flex-direction: column;
@@ -221,22 +372,23 @@ export default {
 	height: 500px;
 	width: auto;
 }
-.root4{
+
+.root4 {
 	padding: 50px 26px !important;
-gap: 8px;
+	gap: 8px;
 
-// width: 100%;
-// height: 1122px;
-// left: 54px;
-// top: 168.02px;
-margin-top: 25px;
-margin-left: 20px;
-margin-right: 20px;
-margin-bottom: 50px;
+	// width: 100%;
+	// height: 1122px;
+	// left: 54px;
+	// top: 168.02px;
+	margin-top: 25px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 50px;
 
-background: #FFFFFF;
-box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
-border-radius: 10px;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.12);
+	border-radius: 10px;
 }
 </style>
 	
