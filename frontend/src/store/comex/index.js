@@ -67,6 +67,7 @@ export default {
 				OltName: payload.OltName,
 				PonNo: payload.PonNo,
 				Ont_Onu_Sn_Macadress: payload.Ont_Onu_Sn_Macadress,
+				DateOfUninstallation: payload.DateOfUninstallation
 			}, {})
 
 		}catch(e){

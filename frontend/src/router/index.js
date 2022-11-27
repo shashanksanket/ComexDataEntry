@@ -30,18 +30,19 @@ if (!isLoggedIn){
   await router.app.$store.dispatch('auth/loginUserWithJwt')
   isLoggedIn = router.app.$store.getters['auth/isAuthenticated']
 }
+if (!to.meta.authReq){
+  return next()
+}
+if(!isLoggedIn){
+  return next({name: 'login'})
+}
 if (!to.meta.authReq && isLoggedIn){
   return next({name:'adminDashboard'})
-}
-if (!isLoggedIn){
-  return next({name: 'login'})
 }
 if (isLoggedIn && to.meta.authReq){
   return next()
 }
-if (isLoggedIn && !to.meta.authReq){
-  return next({name: 'adminDashboard'})
-}
+
 
 if(!isLoggedIn && to.meta.authReq){
   return next({name: 'login'})

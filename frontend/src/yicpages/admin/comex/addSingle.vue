@@ -54,22 +54,27 @@
 			<div>
 				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Date Of Installation"
 					label-for="input-7" >
-					<b-form-input id="input-7" v-model="DateOfInstallation"  ></b-form-input>
+					
+					<b-form-input style="width:197px" type="date" id="" v-model="DateOfInstallation" ></b-form-input>
+
+				</b-form-group>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Date Of UnInstallation"
+					label-for="input-7" >
+					
+					<b-form-input style="width:197px" type="date" id="" v-model="DateOfUninstallation" ></b-form-input>
+
 				</b-form-group>
 				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-8" label="Enter Type Of Connection"
 					label-for="input-8" >
 					<b-form-input id="input-8" v-model="TypeOfConnection"  ></b-form-input>
 				</b-form-group>
+			</div>
+			<div>
 				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-9" label="Enter Voip Ip Address"
 					label-for="input-9" >
 					<b-form-input id="input-9" v-model="VoipIpAddress"  ></b-form-input>
 				</b-form-group>
-			</div>
-			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-10" label="Enter VLAN ID"
-					label-for="input-10" >
-					<b-form-input id="input-10" v-model="VlanId"  ></b-form-input>
-				</b-form-group>
+				
 				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-11"  label="Enter OLT Id"
 					label-for="input-11" >
 					<b-form-select style="width:197px" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)" :options="optionsOltId"></b-form-select>
@@ -86,9 +91,13 @@
 					<b-form-select style="width:197px" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
 
 				</b-form-group>
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-10" label="Enter VLAN ID"
+					label-for="input-10" >
+					<b-form-input id="input-10" v-model="VlanId"  ></b-form-input>
+				</b-form-group>
 				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Enter Ont/Onu S/n MacAddress"
 					label-for="input-14" >
-					<b-form-input style="width:475px" id="input-14" v-model="Ont_Onu_Sn_Macadress"  ></b-form-input>
+					<b-form-input style="" id="input-14" v-model="Ont_Onu_Sn_Macadress"  ></b-form-input>
 				</b-form-group>
 			</div>
 			<br/>
@@ -138,7 +147,11 @@
 				
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
 						id="fieldset-7" label="Enter Date Of Installation" label-for="input-7">
-						<b-form-input id="input-7" v-model="DateOfInstallation"></b-form-input>
+						<b-form-input type="date"  v-model="DateOfInstallation" ></b-form-input>
+					</b-form-group>
+					<b-form-group class="input" style=" display: flex; flex-direction: column;"
+						id="fieldset-7" label="Enter Date Of Uninstallation" label-for="input-7">
+						<b-form-input type="date"  v-model="DateOfUninstallation" ></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
 						id="fieldset-8" label="Enter Type Of Connection" label-for="input-8">
@@ -193,7 +206,7 @@
 
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-	BSidebar, BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect
+	BSidebar, BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect, BFormDatepicker
 } from 'bootstrap-vue'
 import { ref } from '@vue/composition-api'
 import Ripple from 'vue-ripple-directive'
@@ -227,7 +240,7 @@ export default {
 		vSelect,
 		BModal,
 		Navbar,
-
+		BFormDatepicker,
 		// Form Validation
 		ValidationProvider,
 		ValidationObserver,
@@ -257,7 +270,8 @@ export default {
 			OltName: '',
 			PonNo: '',
 			success: false,
-			Ont_Onu_Sn_Macadress: ''
+			Ont_Onu_Sn_Macadress: '',
+			DateOfUninstallation: ''
 		}
 	},
 	async mounted() {
@@ -281,7 +295,7 @@ export default {
 
 		},
 		async onSubmit() {
-			await this.addData({ Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.addData({ DateOfUninstallation: this.DateOfUninstallation, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 		},
@@ -289,6 +303,7 @@ export default {
 			this.Name = '',
 				this.Address = '',
 				this.CaNo = '',
+				this.DateOfUninstallation= '',
 				this.TelNo = '',
 				this.Plan = '',
 				this.TypeOfPlan = '',

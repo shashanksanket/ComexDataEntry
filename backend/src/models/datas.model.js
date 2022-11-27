@@ -65,6 +65,10 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: true
     },
+    DateOfUninstallation: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    }
   }, {
     hooks: {
       beforeCount(options) {
