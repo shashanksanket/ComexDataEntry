@@ -30,7 +30,7 @@
 						</b-form-group>
 
 
-						<b-button variant="primary" @click="searchByOltId()">
+						<b-button style="margin-top:10px" variant="primary" @click="searchByOltId()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -42,7 +42,7 @@
 						<b-form-input v-model="searchQueryTelNo" class="d-inline-block mr-1"
 							placeholder="Enter Telephone Number" />
 
-						<b-button variant="primary" @click="searchByTelno()">
+						<b-button style="margin-top:10px" variant="primary" @click="searchByTelno()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -105,7 +105,7 @@
 
 						</h2>
 					</div>
-					<b-button style="margin-bottom:20px" @click="searchByFunc()">
+					<b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
 						{{ text }}
 					</b-button>
 					<div v-if="searchByOlt" class="">
@@ -121,7 +121,7 @@
 								placeholder="Select Pon Number" />
 
 						</b-form-group>
-						<b-button variant="primary" @click="searchByOltId()">
+						<b-button style="margin-top:10px" variant="primary" @click="searchByOltId()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -133,7 +133,7 @@
 						<b-form-input v-model="searchQueryTelNo" class="d-inline-block mr-1"
 							placeholder="Enter Telephone Number" />
 
-						<b-button variant="primary" @click="searchByTelno()">
+						<b-button style="margin-top:10px" variant="primary" @click="searchByTelno()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
