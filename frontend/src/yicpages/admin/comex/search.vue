@@ -12,7 +12,7 @@
 
 						</h2>
 					</div>
-					<b-button style="margin-bottom:20px" @click="searchByFunc()">
+					<b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
 						{{ text }}
 					</b-button>
 					<div v-if="searchByOlt" class="">
@@ -127,7 +127,7 @@
 								placeholder="Select Pon Number" />
 
 						</b-form-group>
-						<b-button variant="primary" @click="search()">
+						<b-button variant="primary" @click="searchByOltId()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
