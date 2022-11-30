@@ -15,6 +15,13 @@
 		  <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
 
 		</b-navbar-nav>
+    <b-navbar-nav v-if="isLoggedIn" id="navMain" style="margin-top:40px; margin-left: 8%; margin-right: auto;">
+      <b-nav-item>
+        <b-button variant="primary" @click="logout">
+          Logout
+        </b-button>
+      </b-nav-item>
+    </b-navbar-nav>
 	  </b-collapse>
 	  <div v-if="($mq === 'smallDevices' || $mq === 'mediumDevices')">
       <div class="user" v-b-toggle.sidebar-right>
@@ -109,13 +116,24 @@ Vue.use(VueMq, {
 			 }
 	  },
 	  methods: {
+      
+
+      ...mapActions({
+        logoutUser: "auth/logoutUser"
+		}),
 		redirect(val){
 			this.$router.push('/'+val)
-		}
+		},
+    logout() {
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 	  },
 	  computed: {
 		  ...mapState({
-  
+  isLoggedIn: (state)=>{
+    return state.auth.isAuthenticated
+  }
   
 		  }),
 	  },

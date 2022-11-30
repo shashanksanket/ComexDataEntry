@@ -53,7 +53,33 @@
 						</b-modal>
 					</validation-observer>
 				</template>
+				<div class="configData">
+					<b-button @click="searchConfig" variant="primary">
+						Search All Config Data
+					</b-button>
+					<b-table style="width:100%;" ref="data" class="position-relative" :items="configData" responsive
+						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
+						<template #cell(title)="data">
 
+						</template>
+						<template #cell(Actions)="data">
+
+							<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
+
+								<template #button-content>
+									<img src="./more-vertical.svg" size="16" class="align-middle text-body" />
+								</template>
+								
+
+								<b-dropdown-item @click="deleteConfig(data.item.id)">
+									<img src="./trash.svg" size="16" class="align-middle text-body" />
+
+									<span class="align-middle ml-50">Delete</span>
+								</b-dropdown-item>
+							</b-dropdown>
+						</template>
+					</b-table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -62,7 +88,7 @@
 
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-	BSidebar, BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
+	BSidebar,BDropdown,BDropdownItem, BTable,  BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
 } from 'bootstrap-vue'
 import { ref } from '@vue/composition-api'
 import Ripple from 'vue-ripple-directive'
@@ -88,6 +114,7 @@ export default {
 	components: {
 		BSidebar,
 		BForm,
+		BDropdownItem,
 		BFormFile,
 		BFormGroup,
 		BFormInput,
@@ -96,12 +123,14 @@ export default {
 		vSelect,
 		BModal,
 		Navbar,
+		BDropdown,
 
 		// Form Validation
 		ValidationProvider,
 		ValidationObserver,
 		VuePhoneNumberInput,
-		Password
+		Password,
+		BTable
 	},
 	model: {
 
@@ -118,13 +147,25 @@ export default {
 			success: false,
 			startRange: 0,
 			endRange: 0,
+			tableColumns: [
+				{ key: 'OltId' },
+				{ key: 'OltName' },
+				{ key: 'ponNo' },
+				{ key: 'startRange' },
+				{ key: 'endRange' },
+				{ key: 'Actions' },
+			],
 		}
 	},
 	methods: {
 		...mapActions({
 			Configure: "comex/configure",
+			searchConfigData: "comex/getConfigData",
+			deleteConfigs: "comex/deleteConfig"
 		}),
-
+		async searchConfig(){
+			await this.searchConfigData()
+		},
 		async onSubmit() {
 			await this.Configure({ OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
 			this.reset()
@@ -136,6 +177,11 @@ export default {
 			this.ponNo = '',
 			this.startRange = '',
 			this.endRange = ''
+		},
+		async deleteConfig(val){
+			await this.deleteConfigs(val)
+			await this.searchConfigData()
+
 		}
 	},
 	computed: {
@@ -143,6 +189,9 @@ export default {
 			error: (state) => {
 				return state.comex.errorsInSingle;
 			},
+			configData: (state) => {
+				return state.comex.configData
+			}
 
 		}),
 	},
@@ -158,6 +207,14 @@ export default {
 	flex-wrap: wrap;
 	height: 500px;
 	width: auto;
+}
+.configData{
+	margin: 1.5%;
+	
+}
+.configData button{
+	margin-bottom: 1.5%;
+	
 }
 .root5{
 	padding: 20px 16px !important;

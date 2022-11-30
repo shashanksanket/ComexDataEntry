@@ -59,10 +59,8 @@ export default {
 				});
 				console.log(res)
 					commit('SET_ISAUTHENTICATED', true)
-					localStorage.setItem("feathers-jwt-comex", res.accessToken)
+					localStorage.setItem("feathers-jwt", res.accessToken)
 					commit('SET_CURRUSER', res.users)
-					//====== once user logged in, transfer cart items from local to userId =====/
-				
 				
 			}
 			catch (e) {
@@ -73,7 +71,7 @@ export default {
 
 		},
 		loginUserWithJwt: async ({ commit, state }) => {
-			const token = localStorage.getItem('feathers-jwt-comex')
+			const token = localStorage.getItem('feathers-jwt')
 			if (token) {
 				try {
 					const result = await feathersClient.authenticate({

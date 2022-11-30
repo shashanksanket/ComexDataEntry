@@ -73,7 +73,7 @@
 					</b-table>
 					<br /><br />
 					<div v-if="leftVlan && showVlan">
-						<h4>These Vlan Ids are left for new connections in {{ this.searchRes[0].PonNo }}:-</h4>
+						<h4>These Vlan Ids are left for new connections in {{ this.searchQueryPON }}:-</h4>
 						<br><br>
 						Total:- {{ leftVlan.length }}
 						<br><br>
@@ -164,7 +164,7 @@
 					</b-table>
 					<br /><br />
 					<div v-if="leftVlan && showVlan">
-						<h4>These Vlan Ids are left for new connections in {{ this.searchRes[0].PonNo }}:-</h4>
+						<h4>These Vlan Ids are left for new connections in {{ this.searchQueryPON }}:-</h4>
 						<br><br>
 						Total:- {{ leftVlan.length }}
 						<br><br>
@@ -296,17 +296,19 @@ export default {
 			}
 			else {
 				this.text = 'Search By OLT'
+				this.showVlan = false
 
 			}
 		},
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
+
 		},
 		async searchByOltId() {
 			if (this.searchQueryPON != 'All') {
-
-				this.showVlan = true
 				await this.searchData({ OltId: this.searchQueryOLTP, PonNo: this.searchQueryPON })
+				this.showVlan = true
+				// this.displayPON = this.searchQueryPON
 			} else {
 				this.showVlan = false
 
@@ -314,11 +316,13 @@ export default {
 			}
 		},
 		async optionPonNum() {
+			this.showVlan = false
 			await this.optionsPon({ OltId: this.searchQueryOLTP })
 			let arr = this.optionsPonNo
 			let arr1 = ['All']
 			this.optionPons = arr1.concat(arr)
 			console.log(this.optionsPons)
+			
 		},
 		// async editRow(val) {
 		// 	this.editModal = true

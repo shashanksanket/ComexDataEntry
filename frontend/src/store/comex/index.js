@@ -17,7 +17,8 @@ export default {
 		leftVlanId: '',
 		OltNameOptions: [],
 		OltIdOptions: [],
-		PonNoOptions: []
+		PonNoOptions: [],
+		configData: []
 
 
 
@@ -172,6 +173,13 @@ export default {
 		deleteEntry: async ({commit,state},payload)=>{
 			await feathersClient.service('/api/datas').remove(payload.id,{
 			})
+		},
+		getConfigData: async ({commit,state},payload)=>{
+			const res = await feathersClient.service('/api/oltps').find({})
+			state.configData = res.data
+		},
+		deleteConfig: async ({commit,state},payload)=>{
+			await feathersClient.service('/api/oltps').remove(payload,{})
 		}
 
 		

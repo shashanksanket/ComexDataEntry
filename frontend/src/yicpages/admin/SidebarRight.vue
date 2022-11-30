@@ -13,7 +13,7 @@
 		>
 		  <!-- <img class="icon" :src="icon1" /> -->
 		  
-		  <a @click="ToggleAccountSetting" class="sidebar-text">
+		  <a  class="sidebar-text">
 			Add Single Entry</a
 		  >
 		</li>
@@ -21,7 +21,7 @@
 		<br />
 		<li
 		  class="sidebar-list"
-		  @click="ToggleAccountSetting"
+		  
 		  
 		>
 		  <!-- <img class="icon" :src="icon1" /> -->
@@ -33,7 +33,7 @@
 		<br />
 		<li
 		  class="sidebar-list"
-		  @click="ToggleAccountSetting"
+		  
 		  
 		>
 		  <!-- <img class="icon" :src="icon1" /> -->
@@ -45,7 +45,7 @@
 		<br />
 		<li
 		  class="sidebar-list"
-		  @click="ToggleAccountSetting"
+		  
 		  
 		>
 		  <!-- <img class="icon" :src="icon1" /> -->
@@ -57,7 +57,7 @@
 		<br />
 		<li
 		  class="sidebar-list"
-		  @click="ToggleAccountSetting"
+		  
 		  
 		>
 		  <!-- <img class="icon" :src="icon1" /> -->
@@ -66,40 +66,69 @@
 			Configure</a
 		  >
 		</li>
+		<li
+		style="margin-top:20px"
+		  class="sidebar-list"
+		  v-if="isLoggedIn"
 		
+		  
+		>
+		  <!-- <img class="icon" :src="icon1" /> -->
+		  
+		  <b-button variant="primary" @click="logout">
+          Logout
+        </b-button>
+		  
+		</li>
 	  </ul>
 	</div>
   </template>
   
   <script>
-  import { BSpinner, BDropdown, BDropdownItem } from "bootstrap-vue";
+  import { BSpinner, BDropdown, BDropdownItem, BButton } from "bootstrap-vue";
   import { mapState, mapActions } from "vuex";
   
   export default {
 	components: {
 	  BSpinner,
 	  BDropdown,
-	  BDropdownItem
+	  BDropdownItem,
+	  BButton
 	},
 	directives: {},
 	data() {
 	  return {
-		isLoading: false,
+		isLoggedIn: false,
+
 	  };
 	},
 	computed: mapState({
-	  
+//   isLoggedIn: (state)=>{
+//     return state.auth.isAuthenticated
+//   }
 	}),
 	methods: {
-	  ...mapActions({
-		
-	  }),
+		...mapActions({
+        logoutUser: "auth/logoutUser"
+		}),
 	  redirect(val){
 			this.$router.push('/'+val)
-		}
+		},
+		logout() {
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+	  this.isLoggedIn = false
+    },
 	  
 	},
 	async mounted() {
+		let token = localStorage.getItem('feathers-jwt')
+		if(token){
+			this.isLoggedIn = true
+		}else{
+			this.isLoggedIn = false
+		}
+
 	}
   };
 
