@@ -80,9 +80,14 @@
                     "field": "Ont_Onu_Sn_Macadress",
                     "seqType": "Sequelize.STRING"
                 },
-                "DateOfUninstallation": {
+                "contactNumber": {
                     "allowNull": true,
-                    "field": "DateOfUninstallation",
+                    "field": "contactNumber",
+                    "seqType": "Sequelize.STRING"
+                },
+                "dateOfUninstallation": {
+                    "allowNull": true,
+                    "field": "dateOfUninstallation",
                     "seqType": "Sequelize.STRING"
                 },
                 "createdAt": {
@@ -196,5 +201,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 4
 }

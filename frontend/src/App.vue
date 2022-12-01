@@ -7,6 +7,9 @@
     <!-- <SenderDetails /> -->
     <component :is="layout">
       <router-view />
+      <v-idle
+  @idle="onidle"
+  :duration="900" />
     </component>
 
     <scroll-to-top v-if="enableScrollToTop" />
@@ -21,10 +24,12 @@ import { $themeColors, $themeBreakpoints, $themeConfig } from '@themeConfig'
 import { provideToast } from 'vue-toastification/composition'
 import { watch } from '@vue/composition-api'
 import useAppConfig from '@core/app-config/useAppConfig'
+import Vidle from 'v-idle'
 
 import { useWindowSize, useCssVar } from '@vueuse/core'
 
 import store from '@/store'
+import { mapMutations, mapActions, mapState } from "vuex";
 
 const LayoutVertical = () => import('@/layouts/vertical/LayoutVertical.vue')
 const LayoutHorizontal = () => import('@/layouts/horizontal/LayoutHorizontal.vue')
@@ -32,7 +37,7 @@ const LayoutFull = () => import('@/layouts/full/LayoutFull.vue')
 
 export default {
   components: {
-
+    Vidle,
     // Layouts
     LayoutHorizontal,
     LayoutVertical,
@@ -71,6 +76,17 @@ export default {
     const { isRTL } = $themeConfig.layout
     document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr')
   },
+  methods: {
+    ...mapActions({
+        logoutUser: "auth/logoutUser"
+		}),
+
+    onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    }
+  },
   setup() {
     const { skin, skinClasses } = useAppConfig()
     const { enableScrollToTop } = $themeConfig.layout
@@ -88,7 +104,7 @@ export default {
       icon: false,
       timeout: 3000,
       transition: 'Vue-Toastification__fade',
-    })
+    }),
 
     // Set Window Width in store
     store.commit('app/UPDATE_WINDOW_WIDTH', window.innerWidth)

@@ -21,6 +21,11 @@
 					<p v-else>Your Data is Downloaded!</p>
 				</b-modal>
 				</template>
+				<v-idle
+  @idle="onidle"
+  :duration="900" />
+
+
 
 			</div>
 		</div>
@@ -46,7 +51,7 @@ import Password from "vue-password-strength-meter";
 import VuePapaParse from 'vue-papa-parse'
 import Papa from 'papaparse'
 import { positive } from '@/@core/utils/validations/validations'
-
+import Vidle from 'v-idle'
 
 
 export default {
@@ -61,6 +66,7 @@ export default {
 		vSelect,
 		BModal,
 		Navbar,
+		Vidle,
 
 		// Form Validation
 		ValidationProvider,
@@ -94,8 +100,14 @@ export default {
 	methods: {
 		...mapActions({
 			getData: "comex/getData",
+			logoutUser: "auth/logoutUser"
 
 		}),
+		onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 		async Download() {
 			await this.getData()
 			console.log([this.data])

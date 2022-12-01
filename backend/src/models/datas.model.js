@@ -65,9 +65,13 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    DateOfUninstallation: {
+    contactNumber: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    dateOfUninstallation:{
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     hooks: {

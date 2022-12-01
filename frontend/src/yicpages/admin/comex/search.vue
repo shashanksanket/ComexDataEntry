@@ -206,6 +206,9 @@
 				</b-modal>
 
 			</div>
+			<v-idle
+  @idle="onidle"
+  :duration="900" />
 		</div>
 	</div>
 </template>
@@ -226,6 +229,7 @@ import { mapMutations, mapActions, mapState } from "vuex";
 import Password from "vue-password-strength-meter";
 import Vue from 'vue'
 import VueMq from 'vue-mq'
+import Vidle from 'v-idle'
 Vue.use(VueMq, {
 	breakpoints: {
 		smallDevices: 600,
@@ -238,6 +242,7 @@ export default {
 		BSidebar,
 		BForm,
 		BFormFile,
+		Vidle,
 		BFormGroup,
 		BFormInput,
 		BFormInvalidFeedback,
@@ -298,7 +303,13 @@ export default {
 			optionsPon: "comex/optionsPon",
 			// editEntry: "comex/editEntry",
 			deleteEntry: "comex/deleteEntry",
+        logoutUser: "auth/logoutUser"
 		}),
+		onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 		searchByFunc() {
 			this.searchByOlt = !this.searchByOlt
 			if (this.searchByOlt) {
@@ -314,6 +325,11 @@ export default {
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
 		},
+		onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 		async searchByOltId() {
 			if (this.searchQueryPON != 'All') {
 				await this.searchData({ OltId: this.searchQueryOLTP, PonNo: this.searchQueryPON })

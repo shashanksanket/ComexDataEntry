@@ -71,6 +71,9 @@
 					<p v-else>Your Data is uploaded!</p>
 				</b-modal>
 			</validation-observer>
+			<v-idle
+  @idle="onidle"
+  :duration="900" />
 
 		</div>
 	</div>
@@ -93,6 +96,7 @@ import Password from "vue-password-strength-meter";
 import Papa from 'papaparse';
 import Vue from 'vue'
 import VueMq from 'vue-mq'
+import Vidle from 'v-idle'
 
 Vue.use(VueMq, {
 	breakpoints: {
@@ -114,7 +118,7 @@ export default {
 		vSelect,
 		BModal,
 		Navbar,
-
+		Vidle,
 		// Form Validation
 		ValidationProvider,
 		ValidationObserver,
@@ -141,9 +145,10 @@ export default {
 	methods: {
 		...mapActions({
 			addBulkData: "comex/setBulkDetails",
+			logoutUser: "auth/logoutUser"
 		}),
 		async DownloadFormat() {
-			this.format = [{ 'Name': '', 'Address': '', 'CaNo': '', 'TelNo': '', "Plan": '', 'TypeOfPlan': '', 'DateOfInstallation': '', 'DateOfUninstallation': '', 'TypeOfConnection': '', 'VoipIpAddress': '', 'VlanId': '', 'OltId': '', 'OltName': '', 'PonNo': '', 'Ont_Onu_Sn_Macadress': '' }]
+			this.format = [{ 'Name': '', 'Address': '', 'CaNo': '', 'TelNo': '', "Plan": '', 'TypeOfPlan': '', 'DateOfInstallation': '', 'contactNumber': '', 'contactNumber': '', 'VoipIpAddress': '', 'VlanId': '', 'OltId': '', 'OltName': '', 'PonNo': '', 'Ont_Onu_Sn_Macadress': '' }]
 			console.log([this.format])
 			var csv = Papa.unparse(this.format)
 			// Papa.download(unparsedResults, 'LatestData')
@@ -157,7 +162,11 @@ export default {
 			urlObject.revokeObjectURL(url);
 			this.success = true
 		},
-
+		onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 
 		onReset() {
 			//resetform

@@ -58,10 +58,10 @@
 					<b-form-input style="width:197px" type="date" id="" v-model="DateOfInstallation" ></b-form-input>
 
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Date Of UnInstallation"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Contact Number"
 					label-for="input-7" >
 					
-					<b-form-input style="width:197px" type="date" id="" v-model="DateOfUninstallation" ></b-form-input>
+					<b-form-input style="width:197px"  id="" v-model="contactNumber" ></b-form-input>
 
 				</b-form-group>
 				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-8" label="Enter Type Of Connection"
@@ -150,8 +150,8 @@
 						<b-form-input type="date"  v-model="DateOfInstallation" ></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-7" label="Enter Date Of Uninstallation" label-for="input-7">
-						<b-form-input type="date"  v-model="DateOfUninstallation" ></b-form-input>
+						id="fieldset-7" label="Enter Contact Number" label-for="input-7">
+						<b-form-input  v-model="contactNumber" ></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
 						id="fieldset-8" label="Enter Type Of Connection" label-for="input-8">
@@ -197,6 +197,9 @@
 					</b-form-group>
 				
 			</div>
+			<v-idle
+  @idle="onidle"
+  :duration="900" />
 			<br />
 		</div>
 	</div>
@@ -218,6 +221,7 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { mapMutations, mapActions, mapState } from "vuex";
 import Password from "vue-password-strength-meter";
 import Vue from 'vue'
+import Vidle from 'v-idle'
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
   breakpoints: {
@@ -230,6 +234,7 @@ Vue.use(VueMq, {
 export default {
 	components: {
 		BSidebar,
+		Vidle,
 		BForm,
 		BFormSelect,
 		BFormFile,
@@ -271,7 +276,7 @@ export default {
 			PonNo: '',
 			success: false,
 			Ont_Onu_Sn_Macadress: '',
-			DateOfUninstallation: ''
+			contactNumber: ''
 		}
 	},
 	async mounted() {
@@ -281,7 +286,9 @@ export default {
 		...mapActions({
 			addData: "comex/setDetails",
 			optionsOlt: "comex/optionsOlt",
-			optionsPon: "comex/optionsPon"
+			optionsPon: "comex/optionsPon",
+			logoutUser: "auth/logoutUser"
+
 		}),
 		async onSelectOltName(val) {
 			await this.optionsPon({ OltName: val })
@@ -294,8 +301,13 @@ export default {
 			await this.optionsPon({ OltName: this.OltName })
 
 		},
+		onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 		async onSubmit() {
-			await this.addData({ DateOfUninstallation: this.DateOfUninstallation, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.addData({ contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 		},
@@ -303,7 +315,7 @@ export default {
 			this.Name = '',
 				this.Address = '',
 				this.CaNo = '',
-				this.DateOfUninstallation= '',
+				this.contactNumber= '',
 				this.TelNo = '',
 				this.Plan = '',
 				this.TypeOfPlan = '',

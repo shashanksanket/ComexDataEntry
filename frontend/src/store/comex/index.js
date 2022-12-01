@@ -68,7 +68,7 @@ export default {
 				OltName: payload.OltName,
 				PonNo: payload.PonNo,
 				Ont_Onu_Sn_Macadress: payload.Ont_Onu_Sn_Macadress,
-				DateOfUninstallation: payload.DateOfUninstallation
+				contactNumber: payload.contactNumber
 			}, {})
 
 		}catch(e){
@@ -107,6 +107,7 @@ export default {
 				query: {
 					OltId: payload.OltId,
 					PonNo: payload.PonNo,
+					TelNo: payload.TelNo,
 					$total : true
 				}
 

@@ -87,11 +87,14 @@
 					</b-table>
 				</div>
 			</div>
+			<v-idle
+  @idle="onidle"
+  :duration="900" />
 		</div>
 	</div>
 </template>
 <script>
-
+import Vidle from 'v-idle'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
 	BSidebar, BPagination, BDropdown,BDropdownItem, BTable,  BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
@@ -169,11 +172,17 @@ export default {
 		...mapActions({
 			Configure: "comex/configure",
 			searchConfigData: "comex/getConfigData",
-			deleteConfigs: "comex/deleteConfig"
+			deleteConfigs: "comex/deleteConfig",
+			logoutUser: "auth/logoutUser"
 		}),
 		async searchConfig(){
 			await this.searchConfigData()
 		},
+		onidle(){
+      alert('You have been logged out due to inactivity of 15 minutes')
+      this.$router.push({ name: "login" });
+      this.logoutUser();
+    },
 		async onSubmit() {
 			await this.Configure({ OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
 			this.reset()
