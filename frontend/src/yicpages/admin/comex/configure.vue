@@ -57,7 +57,13 @@
 					<b-button @click="searchConfig" variant="primary">
 						Search All Config Data
 					</b-button>
-					<b-table style="width:100%;" ref="data" class="position-relative" :items="configData" responsive
+					<b-pagination
+      v-model="currentPage"
+      :total-rows="configData.length"
+      :per-page="perPage"
+      aria-controls="table"
+    ></b-pagination>
+					<b-table :current-page="currentPage" id="table" :per-page="perPage" style="width:100%;" ref="data" class="position-relative" :items="configData" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
 
@@ -88,7 +94,7 @@
 
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-	BSidebar,BDropdown,BDropdownItem, BTable,  BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
+	BSidebar, BPagination, BDropdown,BDropdownItem, BTable,  BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton,
 } from 'bootstrap-vue'
 import { ref } from '@vue/composition-api'
 import Ripple from 'vue-ripple-directive'
@@ -124,7 +130,7 @@ export default {
 		BModal,
 		Navbar,
 		BDropdown,
-
+		BPagination,
 		// Form Validation
 		ValidationProvider,
 		ValidationObserver,
@@ -141,6 +147,8 @@ export default {
 	},
 	data() {
 		return {
+			currentPage : 1,
+			perPage: 10,
 			OltName: '',
 			OltId: '',
 			ponNo: '',
@@ -170,6 +178,7 @@ export default {
 			await this.Configure({ OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
 			this.reset()
 			this.success = true
+			await this.searchConfigData()
 		},
 		reset() {
 			this.OltName = '',

@@ -49,7 +49,13 @@
 					</div>
 					<br /><br />
 					<h3>Search Results</h3>
-					<b-table style="width:100%;" ref="data" class="position-relative" :items="searchRes" responsive
+					<b-pagination
+      v-model="currentPage"
+      :total-rows="searchRes.length"
+      :per-page="perPage"
+      aria-controls="table"
+    ></b-pagination>
+					<b-table :current-page="currentPage" id="table" :per-page="perPage" style="width:100%;" ref="data" class="position-relative" :items="searchRes" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
 
@@ -140,7 +146,13 @@
 					</div>
 					<br /><br />
 					<h3>Search Results</h3>
-					<b-table style="width:100%;" ref="data" class="position-relative" :items="searchRes" responsive
+					<b-pagination
+      v-model="currentPage"
+      :total-rows="searchRes.length"
+      :per-page="perPage"
+      aria-controls="table"
+    ></b-pagination>
+					<b-table  :current-page="currentPage" id="table" style="width:100%;" :per-page="perPage" ref="data" class="position-relative" :items="searchRes" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
 
@@ -201,7 +213,7 @@
 
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-	BSidebar, BTable, BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect,BDropdown, BDropdownItem
+	BSidebar, BTable, BPagination,  BModal, BForm, BFormFile, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect,BDropdown, BDropdownItem
 } from 'bootstrap-vue'
 import { ref } from '@vue/composition-api'
 import Ripple from 'vue-ripple-directive'
@@ -237,7 +249,7 @@ export default {
 		BTable,
 		BDropdown,
 		BFormSelect,
-
+		BPagination,
 		// Form Validation
 		ValidationProvider,
 		ValidationObserver,
@@ -253,6 +265,8 @@ export default {
 	},
 	data() {
 		return {
+			currentPage : 1,
+			perPage: 10,
 			deleteModal: false,
 			searchBy: '',
 			optionPons: '',
@@ -271,13 +285,10 @@ export default {
 				{ key: 'PonNo' },
 				{ key: 'VlanId' },
 				{ key: 'Actions' }
-
 			],
 			leftVlanData: [
 				{ key: 'VlanId' },
 			]
-
-
 		}
 	},
 	methods: {
@@ -302,7 +313,6 @@ export default {
 		},
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
-
 		},
 		async searchByOltId() {
 			if (this.searchQueryPON != 'All') {
@@ -344,7 +354,6 @@ export default {
 	},
 	async mounted() {
 		await this.optionsOlt()
-		this.optionsPonNo.push('SELECT OLT')
 
 	},
 

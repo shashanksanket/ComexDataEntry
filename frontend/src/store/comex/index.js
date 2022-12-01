@@ -103,18 +103,23 @@ export default {
 		searchEntry: async ({commit, state}, payload)=>{
 			commit('SET_RES','')
 			const res = await feathersClient.service('/api/datas').find({
-				query: payload
+				query: payload,
+				query: {
+					$total : true
+				}
+
 			})
-			commit('SET_RES',res.data)
+			commit('SET_RES',res)
 			const res2 = await feathersClient.service('/api/oltps').find({
 				query: {
 					OltId: payload.OltId,
-					ponNo: payload.PonNo
+					ponNo: payload.PonNo,
+					
 				}
 			})
 			let usedVlanId = []
-			for(var i=0; i<res.data.length; i++){
-				usedVlanId.push(parseInt(res.data[i].VlanId))
+			for(var i=0; i<res.length; i++){
+				usedVlanId.push(parseInt(res[i].VlanId))
 			}
 			let leftVlanId = []
 			for(var i=res2.data[0].startRange; i<=res2.data[0].endRange; i++){
@@ -175,8 +180,13 @@ export default {
 			})
 		},
 		getConfigData: async ({commit,state},payload)=>{
-			const res = await feathersClient.service('/api/oltps').find({})
-			state.configData = res.data
+			const res = await feathersClient.service('/api/oltps').find({
+				query:{
+					$total : true
+
+				}
+			})
+			state.configData = res
 		},
 		deleteConfig: async ({commit,state},payload)=>{
 			await feathersClient.service('/api/oltps').remove(payload,{})

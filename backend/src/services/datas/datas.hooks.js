@@ -1,3 +1,4 @@
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
   const TotalValues = async function(context){
     if (context.params.query && context.params.query.$total){
@@ -8,7 +9,7 @@
   }
 module.exports = {
   before: {
-    all: [],
+    all: [authenticate("jwt")],
     find: [TotalValues],
     get: [],
     create: [],
