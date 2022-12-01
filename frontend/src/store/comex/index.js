@@ -105,6 +105,8 @@ export default {
 			const res = await feathersClient.service('/api/datas').find({
 				query: payload,
 				query: {
+					OltId: payload.OltId,
+					PonNo: payload.PonNo,
 					$total : true
 				}
 
