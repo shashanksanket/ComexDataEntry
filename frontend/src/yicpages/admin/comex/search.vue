@@ -287,6 +287,15 @@ export default {
 				{ key: 'VoipIpAddress' },
 				{ key: 'PonNo' },
 				{ key: 'VlanId' },
+				{key: 'TypeOfPlan'},
+				{key: 'DateOfInstallation'},
+				{key: 'TypeOfConnection'},
+				{key: 'OltId'},
+				{key: 'OltName'},
+				{key: 'Ont_Onu_Sn_Macadress'},
+				{key: 'contactNumber'},
+
+
 				{ key: 'Actions' }
 			],
 			leftVlanData: [
