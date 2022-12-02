@@ -69,7 +69,7 @@
 								</template>
 								
 
-								<b-dropdown-item @click="deleteRow(data.item.id)">
+								<b-dropdown-item v-if="role!='ENDUSER'" @click="deleteRow(data.item.id)">
 									<img src="./trash.svg" size="16" class="align-middle text-body" />
 
 									<span class="align-middle ml-50">Delete</span>
@@ -157,16 +157,14 @@
 						<template #cell(title)="data">
 
 						</template>
-						<template #cell(Actions)="data">
+						<template  #cell(Actions)="data">
 
 							<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
 
 								<template #button-content>
 									<img src="./more-vertical.svg" size="16" class="align-middle text-body" />
 								</template>
-								
-
-								<b-dropdown-item @click="deleteRow(data.item.id)">
+								<b-dropdown-item v-if="role!='ENDUSER'" @click="deleteRow(data.item.id)">
 									<img src="./trash.svg" size="16" class="align-middle text-body" />
 
 									<span class="align-middle ml-50">Delete</span>
@@ -355,7 +353,7 @@ export default {
 		// 	await this.editEntry([val.id, { Name: val.Name, Address: val.Address, CaNo: val.CaNo, TelNo: val.TelNo, Plan: val.Plan, TypeOPlan: val.TypeOfPlan, DateOfInstallation: val.DateOfInstallation, TypeOfConnection: val.TypeOfConnection, VoipIpAddress: val.VoipIpAddress, VlanId: val.VlanId, OltId: val.OltId, OltName: val.OltName, PonNo: val.PonNo, Ont_Onu_Sn_Macadress: val.Ont_Onu_Sn_Macadress }])
 		// },
 		async deleteRow(val) {
-			await this.deleteEntry({ id: val })
+			await this.deleteEntry({ id: val, role: this.role })
 			if (this.searchByOlt) {
 
 				await this.searchByOltId()
@@ -370,6 +368,7 @@ export default {
 	},
 	async mounted() {
 		await this.optionsOlt()
+		console.log(this.role)
 
 	},
 
@@ -386,8 +385,10 @@ export default {
 			},
 			optionsPonNo: (state) => {
 				return state.comex.PonNoOptions
-			}
-
+			},
+			role: (state) => {
+				return state.auth.currUser.role
+			},
 		}),
 	},
 }

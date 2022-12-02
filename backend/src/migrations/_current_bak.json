@@ -85,6 +85,11 @@
                     "field": "contactNumber",
                     "seqType": "Sequelize.STRING"
                 },
+                "dateOfUninstallation": {
+                    "allowNull": true,
+                    "field": "dateOfUninstallation",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -196,5 +201,5 @@
             "indexes": []
         }
     },
-    "revision": 3
+    "revision": 4
 }

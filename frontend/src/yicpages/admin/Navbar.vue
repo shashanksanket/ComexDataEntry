@@ -13,6 +13,7 @@
 		  <b-nav-item @click="redirect('downloadLatest')">Download Latest Entries</b-nav-item>
 		  <b-nav-item @click="redirect('search')">Search Entries</b-nav-item>
 		  <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
+		  <b-nav-item v-if="(role!='ENDUSER' && isLoggedIn)" @click="redirect('createUsers')">Create users</b-nav-item>
 
 		</b-navbar-nav>
     <b-navbar-nav v-if="isLoggedIn" id="navMain" style="margin-top:40px; margin-left: 8%; margin-right: auto;">
@@ -133,7 +134,10 @@ Vue.use(VueMq, {
 		  ...mapState({
   isLoggedIn: (state)=>{
     return state.auth.isAuthenticated
-  }
+  },
+  role: (state) =>{
+    return state.auth.currUser.role
+  },
   
 		  }),
 	  },

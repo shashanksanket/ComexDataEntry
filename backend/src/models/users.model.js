@@ -30,6 +30,10 @@ module.exports = function (app) {
       allowNull: false,
       unique: true,
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
 
   }, {
     hooks: {

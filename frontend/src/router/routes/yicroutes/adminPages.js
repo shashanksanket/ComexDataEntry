@@ -69,6 +69,18 @@ export default [
       authReq: true,
 
     },
+  },
+  {
+    path: '/createUsers',
+    name: 'createUsers',
+    component: () => import("@/yicpages/admin/comex/createUsers.vue"),
+    meta: {
+      layout: 'full',
+      authReqAdmin: true,
+      authReq: true,
+
+
+    },
   }
 
 

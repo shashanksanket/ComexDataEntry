@@ -1,4 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { FeathersError } = require("@feathersjs/errors");
 
   const TotalValues = async function(context){
     if (context.params.query && context.params.query.$total){
@@ -7,6 +8,20 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
       context.params._populate = true
     }
   }
+
+  const limitDelete = async function(context){
+    if (context.params.users.role=='ENDUSER'){
+      throw new FeathersError(
+        "Not A Valid User",
+        "Error",
+        401,
+        "CMS",
+        { msg: "Not Authenticated" }
+      );
+    }
+    
+  }
+
 module.exports = {
   before: {
     all: [authenticate("jwt")],
@@ -15,7 +30,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [limitDelete]
   },
 
   after: {

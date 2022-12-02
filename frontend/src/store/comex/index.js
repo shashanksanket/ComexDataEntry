@@ -8,7 +8,6 @@ Vue.use(Vuex);
 export default {
 	namespaced: true,
 	state: {
-		
 		data: '',
 		searchRes: '',
 		errorsInSingle: '',
@@ -19,9 +18,6 @@ export default {
 		OltIdOptions: [],
 		PonNoOptions: [],
 		configData: []
-
-
-
 	},
 	getters: {
 
@@ -46,8 +42,6 @@ export default {
 		SET_LEFTPONS(state, val){
 			state.leftVlanId = val
 		}
-		
-
 	},
 	actions: {
 		setDetails: async ({ commit,state }, payload) => {
@@ -110,14 +104,12 @@ export default {
 					TelNo: payload.TelNo,
 					$total : true
 				}
-
 			})
 			commit('SET_RES',res)
 			const res2 = await feathersClient.service('/api/oltps').find({
 				query: {
 					OltId: payload.OltId,
 					ponNo: payload.PonNo,
-					
 				}
 			})
 			let usedVlanId = []
@@ -178,23 +170,37 @@ export default {
 				
 			}
 		},
+		addUser: async ({commit,state},payload)=>{
+			if (payload.currRole!='ENDUSER'){
+				await feathersClient.service('/api/users').create({
+					firstName: payload.firstName,
+					lastName: payload.lastName,
+					phoneNumber: payload.phoneNumber,
+					password: payload.password,
+					role: payload.role,
+					email: payload.email,
+				})
+			}
+		},
 		deleteEntry: async ({commit,state},payload)=>{
-			await feathersClient.service('/api/datas').remove(payload.id,{
-			})
+			if(payload.role!='ENDUSER'){
+
+				await feathersClient.service('/api/datas').remove(payload.id,{})
+			}
 		},
 		getConfigData: async ({commit,state},payload)=>{
 			const res = await feathersClient.service('/api/oltps').find({
 				query:{
 					$total : true
-
 				}
 			})
 			state.configData = res
 		},
 		deleteConfig: async ({commit,state},payload)=>{
-			await feathersClient.service('/api/oltps').remove(payload,{})
-		}
+			if(payload.role!='ENDUSER'){
 
-		
+				await feathersClient.service('/api/oltps').remove(payload.id,{})
+			}
+		}
 	},
 }

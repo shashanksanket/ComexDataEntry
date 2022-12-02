@@ -68,7 +68,7 @@
 						<template #cell(title)="data">
 
 						</template>
-						<template #cell(Actions)="data">
+						<template  #cell(Actions)="data">
 
 							<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
 
@@ -77,7 +77,7 @@
 								</template>
 								
 
-								<b-dropdown-item @click="deleteConfig(data.item.id)">
+								<b-dropdown-item v-if="role!='ENDUSER'" @click="deleteConfig(data.item.id)">
 									<img src="./trash.svg" size="16" class="align-middle text-body" />
 
 									<span class="align-middle ml-50">Delete</span>
@@ -197,7 +197,7 @@ export default {
 			this.endRange = ''
 		},
 		async deleteConfig(val){
-			await this.deleteConfigs(val)
+			await this.deleteConfigs({id: val, role: this.role})
 			await this.searchConfigData()
 
 		}
@@ -209,8 +209,10 @@ export default {
 			},
 			configData: (state) => {
 				return state.comex.configData
+			},
+			role: (state) => {
+				return state.auth.currUser.role
 			}
-
 		}),
 	},
 

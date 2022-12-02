@@ -17,8 +17,10 @@ export default {
 		currUser: {
 			firstName: '',
 			lastName: '',
-			id: null
-		}
+			id: null,
+			role: ''
+		},
+		totalUsers: '',
 	},
 	getters: {
 		isAuthenticated: state => state.isAuthenticated,
@@ -38,7 +40,8 @@ export default {
 		SET_CURRUSER(state, val) {
 			state.currUser.firstName = val.firstName
 			state.currUser.lastName = val.lastName
-			state.currUser.id = val.id
+			state.currUser.id = val.id,
+			state.currUser.role = val.role
 		},
 		RESET_CURR_USER(state) {
 			state.authPayload.email = ""
@@ -69,6 +72,17 @@ export default {
 			}
 
 
+		},
+		getUsers:async ({commit,state}) =>{
+			state.totalUsers = ''
+
+			const res = await feathersClient.service('/api/users').find({
+				query:{
+					$total: true
+				}
+			})
+			state.totalUsers = res
+			console.log(state.totalUsers)
 		},
 		loginUserWithJwt: async ({ commit, state }) => {
 			const token = localStorage.getItem('feathers-jwt')

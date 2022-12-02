@@ -187,6 +187,11 @@
                     "field": "email",
                     "seqType": "Sequelize.STRING"
                 },
+                "role": {
+                    "allowNull": true,
+                    "field": "role",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -201,5 +206,5 @@
             "indexes": []
         }
     },
-    "revision": 4
+    "revision": 5
 }
