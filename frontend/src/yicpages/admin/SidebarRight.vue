@@ -4,8 +4,23 @@
 		<h3>Comex Data Entry</h3>
 	  </div>
 	  <br />
+	  <p style="margin-left:40px"  class="sidebar-list">
+		  Hi {{firstName}}!
+	  </p>
 	  <ul class="sidebar-nav" style="list-style: none">
 		<br /><br />
+		<li
+		  class="sidebar-list"
+		  @click="redirect('dashboard')"
+		  
+		>
+		  <!-- <img class="icon" :src="icon1" /> -->
+		  
+		  <a  class="sidebar-text">
+			Dashboard</a
+		  >
+		</li>
+		<br />
 		<li
 		  class="sidebar-list"
 		  @click="redirect('addSingle')"
@@ -14,7 +29,7 @@
 		  <!-- <img class="icon" :src="icon1" /> -->
 		  
 		  <a  class="sidebar-text">
-			Add Single Entry</a
+			Single Entry</a
 		  >
 		</li>
 
@@ -27,7 +42,7 @@
 		  <!-- <img class="icon" :src="icon1" /> -->
 		  
 		  <a @click="redirect('addBulk')" class="sidebar-text">
-			Add Bulk Entries</a
+			Bulk Entry</a
 		  >
 		</li>
 		<br />
@@ -39,7 +54,7 @@
 		  <!-- <img class="icon" :src="icon1" /> -->
 		  
 		  <a @click="redirect('downloadLatest')" class="sidebar-text">
-			Download Latest Entries</a
+			Download Entries</a
 		  >
 		</li>
 		<br />
@@ -64,6 +79,19 @@
 		  
 		  <a @click="redirect('configure')" class="sidebar-text">
 			Configure</a
+		  >
+		</li>
+		<br />
+
+		<li
+		  class="sidebar-list"
+		  @click="redirect('createUsers')"
+		  
+		>
+		  <!-- <img class="icon" :src="icon1" /> -->
+		  
+		  <a  class="sidebar-text">
+			Create Users</a
 		  >
 		</li>
 		<li
@@ -105,6 +133,9 @@
 	computed: mapState({
 //   isLoggedIn: (state)=>{
 //     return state.auth.isAuthenticated
+firstName: (state) =>{
+    return state.auth.currUser.firstName
+  }
 //   }
 	}),
 	methods: {

@@ -296,6 +296,10 @@ export default {
 				{key: 'OltName'},
 				{key: 'Ont_Onu_Sn_Macadress'},
 				{key: 'contactNumber'},
+				{key: 'Ont_OnuProvidedBy'},
+				{key: 'instrumentBoxProvidedBy'},
+				{key: 'instrumentBoxProvided'},
+				{key: 'typeOfInstrumentBox'},
 
 
 				{ key: 'Actions' }

@@ -90,6 +90,14 @@
                     "field": "dateOfUninstallation",
                     "seqType": "Sequelize.STRING"
                 },
+                "Active": {
+                    "defaultValue": {
+                        "value": true
+                    },
+                    "allowNull": true,
+                    "field": "Active",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -206,5 +214,5 @@
             "indexes": []
         }
     },
-    "revision": 5
+    "revision": 6
 }

@@ -5,104 +5,166 @@
 		<div>
 			<div class="root1">
 				<template>
-					<div>
+					<div class="">
 						<br />
 						<br />
-						<h2 class="mainTitle ">
-							Add Single Entries
-							<br />
-							<br />
+						<center>
 
-
-						</h2>
+							<h2 class="mainTitle  ">
+								Add Single Entries
+								
+								
+							</h2>
+						</center>
+						<br />
+						<br />
 
 
 			</div>
 			<validation-observer ref="registerForm">
-				<b-form v-if="($mq === 'largeDevices')" class="form" @submit.prevent>
+				<b-form class="form" @submit.prevent>
 				<br/><br/>
-				<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-1" label="Name"
+				<div id="#step1" v-if="(currentStep==1)">
+					<h3>
+						<center>
+							Personal Details
+						</center>
+					</h3>
+				<b-form-group style="" id="fieldset-1" label="Name"
 					label-for="input-1">
 					<b-form-input id="input-1" v-model="Name"  ></b-form-input>
 				</b-form-group>
 				
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-2" label="Address"
+				<b-form-group style="" id="fieldset-2" label="Address"
 					label-for="input-2" >
 					<b-form-input id="input-2" v-model="Address"  ></b-form-input>
 				</b-form-group>
 			
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-3"  label="CA NO"
-					label-for="input-3" >
-					<b-form-input id="input-3" v-model="CaNo"  ></b-form-input>
-				</b-form-group>
-			</div>
-			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-4" label="Tel No"
-					label-for="input-4" >
-					<b-form-input id="input-4" v-model="TelNo"  ></b-form-input>
-				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-5" label="Plan"
-					label-for="input-5" >
-					<b-form-input id="input-5" v-model="Plan"  ></b-form-input>
-				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-6" label="Type Of Plan"
-					label-for="input-6" >
-					<b-form-input id="input-6" v-model="TypeOfPlan"  ></b-form-input>
-				</b-form-group>
-			</div>
-			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Date Of Installation"
-					label-for="input-7" >
-					
-					<b-form-input style="width:197px" type="date" id="" v-model="DateOfInstallation" ></b-form-input>
+				<b-form-group style="" id="fieldset-7" label="Contact Number"
+				label-for="input-7" >
+				
+				<b-form-input style=""  id="" v-model="contactNumber" ></b-form-input>
+				
+			</b-form-group>
+				<b-button variant="primary" type="button" @click.prevent="goToStep(2)">Continue</b-button>
 
-				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Contact Number"
-					label-for="input-7" >
-					
-					<b-form-input style="width:197px"  id="" v-model="contactNumber" ></b-form-input>
-
-				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-8" label="Type Of Connection"
+			</div>
+			<div id="step2" v-if="(currentStep==2)">
+				<h3>
+			<center>
+				Plan Details
+			</center>
+		</h3>
+				
+				<b-form-group style="" id="fieldset-5" label="Plan"
+				label-for="input-5" >
+				<b-form-input id="input-5" v-model="Plan"  ></b-form-input>
+			</b-form-group>
+			<b-form-group style="" id="fieldset-6" label="Type Of Plan"
+			label-for="input-6" >
+			<b-form-input id="input-6" v-model="TypeOfPlan"  ></b-form-input>
+		</b-form-group>
+		<b-form-group style="" id="fieldset-7" label="Date Of Installation"
+		label-for="input-7" >
+		
+		<b-form-input style="" type="date" id="" v-model="DateOfInstallation" ></b-form-input>
+		
+	</b-form-group>
+	<b-form-group style="" id="fieldset-3"  label="CA NO"
+	label-for="input-3" >
+	<b-form-input id="input-3" v-model="CaNo"  ></b-form-input>
+	</b-form-group>
+				<b-form-group style="" id="fieldset-8" label="Type Of Connection"
 					label-for="input-8" >
 					<b-form-input id="input-8" v-model="TypeOfConnection"  ></b-form-input>
 				</b-form-group>
-			</div>
-			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-9" label="Voip Ip Address"
+				<div class="d-flex justify-content-between flex-wrap" style="">
+
+					<b-button type="button"   variant="primary"  @click.prevent="goToStep(3)">Continue</b-button>
+					<b-button  variant="primary"  type="button" @click.prevent="goToStep(1)">Go Back</b-button>
+				</div>
+
+
+	</div>
+	<div id="step3" v-if="(currentStep==3)">
+				<h3>
+			<center>
+				Telephone Details
+			</center>
+		</h3>
+				<b-form-group style="" id="fieldset-4" label="Tel No"
+					label-for="input-4" >
+					<b-form-input id="input-4" v-model="TelNo"  ></b-form-input>
+				</b-form-group>
+				<b-form-group style="" id="fieldset-4" label="Instrument Box Provided?"
+					label-for="input-4" >
+					<b-form-select :options="['Yes','No']" id="input-4" v-model="instrumentBoxProvided" ></b-form-select>
+				</b-form-group>
+				<b-form-group style="" id="fieldset-4" label="Type of Instrument Box"
+					label-for="input-4" >
+					<b-form-select :options="['Non-Caller Id','Caller Id']" id="input-4" v-model="typeOfInstrumentBox"  ></b-form-select>
+				</b-form-group>
+				<b-form-group style="" id="fieldset-4" label="Instrument Box provided by"
+					label-for="input-4" >
+					<b-form-select :options="['MTNL','Comex','Customer']" id="input-4" v-model="instrumentBoxProvidedBy"  ></b-form-select>
+				</b-form-group>
+				<b-form-group style="" id="fieldset-4" label="Ont/Onu provided by"
+					label-for="input-4" >
+					<b-form-select :options="['MTNL','Comex','Customer']" id="input-4" v-model="Ont_OnuProvidedBy"  ></b-form-select>
+				</b-form-group>
+				
+				<div class="d-flex justify-content-between flex-wrap" style="">
+
+<b-button type="button"   variant="primary"  @click.prevent="goToStep(4)">Continue</b-button>
+<b-button  variant="primary"  type="button" @click.prevent="goToStep(2)">Go Back</b-button>
+</div>
+
+
+	</div>
+	<div id="step4" v-if="(currentStep==4)">
+		<h3>
+			<center>
+				Connection Details
+			</center>
+		</h3>
+			
+				<b-form-group style="" id="fieldset-9" label="Voip Ip Address"
 					label-for="input-9" >
 					<b-form-input id="input-9" v-model="VoipIpAddress"  ></b-form-input>
 				</b-form-group>
 				
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-11"  label="OLT Id"
+				<b-form-group style="" id="fieldset-11"  label="OLT Id"
 					label-for="input-11" >
-					<b-form-select style="width:197px" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)" :options="optionsOltId"></b-form-select>
+					<b-form-select style="" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)" :options="optionsOltId"></b-form-select>
 
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-13" label="OLT Name"
+				<b-form-group style="" id="fieldset-13" label="OLT Name"
 					label-for="input-13" >
-					<b-form-select style="width:197px" id="input-13" v-model="OltName" v-on:change="onSelectOltName(OltName)" :options="optionsOltName"></b-form-select>
+					<b-form-select style="" id="input-13" v-model="OltName" v-on:change="onSelectOltName(OltName)" :options="optionsOltName"></b-form-select>
 				</b-form-group>
-			</div>
-			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Pon No"
+				<b-form-group style="" id="fieldset-14" label="Pon No"
 					label-for="input-14" >
-					<b-form-select style="width:197px" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
-
+					<b-form-select style="" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
+	
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-10" label="VLAN ID"
+				<b-form-group style="" id="fieldset-10" label="VLAN ID"
 					label-for="input-10" >
 					<b-form-input id="input-10" v-model="VlanId"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Ont/Onu S/n MacAddress"
+				<b-form-group style="" id="fieldset-14" label="Ont/Onu S/n MacAddress"
 					label-for="input-14" >
 					<b-form-input style="" id="input-14" v-model="Ont_Onu_Sn_Macadress"  ></b-form-input>
 				</b-form-group>
+			
+				<div class="d-flex justify-content-between flex-wrap" style="">
+					<b-button  variant="primary"  type="button" @click.prevent="goToStep(3)">Go Back</b-button>
+					<b-button type="submit" variant="primary" @click="onSubmit()" >Submit</b-button>
+
+</div>
+
 			</div>
 			<br/>
 			<div>
-			<b-button type="submit" variant="primary" @click="onSubmit()" style="margin-left: 80px; width:150px">Submit</b-button>
 
 							</div>
 
@@ -114,89 +176,7 @@
 					</validation-observer>
 					
 				</template>
-				<div v-if="($mq === 'smallDevices' || $mq === 'mediumDevices')">
-
-
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-1" label="Name" label-for="input-1">
-						<b-form-input id="input-1" v-model="Name"></b-form-input>
-					</b-form-group>
-	
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-2" label="Address" label-for="input-2">
-						<b-form-input id="input-2" v-model="Address"></b-form-input>
-					</b-form-group>
-	
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-3" label="CA NO" label-for="input-3">
-						<b-form-input id="input-3" v-model="CaNo"></b-form-input>
-					</b-form-group>
-				
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-4" label="Tel No" label-for="input-4">
-						<b-form-input id="input-4" v-model="TelNo"></b-form-input>
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-5" label="Plan" label-for="input-5">
-						<b-form-input id="input-5" v-model="Plan"></b-form-input>
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-6" label="Type Of Plan" label-for="input-6">
-						<b-form-input id="input-6" v-model="TypeOfPlan"></b-form-input>
-					</b-form-group>
-				
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-7" label="Date Of Installation" label-for="input-7">
-						<b-form-input type="date"  v-model="DateOfInstallation" ></b-form-input>
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-7" label="Contact Number" label-for="input-7">
-						<b-form-input  v-model="contactNumber" ></b-form-input>
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-8" label="Type Of Connection" label-for="input-8">
-						<b-form-input id="input-8" v-model="TypeOfConnection"></b-form-input>
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-9" label="Voip Ip Address" label-for="input-9">
-						<b-form-input id="input-9" v-model="VoipIpAddress"></b-form-input>
-					</b-form-group>
-				
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-10" label="VLAN ID" label-for="input-10">
-						<b-form-input id="input-10" v-model="VlanId"></b-form-input>
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-11" label="OLT Id" label-for="input-11">
-						<b-form-select style="width:100%" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)"
-							:options="optionsOltId"></b-form-select>
-	
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-13" label="OLT Name" label-for="input-13">
-						<b-form-select style="width:100%" id="input-13" v-model="OltName"
-							v-on:change="onSelectOltName(OltName)" :options="optionsOltName">
-						</b-form-select>
-					</b-form-group>
-				
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-14" label="Pon No" label-for="input-14">
-						<b-form-select style="width:100%" id="input-13" v-model="PonNo" :options="optionsPonNo">
-						</b-form-select>
-	
-					</b-form-group>
-					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-14" label="Ont/Onu S/n MacAddress" label-for="input-14">
-						<b-form-input style="width:100%" id="input-14" v-model="Ont_Onu_Sn_Macadress">
-						</b-form-input>
-						<div>
-							<b-button type="submit" variant="primary" @click="onSubmit()" style="margin: auto; margin-top: 20px; width:100%">
-								Submit</b-button>
 			
-						</div>
-					</b-form-group>
-				
-			</div>
 			<v-idle
   @idle="onidle" style="display:none" 
   :duration="900" />
@@ -225,11 +205,35 @@ import Vidle from 'v-idle'
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
   breakpoints: {
-    smallDevices: 1000,
+    smallDevices: 600,
     mediumDevices: 1200,
     largeDevices: Infinity,
   }
 })
+
+Vue.component('step3', {
+    div: '#step3',
+    props: [
+        'currentStep',
+        'step1',
+        'step2'
+    ]
+});
+Vue.component('step2', {
+    div: '#step2',
+    props: [
+        'currentStep',
+        'step2'
+    ]
+});
+Vue.component('step1', {
+    div: '#step1',
+    props: [
+        'currentStep',
+        'step1'
+    ]
+});
+
 
 export default {
 	components: {
@@ -255,10 +259,7 @@ export default {
 	model: {
 
 	},
-	props: {
-
-
-	},
+	
 	data() {
 		return {
 			Name: '',
@@ -276,9 +277,25 @@ export default {
 			PonNo: '',
 			success: false,
 			Ont_Onu_Sn_Macadress: '',
-			contactNumber: ''
+			Ont_OnuProvidedBy:'',
+			instrumentBoxProvidedBy: '',
+			instrumentBoxProvided: false,
+			typeOfInstrumentBox: '',
+			contactNumber: '',
+			currentStep: 1,
+        step1: {
+            name: '',
+            email: ''
+        },
+        step2: {
+            city: '',
+            state: ''
+        }
 		}
 	},
+	ready: function() {
+        console.log('ready');
+    },
 	async mounted() {
 		await this.optionsOlt()
 	},
@@ -290,6 +307,9 @@ export default {
 			logoutUser: "auth/logoutUser"
 
 		}),
+		goToStep: function(step) {
+            this.currentStep = step;
+        },
 		async onSelectOltName(val) {
 			await this.optionsPon({ OltName: val })
 			let index = this.optionsOltName.indexOf(val)
@@ -307,7 +327,7 @@ export default {
       this.logoutUser();
     },
 		async onSubmit() {
-			await this.addData({ contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.addData({Ont_OnuProvidedBy: this.Ont_OnuProvidedBy,instrumentBoxProvidedBy: this.instrumentBoxProvidedBy,instrumentBoxProvided:this.instrumentBoxProvided,typeOfInstrumentBox:this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 		},
@@ -328,8 +348,13 @@ export default {
 				this.OltName = '',
 				this.PonNo = '',
 				this.Ont_Onu_Sn_Macadress = ''
+				this.Ont_OnuProvidedBy = '',
+				this.instrumentBoxProvidedBy = '',
+				this.instrumentBoxProvided = false,
+				this.typeOfInstrumentBox = ''
 		}
 	},
+	
 	computed: {
 		...mapState({
 			error: (state) => {
@@ -355,8 +380,8 @@ export default {
 .form {}
 
 .form div {
-	display: flex;
-	flex-direction: row;
+	// display: flex;
+	// flex-direction: row;
 
 }
 
@@ -418,28 +443,12 @@ export default {
 
 @media screen and (max-width: 1000px) {
 	.root1 {
-		padding: 45px 46px;
-		gap: 4px;
+		padding: 25px 30px;
 		width: 80%;
 		margin: auto;
 	}
-.mainTitle {
-	width: 100%;
-	margin: auto !important;
-}
-.mainTitle h2{
-	width: 100% !important;
-	margin: auto;
-}
-	.formgroup {
-		display: flex;
-		flex-direction: column;
-	}
 
-	.formgroup .input {
-		width: 100px !important;
-		margin: auto !important;
-	}
+
 }
 </style>
 	

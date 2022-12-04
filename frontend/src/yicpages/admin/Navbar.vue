@@ -14,8 +14,8 @@
           <b-nav-item @click="redirect('search')">Search Entries</b-nav-item>
           <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
           <b-nav-item v-if="(role!='ENDUSER')" @click="redirect('createUsers')">Create users</b-nav-item>
-          
         </b-navbar-nav>
+        <p style="margin:30px"> <b>Hello {{firstName}}!</b></p>
         <b-navbar-nav v-if="isLoggedIn" id="navMain" style="">
           <b-nav-item>
             <b-button variant="primary" @click="logout">
@@ -24,7 +24,7 @@
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
-      <div v-if="($mq === 'smallDevices' || $mq === 'mediumDevices')">
+      <div v-if="(($mq === 'smallDevices' || $mq === 'mediumDevices') && isLoggedIn)">
         <div class="user" v-b-toggle.sidebar-right>
           <svg viewBox="0 0 100 80" width="30" height="40">
             <rect width="100" height="20"></rect>
@@ -138,6 +138,9 @@ Vue.use(VueMq, {
   role: (state) =>{
     return state.auth.currUser.role
   },
+  firstName: (state) =>{
+    return state.auth.currUser.firstName
+  }
   
 		  }),
 	  },

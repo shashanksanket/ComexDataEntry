@@ -68,7 +68,11 @@ export default {
 				OltName: payload.OltName,
 				PonNo: payload.PonNo,
 				Ont_Onu_Sn_Macadress: payload.Ont_Onu_Sn_Macadress,
-				contactNumber: payload.contactNumber
+				contactNumber: payload.contactNumber,
+				Ont_OnuProvidedBy: payload.Ont_OnuProvidedBy,
+				instrumentBoxProvidedBy: payload.instrumentBoxProvidedBy,
+				instrumentBoxProvided: payload.instrumentBoxProvided,
+				typeOfInstrumentBox: payload.typeOfInstrumentBox,
 			}, {})
 
 		}catch(e){

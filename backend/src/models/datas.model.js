@@ -77,6 +77,22 @@ module.exports = function (app) {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
       allowNull: true
+    },
+    Ont_OnuProvidedBy:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    instrumentBoxProvidedBy:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    instrumentBoxProvided:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    typeOfInstrumentBox:{
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     hooks: {

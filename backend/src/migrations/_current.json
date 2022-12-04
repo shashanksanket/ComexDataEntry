@@ -98,6 +98,26 @@
                     "field": "Active",
                     "seqType": "Sequelize.BOOLEAN"
                 },
+                "Ont_OnuProvidedBy": {
+                    "allowNull": true,
+                    "field": "Ont_OnuProvidedBy",
+                    "seqType": "Sequelize.STRING"
+                },
+                "instrumentBoxProvidedBy": {
+                    "allowNull": true,
+                    "field": "instrumentBoxProvidedBy",
+                    "seqType": "Sequelize.STRING"
+                },
+                "instrumentBoxProvided": {
+                    "allowNull": true,
+                    "field": "instrumentBoxProvided",
+                    "seqType": "Sequelize.STRING"
+                },
+                "typeOfInstrumentBox": {
+                    "allowNull": true,
+                    "field": "typeOfInstrumentBox",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -214,5 +234,5 @@
             "indexes": []
         }
     },
-    "revision": 6
+    "revision": 7
 }
