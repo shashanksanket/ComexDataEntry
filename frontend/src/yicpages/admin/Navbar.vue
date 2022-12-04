@@ -1,50 +1,50 @@
 <template>
 <div>
-	<b-navbar toggleable="lg" type="light" variant="">
-	  <b-navbar-brand style="margin-top:5px;" href="#"><img height="60rm" src="./logo.png"></b-navbar-brand>
-  
-	  <!-- <b-navbar-toggle  target="nav-collapse" style="position: absolute; right:0px;"></b-navbar-toggle> -->
-  
+	<b-navbar   toggleable="lg" type="light" variant="">
+    
+    <!-- <b-navbar-toggle  target="nav-collapse" style="position: absolute; right:0px;"></b-navbar-toggle> -->
+    
+    <b-navbar-nav style="margin-top:5px;" href="#"><img height="60rm" src="./logo.png"></b-navbar-nav>
 	  <b-collapse id="nav-collapse" is-nav v-if="$mq === 'largeDevices'">
-	
-		<b-navbar-nav id="navMain" style="margin-top:40px; margin-left: 8%; margin-right: auto;">
-		  <b-nav-item @click="redirect('addSingle')">Add Single Entry</b-nav-item>
-		  <b-nav-item @click="redirect('addBulk')">Add Bulk Entries</b-nav-item>
-		  <b-nav-item @click="redirect('downloadLatest')">Download Latest Entries</b-nav-item>
-		  <b-nav-item @click="redirect('search')">Search Entries</b-nav-item>
-		  <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
-		  <b-nav-item v-if="(role!='ENDUSER' && isLoggedIn)" @click="redirect('createUsers')">Create users</b-nav-item>
-
-		</b-navbar-nav>
-    <b-navbar-nav v-if="isLoggedIn" id="navMain" style="margin-top:40px; margin-left: 8%; margin-right: auto;">
-      <b-nav-item>
-        <b-button variant="primary" @click="logout">
-          Logout
-        </b-button>
-      </b-nav-item>
-    </b-navbar-nav>
-	  </b-collapse>
-	  <div v-if="($mq === 'smallDevices' || $mq === 'mediumDevices')">
-      <div class="user" v-b-toggle.sidebar-right>
-		<svg viewBox="0 0 100 80" width="30" height="40">
-  <rect width="100" height="20"></rect>
-  <rect y="30" width="100" height="20"></rect>
-  <rect y="60" width="100" height="20"></rect>
-</svg>
-      </div>
-      <b-sidebar
-      id="sidebar-right"
-      bg-variant="white"
-      right
-      backdrop
-      shadow
-      >
-      <SidebarRight />
-    </b-sidebar>
+        <b-navbar-nav v-if="isLoggedIn" id="navMain" style="margin-left: auto; margin-right: auto;">
+          <b-nav-item @click="redirect('dashboard')">Dashboard</b-nav-item>
+          <b-nav-item @click="redirect('addSingle')">Single Entry</b-nav-item>
+          <b-nav-item @click="redirect('addBulk')">Bulk Entry</b-nav-item>
+          <b-nav-item @click="redirect('downloadLatest')">Download Entries</b-nav-item>
+          <b-nav-item @click="redirect('search')">Search Entries</b-nav-item>
+          <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
+          <b-nav-item v-if="(role!='ENDUSER')" @click="redirect('createUsers')">Create users</b-nav-item>
+          
+        </b-navbar-nav>
+        <b-navbar-nav v-if="isLoggedIn" id="navMain" style="">
+          <b-nav-item>
+            <b-button variant="primary" @click="logout">
+              Logout
+            </b-button>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+      <div v-if="($mq === 'smallDevices' || $mq === 'mediumDevices')">
+        <div class="user" v-b-toggle.sidebar-right>
+          <svg viewBox="0 0 100 80" width="30" height="40">
+            <rect width="100" height="20"></rect>
+            <rect y="30" width="100" height="20"></rect>
+            <rect y="60" width="100" height="20"></rect>
+          </svg>
+        </div>
+        <b-sidebar
+        id="sidebar-right"
+        bg-variant="white"
+        right
+        backdrop
+        shadow
+        >
+        <SidebarRight />
+      </b-sidebar>
     </div>
 	</b-navbar>
-  </div>
-  </template>
+</div>
+</template>
   <script>
 
   import { ValidationProvider, ValidationObserver } from 'vee-validate'

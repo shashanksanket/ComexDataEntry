@@ -22,7 +22,7 @@
 				</b-modal>
 				</template>
 				<v-idle
-  @idle="onidle"
+  @idle="onidle" style="display:none" 
   :duration="900" />
 
 

@@ -1,14 +1,14 @@
 <template>
   <div
     id="app"
-    class="h-100"
+    class=""
     :class="[skinClasses]"
   >
     <!-- <SenderDetails /> -->
     <component :is="layout">
       <router-view />
       <v-idle
-  @idle="onidle"
+  @idle="onidle" style="display:none" 
   :duration="900" />
     </component>
 
@@ -123,6 +123,7 @@ export default {
 <style>
   #app{
     background: #e1e5f1;
+    height: 100%;
 
   }
 </style>

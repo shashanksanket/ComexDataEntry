@@ -88,7 +88,7 @@
 				</div>
 			</div>
 			<v-idle
-  @idle="onidle"
+  @idle="onidle" style="display:none" 
   :duration="900" />
 		</div>
 	</div>

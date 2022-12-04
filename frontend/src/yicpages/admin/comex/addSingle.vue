@@ -22,80 +22,80 @@
 				<b-form v-if="($mq === 'largeDevices')" class="form" @submit.prevent>
 				<br/><br/>
 				<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-1" label="Enter Name"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-1" label="Name"
 					label-for="input-1">
 					<b-form-input id="input-1" v-model="Name"  ></b-form-input>
 				</b-form-group>
 				
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-2" label="Enter Address"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-2" label="Address"
 					label-for="input-2" >
 					<b-form-input id="input-2" v-model="Address"  ></b-form-input>
 				</b-form-group>
 			
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-3"  label="Enter CA NO"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-3"  label="CA NO"
 					label-for="input-3" >
 					<b-form-input id="input-3" v-model="CaNo"  ></b-form-input>
 				</b-form-group>
 			</div>
 			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-4" label="Enter Tel No"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-4" label="Tel No"
 					label-for="input-4" >
 					<b-form-input id="input-4" v-model="TelNo"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-5" label="Enter Plan"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-5" label="Plan"
 					label-for="input-5" >
 					<b-form-input id="input-5" v-model="Plan"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-6" label="Enter Type Of Plan"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-6" label="Type Of Plan"
 					label-for="input-6" >
 					<b-form-input id="input-6" v-model="TypeOfPlan"  ></b-form-input>
 				</b-form-group>
 			</div>
 			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Date Of Installation"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Date Of Installation"
 					label-for="input-7" >
 					
 					<b-form-input style="width:197px" type="date" id="" v-model="DateOfInstallation" ></b-form-input>
 
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Enter Contact Number"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-7" label="Contact Number"
 					label-for="input-7" >
 					
 					<b-form-input style="width:197px"  id="" v-model="contactNumber" ></b-form-input>
 
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-8" label="Enter Type Of Connection"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-8" label="Type Of Connection"
 					label-for="input-8" >
 					<b-form-input id="input-8" v-model="TypeOfConnection"  ></b-form-input>
 				</b-form-group>
 			</div>
 			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-9" label="Enter Voip Ip Address"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-9" label="Voip Ip Address"
 					label-for="input-9" >
 					<b-form-input id="input-9" v-model="VoipIpAddress"  ></b-form-input>
 				</b-form-group>
 				
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-11"  label="Enter OLT Id"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-11"  label="OLT Id"
 					label-for="input-11" >
 					<b-form-select style="width:197px" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)" :options="optionsOltId"></b-form-select>
 
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-13" label="Enter OLT Name"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-13" label="OLT Name"
 					label-for="input-13" >
 					<b-form-select style="width:197px" id="input-13" v-model="OltName" v-on:change="onSelectOltName(OltName)" :options="optionsOltName"></b-form-select>
 				</b-form-group>
 			</div>
 			<div>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Enter Pon No"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Pon No"
 					label-for="input-14" >
 					<b-form-select style="width:197px" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
 
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-10" label="Enter VLAN ID"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-10" label="VLAN ID"
 					label-for="input-10" >
 					<b-form-input id="input-10" v-model="VlanId"  ></b-form-input>
 				</b-form-group>
-				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Enter Ont/Onu S/n MacAddress"
+				<b-form-group style="margin-left:80px; display: flex; flex-direction: column;" id="fieldset-14" label="Ont/Onu S/n MacAddress"
 					label-for="input-14" >
 					<b-form-input style="" id="input-14" v-model="Ont_Onu_Sn_Macadress"  ></b-form-input>
 				</b-form-group>
@@ -118,75 +118,75 @@
 
 
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-1" label="Enter Name" label-for="input-1">
+						id="fieldset-1" label="Name" label-for="input-1">
 						<b-form-input id="input-1" v-model="Name"></b-form-input>
 					</b-form-group>
 	
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-2" label="Enter Address" label-for="input-2">
+						id="fieldset-2" label="Address" label-for="input-2">
 						<b-form-input id="input-2" v-model="Address"></b-form-input>
 					</b-form-group>
 	
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-3" label="Enter CA NO" label-for="input-3">
+						id="fieldset-3" label="CA NO" label-for="input-3">
 						<b-form-input id="input-3" v-model="CaNo"></b-form-input>
 					</b-form-group>
 				
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-4" label="Enter Tel No" label-for="input-4">
+						id="fieldset-4" label="Tel No" label-for="input-4">
 						<b-form-input id="input-4" v-model="TelNo"></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-5" label="Enter Plan" label-for="input-5">
+						id="fieldset-5" label="Plan" label-for="input-5">
 						<b-form-input id="input-5" v-model="Plan"></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-6" label="Enter Type Of Plan" label-for="input-6">
+						id="fieldset-6" label="Type Of Plan" label-for="input-6">
 						<b-form-input id="input-6" v-model="TypeOfPlan"></b-form-input>
 					</b-form-group>
 				
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-7" label="Enter Date Of Installation" label-for="input-7">
+						id="fieldset-7" label="Date Of Installation" label-for="input-7">
 						<b-form-input type="date"  v-model="DateOfInstallation" ></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-7" label="Enter Contact Number" label-for="input-7">
+						id="fieldset-7" label="Contact Number" label-for="input-7">
 						<b-form-input  v-model="contactNumber" ></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-8" label="Enter Type Of Connection" label-for="input-8">
+						id="fieldset-8" label="Type Of Connection" label-for="input-8">
 						<b-form-input id="input-8" v-model="TypeOfConnection"></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-9" label="Enter Voip Ip Address" label-for="input-9">
+						id="fieldset-9" label="Voip Ip Address" label-for="input-9">
 						<b-form-input id="input-9" v-model="VoipIpAddress"></b-form-input>
 					</b-form-group>
 				
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-10" label="Enter VLAN ID" label-for="input-10">
+						id="fieldset-10" label="VLAN ID" label-for="input-10">
 						<b-form-input id="input-10" v-model="VlanId"></b-form-input>
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-11" label="Enter OLT Id" label-for="input-11">
+						id="fieldset-11" label="OLT Id" label-for="input-11">
 						<b-form-select style="width:100%" id="input-13" v-model="OltId" v-on:change="onSelectOltId(OltId)"
 							:options="optionsOltId"></b-form-select>
 	
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-13" label="Enter OLT Name" label-for="input-13">
+						id="fieldset-13" label="OLT Name" label-for="input-13">
 						<b-form-select style="width:100%" id="input-13" v-model="OltName"
 							v-on:change="onSelectOltName(OltName)" :options="optionsOltName">
 						</b-form-select>
 					</b-form-group>
 				
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-14" label="Enter Pon No" label-for="input-14">
+						id="fieldset-14" label="Pon No" label-for="input-14">
 						<b-form-select style="width:100%" id="input-13" v-model="PonNo" :options="optionsPonNo">
 						</b-form-select>
 	
 					</b-form-group>
 					<b-form-group class="input" style=" display: flex; flex-direction: column;"
-						id="fieldset-14" label="Enter Ont/Onu S/n MacAddress" label-for="input-14">
+						id="fieldset-14" label="Ont/Onu S/n MacAddress" label-for="input-14">
 						<b-form-input style="width:100%" id="input-14" v-model="Ont_Onu_Sn_Macadress">
 						</b-form-input>
 						<div>
@@ -198,7 +198,7 @@
 				
 			</div>
 			<v-idle
-  @idle="onidle"
+  @idle="onidle" style="display:none" 
   :duration="900" />
 			<br />
 		</div>
@@ -225,7 +225,7 @@ import Vidle from 'v-idle'
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
   breakpoints: {
-    smallDevices: 600,
+    smallDevices: 1000,
     mediumDevices: 1200,
     largeDevices: Infinity,
   }

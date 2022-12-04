@@ -72,6 +72,11 @@ module.exports = function (app) {
     dateOfUninstallation:{
       type: DataTypes.STRING,
       allowNull: true
+    },
+    Active:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: true
     }
   }, {
     hooks: {

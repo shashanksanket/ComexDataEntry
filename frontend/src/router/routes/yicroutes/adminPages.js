@@ -1,18 +1,10 @@
 export default [
 
+  
   {
-    path: '/adminDashboard',
-    name: 'adminDashboard',
-    component: () => import("@/yicpages/admin/comex/addSingle.vue"),
-    meta: {
-      layout: "full",
-      authReq: true,
-    },
-  },
-  {
-    path: '/',
-    name: 'adminDashboard1',
-    component: () => import("@/yicpages/admin/comex/addSingle.vue"),
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import("@/yicpages/admin/comex/dashboard.vue"),
     meta: {
       layout: "full",
       authReq: true,

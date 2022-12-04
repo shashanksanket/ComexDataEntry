@@ -15,7 +15,7 @@ const router = new VueRouter({
   },
   routes: [
     // { path: '/', redirect: { name: 'dashboard-ecommerce' } },
-    { path: '/', redirect: { name: 'adminDashboard' } },
+    { path: '/', redirect: { name: 'Dashboard' } },
     ...yicroutes,
     {
       path: '*',
@@ -37,7 +37,7 @@ if(!isLoggedIn){
   return next({name: 'login'})
 }
 if (!to.meta.authReq && isLoggedIn){
-  return next({name:'adminDashboard'})
+  return next({name:'Dashboard'})
 }
 if (isLoggedIn && to.meta.authReq){
   return next()

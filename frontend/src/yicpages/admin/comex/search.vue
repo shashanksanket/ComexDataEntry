@@ -49,12 +49,7 @@
 					</div>
 					<br /><br />
 					<h3>Search Results</h3>
-					<b-pagination
-      v-model="currentPage"
-      :total-rows="searchRes.length"
-      :per-page="perPage"
-      aria-controls="table"
-    ></b-pagination>
+		
 					<b-table :current-page="currentPage" id="table" :per-page="perPage" style="width:100%;" ref="data" class="position-relative" :items="searchRes" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
@@ -77,6 +72,12 @@
 							</b-dropdown>
 						</template>
 					</b-table>
+					<b-pagination
+      v-model="currentPage"
+      :total-rows="searchRes.length"
+      :per-page="perPage"
+      aria-controls="table"
+    ></b-pagination>
 					<br /><br />
 					<div v-if="leftVlan && showVlan">
 						<h4>These Vlan Ids are left for new connections in {{ this.searchQueryPON }}:-</h4>
@@ -146,12 +147,7 @@
 					</div>
 					<br /><br />
 					<h3>Search Results</h3>
-					<b-pagination
-      v-model="currentPage"
-      :total-rows="searchRes.length"
-      :per-page="perPage"
-      aria-controls="table"
-    ></b-pagination>
+					
 					<b-table  :current-page="currentPage" id="table" style="width:100%;" :per-page="perPage" ref="data" class="position-relative" :items="searchRes" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
@@ -172,6 +168,12 @@
 							</b-dropdown>
 						</template>
 					</b-table>
+					<b-pagination
+      v-model="currentPage"
+      :total-rows="searchRes.length"
+      :per-page="perPage"
+      aria-controls="table"
+    ></b-pagination>
 					<br /><br />
 					<div v-if="leftVlan && showVlan">
 						<h4>These Vlan Ids are left for new connections in {{ this.searchQueryPON }}:-</h4>

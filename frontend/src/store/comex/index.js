@@ -9,6 +9,12 @@ export default {
 	namespaced: true,
 	state: {
 		data: '',
+		Totaldata: 0,
+		TotalOlts: 0,
+		TotalConnection: 0,
+		Totaldisconnection: 0,
+		TotalConnectionLeft: 0,
+		TotalVlan:0,
 		searchRes: '',
 		errorsInSingle: '',
 		errorsInBulk: '',
@@ -88,8 +94,9 @@ export default {
 					$total : true
 				}
 			})
+			state.Totaldata = res.length
+			
 			commit('SET_DATA',res)
-			console.log(res.data)
 			}catch(e){
 				commit('SET_ERRORSGETDATA',e)
 			}
@@ -201,6 +208,38 @@ export default {
 
 				await feathersClient.service('/api/oltps').remove(payload.id,{})
 			}
+		},
+		totalProgress: async ({commit,state})=>{
+			const res = await feathersClient.service('/api/oltps').find({
+				query:{
+					$total: true,
+					
+				}
+			})
+			var a = []
+			for(var i=0;i<res.length; i++){
+				if(!a.includes(res[i].OltName)){
+					a.push(res[i].OltName)
+				}
+			}
+			console.log(a)
+			state.TotalOlts = a.length
+			let countVlan = 0
+			for (var i=0; i<res.length; i++){
+				let count = res[i].endRange - res[i].startRange + 1
+				countVlan = countVlan + count
+			}
+			state.TotalVlan = countVlan
+			const res1 = await feathersClient.service('/api/datas').find({
+				query:{
+					Active: true,
+					$total: true,
+				}
+			})
+			state.TotalConnection = res1.length
+			state.TotalConnectionLeft = state.TotalVlan - state.TotalConnection
+			state.Totaldisconnection = state.Totaldata - state.TotalConnection
 		}
+
 	},
 }
