@@ -15,7 +15,7 @@
           <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
           <b-nav-item v-if="(role!='ENDUSER')" @click="redirect('createUsers')">Create users</b-nav-item>
         </b-navbar-nav>
-        <p style="margin:30px"> <b>Hello {{firstName}}!</b></p>
+        <p v-if="isLoggedIn" style="margin:30px"> <b>Hello {{firstName}}!</b></p>
         <b-navbar-nav v-if="isLoggedIn" id="navMain" style="">
           <b-nav-item>
             <b-button variant="primary" @click="logout">

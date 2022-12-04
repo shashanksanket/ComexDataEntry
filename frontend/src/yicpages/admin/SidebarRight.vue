@@ -4,7 +4,7 @@
 		<h3>Comex Data Entry</h3>
 	  </div>
 	  <br />
-	  <p style="margin-left:40px"  class="sidebar-list">
+	  <p v-if="isLoggedIn" style="margin-left:40px"  class="sidebar-list">
 		  Hi {{firstName}}!
 	  </p>
 	  <ul class="sidebar-nav" style="list-style: none">
