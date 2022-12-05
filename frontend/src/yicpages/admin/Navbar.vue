@@ -8,10 +8,28 @@
 	  <b-collapse id="nav-collapse" is-nav v-if="$mq === 'largeDevices'">
         <b-navbar-nav v-if="isLoggedIn" id="navMain" style="margin-left: auto; margin-right: auto;">
           <b-nav-item @click="redirect('dashboard')">Dashboard</b-nav-item>
-          <b-nav-item @click="redirect('addSingle')">Single Entry</b-nav-item>
-          <b-nav-item @click="redirect('addBulk')">Bulk Entry</b-nav-item>
+          <b-nav-item-dropdown text="Entry">
+            <b-dropdown-item  @click="redirect('addSingle')"> 
+              Single Entry
+            </b-dropdown-item>
+            <b-dropdown-item @click="redirect('addBulk')">
+              Bulk Entry
+            </b-dropdown-item>
+          
+          
+          </b-nav-item-dropdown>
           <b-nav-item @click="redirect('downloadLatest')">Download Entries</b-nav-item>
-          <b-nav-item @click="redirect('search')">Search Entries</b-nav-item>
+          <b-nav-item-dropdown text="Search Entries" >
+            <b-dropdown-item @click="search('Search By Olt')">
+              Search by Olt
+            </b-dropdown-item>
+            <b-dropdown-item @click="search('Search By TelNo')">
+              Search by Tel No
+            </b-dropdown-item>
+          
+          
+          </b-nav-item-dropdown>
+
           <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
           <b-nav-item v-if="(role!='ENDUSER')" @click="redirect('createUsers')">Create users</b-nav-item>
         </b-navbar-nav>
@@ -120,7 +138,8 @@ Vue.use(VueMq, {
       
 
       ...mapActions({
-        logoutUser: "auth/logoutUser"
+        logoutUser: "auth/logoutUser",
+        searchByFunc: "comex/searchByFunc"
 		}),
 		redirect(val){
 			this.$router.push('/'+val)
@@ -129,6 +148,10 @@ Vue.use(VueMq, {
       this.$router.push({ name: "login" });
       this.logoutUser();
     },
+    async search(val){
+      await this.searchByFunc(val)
+      this.redirect('search')
+    }
 	  },
 	  computed: {
 		  ...mapState({

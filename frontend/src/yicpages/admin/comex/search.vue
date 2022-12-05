@@ -12,9 +12,9 @@
 
 						</h2>
 					</div>
-					<b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
+					<!-- <b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
 						{{ text }}
-					</b-button>
+					</b-button> -->
 					<div v-if="searchByOlt" class="">
 
 						<b-form-group class="input" id="fieldset-14" label="Select Olt Id" label-for="input-14">
@@ -112,9 +112,9 @@
 
 						</h2>
 					</div>
-					<b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
+					<!-- <b-button variant="primary" style="margin-bottom:20px" @click="searchByFunc()">
 						{{ text }}
-					</b-button>
+					</b-button> -->
 					<div v-if="searchByOlt" class="">
 
 						<b-form-group class="input" id="fieldset-14" label="Select Olt Id" label-for="input-14">
@@ -273,14 +273,14 @@ export default {
 			currentPage : 1,
 			perPage: 10,
 			deleteModal: false,
-			searchBy: '',
+			// searchBy: '',
 			optionPons: '',
-			text: 'Search By Telephone number',
-			searchByOlt: true,
+			// text: 'Search By Telephone number',
+			// searchByOlt: true,
 			searchQueryPON: '',
 			searchQueryOLTP: '',
 			searchQueryTelNo: '',
-			showVlan: false,
+			// showVlan: false,
 			tableColumns: [
 				{ key: 'Name' },
 				{ key: 'Address' },
@@ -323,18 +323,7 @@ export default {
       this.$router.push({ name: "login" });
       this.logoutUser();
     },
-		searchByFunc() {
-			this.searchByOlt = !this.searchByOlt
-			if (this.searchByOlt) {
-
-				this.text = 'Search By Telephone Number'
-			}
-			else {
-				this.text = 'Search By OLT'
-				this.showVlan = false
-
-			}
-		},
+		
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
 		},
@@ -345,13 +334,11 @@ export default {
     },
 		async searchByOltId() {
 			if (this.searchQueryPON != 'All') {
-				await this.searchData({ OltId: this.searchQueryOLTP, PonNo: this.searchQueryPON })
-				this.showVlan = true
+				await this.searchData({ OltId: this.searchQueryOLTP, PonNo: this.searchQueryPON, showVlan: true })
 				// this.displayPON = this.searchQueryPON
 			} else {
-				this.showVlan = false
 
-				await this.searchData({ OltId: this.searchQueryOLTP })
+				await this.searchData({ OltId: this.searchQueryOLTP, showVlan: false })
 			}
 		},
 		async optionPonNum() {
@@ -404,6 +391,16 @@ export default {
 			role: (state) => {
 				return state.auth.currUser.role
 			},
+			searchByOlt: (state) => {
+				return state.comex.searchByOlt
+			},
+			text: (state) => {
+				return state.comex.text
+			},
+			showVlan: (state) => {
+				return state.comex.showVlan
+			},
+			
 		}),
 	},
 }

@@ -8,6 +8,9 @@ Vue.use(Vuex);
 export default {
 	namespaced: true,
 	state: {
+		searchByOlt: true,
+		text: '',
+		showVlan: true,
 		data: '',
 		Totaldata: 0,
 		TotalOlts: 0,
@@ -106,6 +109,7 @@ export default {
 			}
 		},
 		searchEntry: async ({commit, state}, payload)=>{
+			state.showVlan = payload.showVlan
 			commit('SET_RES','')
 			const res = await feathersClient.service('/api/datas').find({
 				query: payload,
@@ -113,8 +117,12 @@ export default {
 					OltId: payload.OltId,
 					PonNo: payload.PonNo,
 					TelNo: payload.TelNo,
-					$total : true
-				}
+					$total : true,
+					$sort: {
+						OltId : 1,
+						PonNo: 1
+					}
+				},
 			})
 			commit('SET_RES',res)
 			const res2 = await feathersClient.service('/api/oltps').find({
@@ -243,6 +251,16 @@ export default {
 			state.TotalConnection = res1.length
 			state.TotalConnectionLeft = state.TotalVlan - state.TotalConnection
 			state.Totaldisconnection = state.Totaldata - state.TotalConnection
+		},
+		searchByFunc: async ({commit,state},payload)=>{
+			if (payload=='Search By Olt'){
+				state.searchByOlt = true
+				state.showVlan = true
+
+			}else{
+				state.searchByOlt = false
+				state.showVlan = false
+			}
 		}
 
 	},
