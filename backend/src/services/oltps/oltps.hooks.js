@@ -1,6 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const TotalValues = async function(context){
 const { FeathersError } = require("@feathersjs/errors");
+const TotalValues = async function(context){
 
   if (context.params.query && context.params.query.$total){
     delete context.params.query.$total
@@ -9,7 +9,7 @@ const { FeathersError } = require("@feathersjs/errors");
   }
 }
 const limitDelete = async function(context){
-  if (context.params.users.role=='ENDUSER'){
+  if (context.params.users.role=='ENDUSER' || context.params.users.role=='OPUSER'){
     throw new FeathersError(
       "Not A Valid User",
       "Error",

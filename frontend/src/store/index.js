@@ -7,7 +7,7 @@ import app from './app'
 import verticalMenu from './vertical-menu'
 import appConfig from './app-config'
 import auth from './auth'
-
+import Opstore from './OpStore'
 
 Vue.use(Vuex)
 
@@ -17,6 +17,7 @@ export default new Vuex.Store({
     verticalMenu,
     appConfig,
     app,
+    Opstore,
     auth
     
   },

@@ -17,7 +17,7 @@ const assignRoles = async function(context){
   }
 }
 const limitCreateUser = async function(context){
-  if (context.params.users.role=='ENDUSER'){
+  if (context.params.users.role=='ENDUSER' || context.params.users.role=='OPUSER'){
     throw new FeathersError(
       "Not A Valid User",
       "Error",

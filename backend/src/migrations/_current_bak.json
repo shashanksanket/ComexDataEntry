@@ -98,6 +98,26 @@
                     "field": "Active",
                     "seqType": "Sequelize.BOOLEAN"
                 },
+                "Ont_OnuProvidedBy": {
+                    "allowNull": true,
+                    "field": "Ont_OnuProvidedBy",
+                    "seqType": "Sequelize.STRING"
+                },
+                "instrumentBoxProvidedBy": {
+                    "allowNull": true,
+                    "field": "instrumentBoxProvidedBy",
+                    "seqType": "Sequelize.STRING"
+                },
+                "instrumentBoxProvided": {
+                    "allowNull": true,
+                    "field": "instrumentBoxProvided",
+                    "seqType": "Sequelize.STRING"
+                },
+                "typeOfInstrumentBox": {
+                    "allowNull": true,
+                    "field": "typeOfInstrumentBox",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -159,6 +179,109 @@
             },
             "indexes": []
         },
+        "op_stocks": {
+            "tableName": "op_stocks",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Title": {
+                    "allowNull": true,
+                    "field": "Title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "amountSpent": {
+                    "allowNull": true,
+                    "field": "amountSpent",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "DateOfPayment": {
+                    "allowNull": true,
+                    "field": "DateOfPayment",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "userId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "userId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "opconfigs": {
+            "tableName": "opconfigs",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "Name": {
+                    "allowNull": true,
+                    "field": "Name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "totalAmountGiven": {
+                    "allowNull": true,
+                    "field": "totalAmountGiven",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "totalAmountLeft": {
+                    "allowNull": true,
+                    "field": "totalAmountLeft",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "lastUpdateAt": {
+                    "allowNull": true,
+                    "field": "lastUpdateAt",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "userId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "userId",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
         "users": {
             "tableName": "users",
             "schema": {
@@ -214,5 +337,5 @@
             "indexes": []
         }
     },
-    "revision": 6
+    "revision": 9
 }

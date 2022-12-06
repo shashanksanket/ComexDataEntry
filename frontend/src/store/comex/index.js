@@ -124,6 +124,10 @@ export default {
 					}
 				},
 			})
+			
+			for(var i=0; i<res.length; i++){
+				res[i]['index'] = i
+			}
 			commit('SET_RES',res)
 			const res2 = await feathersClient.service('/api/oltps').find({
 				query: {
@@ -151,6 +155,33 @@ export default {
 				ponNo: payload.ponNo,
 				startRange: payload.startRange,
 				endRange: payload.endRange
+			})
+		},
+		editData: async ({commit,state},payload)=>{
+			console.log(payload)
+			await feathersClient.service('/api/datas').patch(payload.id,{
+				
+				Name: payload.Name,
+				Address: payload.Address,
+				CaNo: payload.CaNo,
+				TelNo: payload.TelNo,
+				Plan: payload.Plan,
+				TypeOfPlan: payload.TypeOfPlan,
+				DateOfInstallation: payload.DateOfInstallation,
+				TypeOfConnection: payload.TypeOfConnection,
+				VoipIpAddress: payload.VoipIpAddress,
+				OltId: payload.OltId,
+				VlanId: payload.VlanId,
+				OltName: payload.OltName,
+				PonNo: payload.PonNo,
+				Ont_Onu_Sn_Macadress: payload.Ont_Onu_Sn_Macadress,
+				contactNumber: payload.contactNumber,
+				Ont_OnuProvidedBy: payload.Ont_OnuProvidedBy,
+				instrumentBoxProvidedBy: payload.instrumentBoxProvidedBy,
+				instrumentBoxProvided: payload.instrumentBoxProvided,
+				typeOfInstrumentBox: payload.typeOfInstrumentBox,
+				
+				
 			})
 		},
 		optionsOlt: async ({commit,state},payload)=>{
