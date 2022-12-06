@@ -23,17 +23,13 @@
 					<b-button @click="search" variant="primary">
 						Search
 					</b-button>
-					<b-pagination
-      v-model="currentPage"
-      :total-rows="OpUserDetails.length"
-      :per-page="perPage"
-      aria-controls="table"
-    ></b-pagination>
-					<b-table :current-page="currentPage" id="table" :per-page="perPage" style="width:100%;" ref="data" class="position-relative" :items="OpUserDetails" responsive
-						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
-						<template #cell(data)="data">
+					<p v-if="((role=='ADMIN' || role=='SUPERADMIN') && paymentData)"  style="margin:30px"> <img src="../credit-card.svg" size="16" class="align-middle text-body" />     ₹ {{paymentData[0].totalAmountLeft}} </p>
 
-						</template>
+					<b-table :current-page="currentPage" id="table" :per-page="perPage" style="width:100%;" ref="data" class="position-relative" :items="OpUserDetails" responsive
+					:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
+					<template #cell(data)="data">
+
+					</template>
 						<template  #cell(Actions)="data">
 
 							<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
@@ -51,6 +47,12 @@
 							</b-dropdown>
 						</template>
 					</b-table>
+					<b-pagination
+	  v-model="currentPage"
+	  :total-rows="OpUserDetails.length"
+	  :per-page="perPage"
+	  aria-controls="table"
+	></b-pagination>
 				</div>
 			</div>
 			<v-idle
@@ -141,13 +143,17 @@ export default {
 			getOpUserDetails: "Opstore/getOpUserDetails",
 			deleteOpBill: "Opstore/deleteOpBill",
 			logoutUser: "auth/logoutUser",
-			allOpUsers: "Opstore/allOpUsers"
+			allOpUsers: "Opstore/allOpUsers",
+			getPayment: "Opstore/getPayment",
+
 		}),
 		async search(){
 			await this.getOpUserDetails(this.searchQueryUserOp)
+
+		    await this.getPayment(this.searchQueryUserOp)
+
 			this.reset()
 			this.success = true
-
 		},
 		onidle(){
       alert('You have been logged out due to inactivity of 15 minutes')
@@ -180,6 +186,9 @@ export default {
 			},
 			optionsAllOPusers: (state) => {
 				return state.Opstore.optionsAllOPusers
+			},
+			paymentData: (state) => {
+				return state.Opstore.paymentData
 			}
 		}),
 	},

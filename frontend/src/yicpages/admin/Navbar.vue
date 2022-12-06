@@ -46,6 +46,7 @@
           </b-nav-item-dropdown>
         </b-navbar-nav>
         <p v-if="isLoggedIn" style="margin:30px"> <b>Hello {{firstName}}!</b></p>
+        <p v-if="(role=='OPUSER' && isLoggedIn)"  style="margin:30px"> <img src="./credit-card.svg" size="16" class="align-middle text-body" />     ₹ {{paymentData[0].totalAmountGiven}} </p>
         <b-navbar-nav v-if="isLoggedIn" id="navMain" style="">
           <b-nav-item>
             <b-button variant="primary" @click="logout">
@@ -151,7 +152,9 @@ Vue.use(VueMq, {
 
       ...mapActions({
         logoutUser: "auth/logoutUser",
-        searchByFunc: "comex/searchByFunc"
+        searchByFunc: "comex/searchByFunc",
+			getPayment: "Opstore/getPayment",
+
 		}),
 		redirect(val){
 			this.$router.push('/'+val)
@@ -175,7 +178,10 @@ Vue.use(VueMq, {
   },
   firstName: (state) =>{
     return state.auth.currUser.firstName
-  }
+  },
+  paymentData: (state) => {
+				return state.Opstore.paymentData
+			}
   
 		  }),
 	  },

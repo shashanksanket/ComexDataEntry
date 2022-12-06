@@ -12,7 +12,8 @@ export default {
 		AllOPusers: {},
 		optionsAllOPusers: [],
 		OpUserDetails: '',
-		OpConfigData: ''
+		OpConfigData: '',
+		paymentData: ''
 	},
 	getters: {
 
@@ -64,6 +65,8 @@ export default {
 					userId: state.AllOPusers.payload
 				}
 			})
+	
+
 			state.OpUserDetails = res
 
 		},
@@ -72,6 +75,27 @@ export default {
 		},
 		deleteOpConfig: async ({commit,state},payload) => {
 			await feathersClient.service('/api/opConfigs').remove(payload.id)
+		},
+		getPayment: async ({commit,state},payload) => {
+			state.paymentData = ''
+			if (payload){
+				const res = await feathersClient.service('/api/Opconfigs').find({
+					query:{
+					userId: state.AllOPusers.payload
+					}
+
+				})
+				state.paymentData = res.data
+
+			}
+			else{
+
+				const res = await feathersClient.service('/api/Opconfigs').find({
+					query:{
+					}
+				})
+				state.paymentData = res.data
+			}
 		},
 		
 		setOpUserConfig: async ({commit,state},payload) => {

@@ -153,6 +153,8 @@ export default {
 			logoutUser: "auth/logoutUser",
 			allOpUsers: "Opstore/allOpUsers",
 			setOpUserConfig: "Opstore/setOpUserConfig",
+			getPayment: "Opstore/getPayment",
+
 			
 		}),
 		async submit(){

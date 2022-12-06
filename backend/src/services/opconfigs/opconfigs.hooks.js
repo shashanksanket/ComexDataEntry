@@ -1,7 +1,26 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { setField } = require('feathers-authentication-hooks');
+
+const limitToUser = setField({
+  from: 'params.users.id',
+  as: 'params.query.userId'
+});
+const restrictFind = (context) => {
+  if (context.params) {
+    if (context.params.users) {
+      if (context.params.users.role == "ADMIN" || context.params.users.role == "SUPERADMIN") {
+        return context;
+      } else {
+        limitToUser(context);
+      }
+    }
+
+  }
+
+};
 
 const assignConfig = async function(context){
-  
+
     const userId = context.data.userId
     const res = await context.app.service('/api/opStocks').find({
       query:{
@@ -24,7 +43,7 @@ const assignConfig = async function(context){
     var yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
     context.data['lastUpdateAt'] = today
-    
+  
 }
 
 const TotalValues = async function(context){
@@ -51,7 +70,7 @@ const limitDelete = async function(context){
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [TotalValues, assignConfig],
+    find: [TotalValues,restrictFind],
     get: [],
     create: [assignConfig],
     update: [],

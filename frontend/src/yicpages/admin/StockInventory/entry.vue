@@ -165,6 +165,7 @@ export default {
 			addOpBill: "Opstore/addOpBill",
 			searchOpBillData: "Opstore/searchOpBillData",
 			delete: "Opstore/delete",
+			getPayment: "Opstore/getPayment",
 			logoutUser: "auth/logoutUser"
 		}),
 		async search(){
@@ -191,6 +192,9 @@ export default {
 			await this.searchOpBillData()
 		}
 	},
+	async mounted(){
+		await this.getPayment()
+	},
 	computed: {
 		...mapState({
 			error: (state) => {
@@ -201,7 +205,8 @@ export default {
 			},
 			role: (state) => {
 				return state.auth.currUser.role
-			}
+			},
+			
 		}),
 	},
 
