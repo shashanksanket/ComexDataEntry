@@ -15,7 +15,7 @@ const router = new VueRouter({
   },
   routes: [
     // { path: '/', redirect: { name: 'dashboard-ecommerce' } },
-    { path: '/', redirect: { name: 'Dashboard' } },
+    { path: '/', redirect: { name: 'dashboard' } },
     ...yicroutes,
     {
       path: '*',

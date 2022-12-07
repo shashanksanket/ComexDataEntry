@@ -110,7 +110,7 @@ export default {
 			this.setAuthPayload(formdata)
 			await this.loginUser()
 			if (this.isAuthenticated) {
-				this.$router.push('/Dashboard')
+				this.$router.push('/dashboard')
 			}
 		},
 

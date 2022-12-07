@@ -3,7 +3,7 @@ export default [
   
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     component: () => import("@/yicpages/admin/comex/dashboard.vue"),
     meta: {
       layout: "full",
