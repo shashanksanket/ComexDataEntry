@@ -232,15 +232,11 @@ export default {
 					OltId: payload.OltId
 				}
 			})
+			state.PonNoOptions.push('All')
 			for(var i=0; i<res.length; i++){
 				state.PonNoOptions.push(res[i].ponNo)
 			}
-			for(var i=0; i<res.length; i++){
-				if(!state.PonNoOptions.includes(res[i].ponNo)){
-					state.PonNoOptions.push(res[i].ponNo)
-				}
-				
-			}
+			
 		},
 		addUser: async ({commit,state},payload)=>{
 			if (payload.currRole!='ENDUSER'){

@@ -28,7 +28,7 @@
 						</b-form-group>
 						<b-form-group style="" id="fieldset-14" label="Pon No" label-for="input-14">
 							<b-form-select style="" id="input-13" v-model="PonNo"
-								:options="optionsPons"></b-form-select>
+								:options="optionsPonNo"></b-form-select>
 
 						</b-form-group>
 
@@ -152,10 +152,10 @@
 						</b-form-group>
 						<b-form-group style="" id="fieldset-14" label="Pon No" label-for="input-14">
 							<b-form-select style="" id="input-13" v-model="PonNo"
-								:options="optionsPons"></b-form-select>
+								:options="optionsPonNo"></b-form-select>
 
 						</b-form-group>
-
+						
 						<b-button style="margin-top:10px" variant="primary" @click="searchByOltId()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
@@ -627,11 +627,10 @@ export default {
 			let index = this.optionsOltId.indexOf(val)
 			this.OltName = this.optionsOltName[index]
 			await this.optionsPon({ OltName: this.OltName })
-			let arr = this.optionsPonNo
-			let arr1 = ['All']
-			this.optionsPons = arr1.concat(arr)
+			// let arr = this.optionsPonNo
+			// let arr1 = ['All']
+			// this.optionsPons = arr1.concat(arr)
 			await this.getOptionsGM({OltId: val})
-			console.log(this.optionsPons)
 
 		},
 		async onSubmit() {
