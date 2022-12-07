@@ -46,7 +46,8 @@
 				<b-form-input style=""  id="" v-model="contactNumber" ></b-form-input>
 				
 			</b-form-group>
-				<b-button variant="primary" type="button" @click.prevent="goToStep(2)">Continue</b-button>
+			
+				<b-button style="margin-top: 20px;" variant="primary" type="button" @click.prevent="goToStep(2)">Continue</b-button>
 
 			</div>
 			<div id="step2" v-if="(currentStep==2)">
@@ -80,8 +81,8 @@
 				</b-form-group>
 				<div class="d-flex justify-content-between flex-wrap" style="">
 
-					<b-button type="button"   variant="primary"  @click.prevent="goToStep(3)">Continue</b-button>
-					<b-button  variant="primary"  type="button" @click.prevent="goToStep(1)">Go Back</b-button>
+					<b-button style="margin-top: 20px;" type="button"   variant="primary"  @click.prevent="goToStep(3)">Continue</b-button>
+					<b-button style="margin-top: 20px;"  variant="primary"  type="button" @click.prevent="goToStep(1)">Go Back</b-button>
 				</div>
 
 
@@ -115,8 +116,8 @@
 				
 				<div class="d-flex justify-content-between flex-wrap" style="">
 
-<b-button type="button"   variant="primary"  @click.prevent="goToStep(4)">Continue</b-button>
-<b-button  variant="primary"  type="button" @click.prevent="goToStep(2)">Go Back</b-button>
+<b-button style="margin-top: 20px;" type="button"   variant="primary"  @click.prevent="goToStep(4)">Continue</b-button>
+<b-button style="margin-top: 20px;" variant="primary"  type="button" @click.prevent="goToStep(2)">Go Back</b-button>
 </div>
 
 
@@ -147,6 +148,10 @@
 					<b-form-select style="" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
 	
 				</b-form-group>
+				<b-form-group style="" id="fieldset-4" label="Select GM"
+					label-for="input-4" >
+					<b-form-select :options="optionsGM" id="input-4" v-model="GM" ></b-form-select>
+				</b-form-group>
 				<b-form-group style="" id="fieldset-10" label="VLAN ID"
 					label-for="input-10" >
 					<b-form-input id="input-10" v-model="VlanId"  ></b-form-input>
@@ -157,8 +162,8 @@
 				</b-form-group>
 			
 				<div class="d-flex justify-content-between flex-wrap" style="">
-					<b-button  variant="primary"  type="button" @click.prevent="goToStep(3)">Go Back</b-button>
-					<b-button type="submit" variant="primary" @click="onSubmit()" >Submit</b-button>
+					<b-button style="margin-top: 20px;"  variant="primary"  type="button" @click.prevent="goToStep(3)">Go Back</b-button>
+					<b-button style="margin-top: 20px;" type="submit" variant="primary" @click="onSubmit()" >Submit</b-button>
 
 </div>
 
@@ -283,14 +288,8 @@ export default {
 			typeOfInstrumentBox: '',
 			contactNumber: '',
 			currentStep: 1,
-        step1: {
-            name: '',
-            email: ''
-        },
-        step2: {
-            city: '',
-            state: ''
-        }
+			GM: '',
+        
 		}
 	},
 	ready: function() {
@@ -304,21 +303,31 @@ export default {
 			addData: "comex/setDetails",
 			optionsOlt: "comex/optionsOlt",
 			optionsPon: "comex/optionsPon",
-			logoutUser: "auth/logoutUser"
-
+			logoutUser: "auth/logoutUser",
+			getOptionsGM: "comex/getOptionsGM"
 		}),
 		goToStep: function(step) {
             this.currentStep = step;
         },
 		async onSelectOltName(val) {
+			if (val){
+
+			
 			await this.optionsPon({ OltName: val })
+			await this.getOptionsGM({OltName: val})
 			let index = this.optionsOltName.indexOf(val)
 			this.OltId = this.optionsOltId[index]
+			}
 		},
 		async onSelectOltId(val) {
+			if(val){
+
+			
 			let index = this.optionsOltId.indexOf(val)
 			this.OltName = this.optionsOltName[index]
 			await this.optionsPon({ OltName: this.OltName })
+			await this.getOptionsGM({OltId: val})
+			}
 
 		},
 		onidle(){
@@ -327,11 +336,12 @@ export default {
       this.logoutUser();
     },
 		async onSubmit() {
-			await this.addData({Ont_OnuProvidedBy: this.Ont_OnuProvidedBy,instrumentBoxProvidedBy: this.instrumentBoxProvidedBy,instrumentBoxProvided:this.instrumentBoxProvided,typeOfInstrumentBox:this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.addData({GM :this.GM, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy,instrumentBoxProvidedBy: this.instrumentBoxProvidedBy,instrumentBoxProvided:this.instrumentBoxProvided,typeOfInstrumentBox:this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 		},
 		reset() {
+			this.GM = ''
 			this.Name = '',
 				this.Address = '',
 				this.CaNo = '',
@@ -354,7 +364,6 @@ export default {
 				this.typeOfInstrumentBox = ''
 		}
 	},
-	
 	computed: {
 		...mapState({
 			error: (state) => {
@@ -368,6 +377,9 @@ export default {
 			},
 			optionsPonNo: (state) => {
 				return state.comex.PonNoOptions
+			},
+			optionsGM: (state) => {
+				return state.comex.optionsGM
 			}
 
 		}),

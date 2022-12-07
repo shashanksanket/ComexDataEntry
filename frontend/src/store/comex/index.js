@@ -9,6 +9,8 @@ export default {
 	namespaced: true,
 	state: {
 		searchByOlt: true,
+		searchByTelNo: false,
+		searchByGM: false,
 		text: '',
 		showVlan: true,
 		data: '',
@@ -26,7 +28,8 @@ export default {
 		OltNameOptions: [],
 		OltIdOptions: [],
 		PonNoOptions: [],
-		configData: []
+		configData: [],
+		optionsGM: []
 	},
 	getters: {
 
@@ -117,6 +120,7 @@ export default {
 					OltId: payload.OltId,
 					PonNo: payload.PonNo,
 					TelNo: payload.TelNo,
+					GM: payload.GM,
 					$total : true,
 					$sort: {
 						OltId : 1,
@@ -154,8 +158,26 @@ export default {
 				OltId: payload.OltId,
 				ponNo: payload.ponNo,
 				startRange: payload.startRange,
-				endRange: payload.endRange
+				endRange: payload.endRange,
+				AM: payload.AM,
+
 			})
+		},
+		getOptionsGM: async ({commit,state}, payload) => {
+			const res = await feathersClient.service('/api/oltps').find({
+				query:{
+					$total: true,
+					OltName: payload.OltName,
+					OltId: payload.OltId
+				}
+			})
+			state.optionsGM = []
+			for (var i=0;i<res.length; i++){
+				if (!state.optionsGM.includes(res[i].AM)){
+
+					state.optionsGM.push(res[i].AM)
+				}
+			}
 		},
 		editData: async ({commit,state},payload)=>{
 			console.log(payload)
@@ -286,11 +308,21 @@ export default {
 		searchByFunc: async ({commit,state},payload)=>{
 			if (payload=='Search By Olt'){
 				state.searchByOlt = true
+				state.searchByTelNo = false
+				state.searchByGM = true
+
 				state.showVlan = true
 
+			}else if (payload=='Search By TelNo'){
+				state.searchByTelNo = true
+				state.searchByOlt = false
+				state.searchByGM = false
+				state.showVlan = false
 			}else{
 				state.searchByOlt = false
 				state.showVlan = false
+				state.searchByTelNo = false
+				state.searchByGM = true
 			}
 		}
 

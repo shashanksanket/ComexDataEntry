@@ -29,6 +29,10 @@
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="ponNo"></b-form-input>
 							</b-form-group>
+							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="AM"
+								label-for="input-2">
+								<b-form-input id="input-2" v-model="AM"></b-form-input>
+							</b-form-group>
 							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="Start Range"
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="startRange"></b-form-input>
@@ -43,7 +47,7 @@
 							<b-button v-if="($mq === 'largeDevices' || $mq === 'mediumDevices')" type="submit" variant="primary" @click="onSubmit()"
 								style="margin: 20px; width:300px">Submit</b-button>
 							<b-button v-if="($mq === 'smallDevices')" type="submit" variant="primary" @click="onSubmit()"
-								style="margin: auto; width:=100%">Submit</b-button>
+								style="margin: auto; width:100%">Submit</b-button>
 
 
 						</b-form>
@@ -155,6 +159,7 @@ export default {
 			OltName: '',
 			OltId: '',
 			ponNo: '',
+			AM: '',
 			success: false,
 			startRange: 0,
 			endRange: 0,
@@ -162,6 +167,7 @@ export default {
 				{ key: 'OltId' },
 				{ key: 'OltName' },
 				{ key: 'ponNo' },
+				{ key: 'AM' },
 				{ key: 'startRange' },
 				{ key: 'endRange' },
 				{ key: 'Actions' },
@@ -184,7 +190,7 @@ export default {
       this.logoutUser();
     },
 		async onSubmit() {
-			await this.Configure({ OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
+			await this.Configure({AM : this.AM, OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
 			this.reset()
 			this.success = true
 			await this.searchConfigData()
@@ -193,6 +199,7 @@ export default {
 			this.OltName = '',
 			this.OltId = '',
 			this.ponNo = '',
+			this.AM = '',
 			this.startRange = '',
 			this.endRange = ''
 		},
@@ -221,13 +228,7 @@ export default {
 </script>
 <style lang="scss">
 
-.form {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	height: 500px;
-	width: auto;
-}
+
 .configData{
 	margin: 1.5%;
 	

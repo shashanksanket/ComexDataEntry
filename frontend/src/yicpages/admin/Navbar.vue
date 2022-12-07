@@ -26,6 +26,9 @@
             <b-dropdown-item @click="search('Search By TelNo')">
               Search by Tel No
             </b-dropdown-item>
+            <b-dropdown-item @click="search('Search By GM')">
+              Search by GM
+            </b-dropdown-item>
           
           
           </b-nav-item-dropdown>

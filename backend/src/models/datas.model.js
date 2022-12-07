@@ -49,6 +49,10 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: true
     },
+    GM: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     OltId: {
       type: DataTypes.STRING,
       allowNull: true

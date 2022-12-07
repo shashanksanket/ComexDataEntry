@@ -38,7 +38,7 @@
 						</b-button>
 
 					</div>
-					<div v-if="!searchByOlt" class="d-flex align-items-center justify-content-end">
+					<div v-else-if="searchByTelNo" class="d-flex align-items-center justify-content-end">
 						<div>
 
 						</div>
@@ -46,6 +46,17 @@
 							placeholder="Enter Telephone Number" />
 
 						<b-button style="margin-top:10px" variant="primary" @click="searchByTelno()">
+							<span class="text-nowrap">Search</span>
+						</b-button>
+
+					</div>
+					<div v-else-if="searchByGM" class="d-flex align-items-center justify-content-end">
+						<div>
+
+						</div>
+						<b-form-input v-model="searchQueryGM" class="d-inline-block mr-1"
+							placeholder="Enter GM" />
+						<b-button style="margin-top:10px" variant="primary" @click="searchByGMs()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -150,7 +161,19 @@
 						</b-button>
 
 					</div>
-					<div v-if="!searchByOlt" class="d-flex align-items-center justify-content-end">
+					<div v-else-if="searchByGM" class="d-flex align-items-center justify-content-end">
+						<div>
+
+						</div>
+						<b-form-input v-model="searchQueryGM" class="d-inline-block mr-1"
+							placeholder="Enter GM" />
+
+						<b-button style="" variant="primary" @click="searchByGMs()">
+							Search
+						</b-button>
+
+					</div>
+					<div v-else-if="searchByTelNo" class="d-flex align-items-center justify-content-end">
 						<div>
 
 						</div>
@@ -341,7 +364,10 @@
 							<b-form-group style="" id="fieldset-14" label="Pon No" label-for="input-14">
 								<b-form-select style="" id="input13" v-model="Pon"
 									:options="optionsPonNo"></b-form-select>
-
+									<b-form-group style="" id="fieldset-4" label="Select GM"
+									label-for="input-4" >
+									<b-form-select  v-model="GM" :options="optionsGM" id="input-4" ></b-form-select>
+								</b-form-group>
 							</b-form-group>
 							<b-form-group style="" id="fieldset-10" label="VLAN ID" label-for="input-10">
 								<b-form-input id="input-10" v-model="VlanId"></b-form-input>
@@ -368,7 +394,6 @@
 				</b-modal>
 				<b-modal ok-only v-model="Downloadsuccess" title="Entry Downloaded">
 					<p class="my-4">Entry Downloaded Successfully</p>
-
 				</b-modal>
 
 			</div>
@@ -452,8 +477,6 @@ export default {
 
 	},
 	props: {
-
-
 	},
 	data() {
 		return {
@@ -464,6 +487,7 @@ export default {
 			Address: '',
 			CaNo: '',
 			TelNo: '',
+			GM: '',
 			Plan: '',
 			TypeOfPlan: '',
 			DateOfInstallation: '',
@@ -495,6 +519,7 @@ export default {
 			deleteModal: false,
 			// searchBy: '',
 			optionsPons: '',
+			searchQueryGM: '',
 			OltId: '',
 			OltName: '',
 			editModalShow: false,
@@ -522,8 +547,7 @@ export default {
 				{ key: 'instrumentBoxProvidedBy' },
 				{ key: 'instrumentBoxProvided' },
 				{ key: 'typeOfInstrumentBox' },
-
-
+				{ key: 'GM' },
 				{ key: 'Actions' }
 			],
 			leftVlanData: [
@@ -542,7 +566,9 @@ export default {
 			editData: "comex/editData",
 			// editEntry: "comex/editEntry",
 			deleteEntry: "comex/deleteEntry",
-			logoutUser: "auth/logoutUser"
+			logoutUser: "auth/logoutUser",
+			getOptionsGM: "comex/getOptionsGM"
+
 		}),
 		onidle() {
 			alert('You have been logged out due to inactivity of 15 minutes')
@@ -555,24 +581,21 @@ export default {
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
 		},
-		onidle() {
-			alert('You have been logged out due to inactivity of 15 minutes')
-			this.$router.push({ name: "login" });
-			this.logoutUser();
+		async searchByGMs(){
+			await this.searchData({GM: this.searchQueryGM})
 		},
 		async searchByOltId() {
 			if (this.PonNo != 'All') {
 				await this.searchData({ OltId: this.OltId, PonNo: this.PonNo, showVlan: true })
 				// this.displayPON = this.searchQueryPON
 			} else {
-
 				await this.searchData({ OltId: this.OltId, showVlan: false })
 			}
 		},
 		async editRow(id, index) {
 			this.Name = this.searchRes[index].Name,
-				this.Address = this.searchRes[index].Address,
-				this.CaNo = this.searchRes[index].CaNo
+			this.Address = this.searchRes[index].Address,
+			this.CaNo = this.searchRes[index].CaNo
 			this.TelNo = this.searchRes[index].TelNo
 			this.Plan = this.searchRes[index].Plan
 			this.TypeOfPlan = this.searchRes[index].TypeOfPlan
@@ -587,16 +610,17 @@ export default {
 			this.Ont_OnuProvidedBy = this.searchRes[index].Ont_OnuProvidedBy
 			this.instrumentBoxProvidedBy = this.searchRes[index].instrumentBoxProvidedBy
 			this.instrumentBoxProvided = this.searchRes[index].instrumentBoxProvided
+			this.GM = this.searchRes[index].GM
 			this.typeOfInstrumentBox = this.searchRes[index].typeOfInstrumentBox
 			this.contactNumber = this.searchRes[index].contactNumber
 			this.idx = index
 			this.editModalShow = true
 		},
-
 		async onSelectOltName(val) {
 			await this.optionsPon({ OltName: val })
 			let index = this.optionsOltName.indexOf(val)
 			this.OltId = this.optionsOltId[index]
+			await this.getOptionsGM({OltName: val})
 		},
 		async onSelectOltId(val) {
 			this.showVlan = false
@@ -606,15 +630,12 @@ export default {
 			let arr = this.optionsPonNo
 			let arr1 = ['All']
 			this.optionsPons = arr1.concat(arr)
+			await this.getOptionsGM({OltId: val})
 			console.log(this.optionsPons)
 
 		},
-		// async editRow(val) {
-		// 	this.editModal = true
-		// 	await this.editEntry([val.id, { Name: val.Name, Address: val.Address, CaNo: val.CaNo, TelNo: val.TelNo, Plan: val.Plan, TypeOPlan: val.TypeOfPlan, DateOfInstallation: val.DateOfInstallation, TypeOfConnection: val.TypeOfConnection, VoipIpAddress: val.VoipIpAddress, VlanId: val.VlanId, OltId: val.OltId, OltName: val.OltName, PonNo: val.PonNo, Ont_Onu_Sn_Macadress: val.Ont_Onu_Sn_Macadress }])
-		// },
 		async onSubmit() {
-			await this.editData({ id: this.searchRes[this.idx].id, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy, instrumentBoxProvidedBy: this.instrumentBoxProvidedBy, instrumentBoxProvided: this.instrumentBoxProvided, typeOfInstrumentBox: this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.Pon, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.editData({GM: this.GM, id: this.searchRes[this.idx].id, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy, instrumentBoxProvidedBy: this.instrumentBoxProvidedBy, instrumentBoxProvided: this.instrumentBoxProvided, typeOfInstrumentBox: this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.Pon, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 			this.editModalShow = false
@@ -648,6 +669,7 @@ export default {
 				this.contactNumber = '',
 				this.TelNo = '',
 				this.Plan = '',
+				this.GM = '',
 				this.TypeOfPlan = '',
 				this.Month = '',
 				this.DateOfInstallation = '',
@@ -658,7 +680,7 @@ export default {
 				this.OltName = '',
 				this.Pon = '',
 				this.Ont_Onu_Sn_Macadress = ''
-			this.Ont_OnuProvidedBy = '',
+				this.Ont_OnuProvidedBy = '',
 				this.instrumentBoxProvidedBy = '',
 				this.instrumentBoxProvided = false,
 				this.typeOfInstrumentBox = ''
@@ -706,24 +728,32 @@ export default {
 			searchByOlt: (state) => {
 				return state.comex.searchByOlt
 			},
+			searchByTelNo: (state) => {
+				return state.comex.searchByTelNo
+			},
+			searchByGM: (state) => {
+				return state.comex.searchByGM
+			},
 			text: (state) => {
 				return state.comex.text
 			},
 			showVlan: (state) => {
 				return state.comex.showVlan
 			},
-
+			optionsGM: (state) => {
+				return state.comex.optionsGM
+			}
 		}),
 	},
 }
 
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .form {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	height: 500px;
+	// height: 500px;
 	width: auto;
 }
 
