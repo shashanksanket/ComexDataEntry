@@ -133,7 +133,6 @@ export default {
 		BFormInvalidFeedback,
 		BButton,
 		vSelect,
-		OPDashboard,
 		BModal,
 		Navbar,
 		Vidle,
