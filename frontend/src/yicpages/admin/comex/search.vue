@@ -628,12 +628,8 @@ export default {
 
 		},
 		async Download(val) {
-			if (val){
+			// if (val>=0){
 				var csv = Papa.unparse(this.searchRes[val])
-			}
-			else{
-				var csv = Papa.unparse(this.searchRes)
-			}
 			// Papa.download(unparsedResults, 'LatestData')
 			let content = new Blob([csv]);
 			let urlObject = window.URL || window.webkitURL || window;

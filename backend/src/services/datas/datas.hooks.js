@@ -10,7 +10,7 @@ const { FeathersError } = require("@feathersjs/errors");
   }
 
   const limitDelete = async function(context){
-    if (context.params.users.role=='ENDUSER' || context.params.users.role=='OPUSER'){
+    if (context.params.users.role=='ENDUSER'){
       throw new FeathersError(
         "Not A Valid User",
         "Error",

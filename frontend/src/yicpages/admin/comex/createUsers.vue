@@ -38,11 +38,11 @@
 				</b-form-group>
 				<b-form-group v-if="currRole==='ADMIN'" style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Role"
 					label-for="input-4" >
-					<b-form-select :options="['ENDUSER','OPUSER']"  id="input-4" v-model="role"  ></b-form-select>
+					<b-form-select :options="['ENDUSER']"  id="input-4" v-model="role"  ></b-form-select>
 				</b-form-group>
 				<b-form-group v-if="currRole==='SUPERADMIN'" style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Role"
 					label-for="input-4" >
-					<b-form-select :options="['ENDUSER','ADMIN','OPUSER']"  id="input-4" v-model="role"  ></b-form-select>
+					<b-form-select :options="['ENDUSER','ADMIN']"  id="input-4" v-model="role"  ></b-form-select>
 				</b-form-group>
 			
 			

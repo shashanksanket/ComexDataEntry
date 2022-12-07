@@ -2,7 +2,7 @@
 <template>
 	<div>
 		<Navbar />
-		<div v-if="role != 'OPUSER'">
+		<div >
 
 
 			<div style=" height:100%; margin-top: 40px;">
@@ -98,10 +98,7 @@
 
 			<v-idle @idle="onidle" style="display:none" :duration="900" />
 		</div>
-		<div v-else>
-
-			<OPDashboard/>
-		</div>
+		
 	</div>
 </template>
 <script>
@@ -124,7 +121,6 @@ import VuePapaParse from 'vue-papa-parse'
 import Papa from 'papaparse'
 import { positive } from '@/@core/utils/validations/validations'
 import Vidle from 'v-idle'
-import OPDashboard from '../StockInventory/dashboard.vue';
 
 
 export default {

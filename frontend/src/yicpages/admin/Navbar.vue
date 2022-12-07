@@ -7,8 +7,8 @@
     <b-navbar-nav style="margin-top:5px;" href="#"><img height="60rm" src="./logo.png"></b-navbar-nav>
 	  <b-collapse id="nav-collapse" is-nav v-if="$mq === 'largeDevices'">
         <b-navbar-nav v-if="isLoggedIn" id="navMain" style="margin-left: auto; margin-right: auto;">
-          <b-nav-item v-if="role!='OPUSER'" @click="redirect('dashboard')">Dashboard</b-nav-item>
-          <b-nav-item-dropdown  v-if="role!='OPUSER'" text="Entry">
+          <b-nav-item  @click="redirect('dashboard')">Dashboard</b-nav-item>
+          <b-nav-item-dropdown   text="Entry">
             <b-dropdown-item  @click="redirect('addSingle')"> 
               Single Entry
             </b-dropdown-item>
@@ -18,8 +18,8 @@
           
           
           </b-nav-item-dropdown>
-          <b-nav-item v-if="role!='OPUSER'" @click="redirect('downloadLatest')">Download Entries</b-nav-item>
-          <b-nav-item-dropdown  v-if="role!='OPUSER'" text="Search Entries" >
+          <b-nav-item @click="redirect('downloadLatest')">Download Entries</b-nav-item>
+          <b-nav-item-dropdown   text="Search Entries" >
             <b-dropdown-item @click="search('Search By Olt')">
               Search by Olt
             </b-dropdown-item>
@@ -30,23 +30,11 @@
           
           </b-nav-item-dropdown>
 
-          <b-nav-item v-if="role!='OPUSER'" @click="redirect('configure')">Configure</b-nav-item>
-          <b-nav-item v-if="(role!='ENDUSER' & role!='OPUSER') " @click="redirect('createUsers')">Create users</b-nav-item>
-          <b-nav-item v-if="(role=='OPUSER')" @click="redirect('dashboard')">Stock Dashboard</b-nav-item>
-          <b-nav-item v-if="(role=='OPUSER')" @click="redirect('opEntry')">Stock Entry</b-nav-item>
-          <b-nav-item-dropdown v-if="(role=='ADMIN' || role=='SUPERADMIN')" text="adminOp" >
-            <b-dropdown-item @click="redirect('adminOp/list')">
-              OP user list
-            </b-dropdown-item>
-            <b-dropdown-item @click="redirect('adminOp/configure')">
-              OP user configure
-            </b-dropdown-item>
+          <b-nav-item @click="redirect('configure')">Configure</b-nav-item>
+          <b-nav-item v-if="(role!='ENDUSER') " @click="redirect('createUsers')">Create users</b-nav-item>
           
-          
-          </b-nav-item-dropdown>
         </b-navbar-nav>
         <p v-if="isLoggedIn" style="margin:30px"> <b>Hello {{firstName}}!</b></p>
-        <p v-if="(role=='OPUSER' && isLoggedIn)"  style="margin:30px"> <img src="./credit-card.svg" size="16" class="align-middle text-body" />     ₹ {{paymentData[0].totalAmountGiven}} </p>
         <b-navbar-nav v-if="isLoggedIn" id="navMain" style="">
           <b-nav-item>
             <b-button variant="primary" @click="logout">
@@ -153,7 +141,6 @@ Vue.use(VueMq, {
       ...mapActions({
         logoutUser: "auth/logoutUser",
         searchByFunc: "comex/searchByFunc",
-			getPayment: "Opstore/getPayment",
 
 		}),
 		redirect(val){
@@ -179,9 +166,7 @@ Vue.use(VueMq, {
   firstName: (state) =>{
     return state.auth.currUser.firstName
   },
-  paymentData: (state) => {
-				return state.Opstore.paymentData
-			}
+ 
   
 		  }),
 	  },
