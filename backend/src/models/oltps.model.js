@@ -13,7 +13,7 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    AM: {
+    GM: {
       type: DataTypes.STRING,
       allowNull: true
     },

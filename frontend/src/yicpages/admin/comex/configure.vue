@@ -29,9 +29,9 @@
 								label-for="input-2">
 								<b-form-input id="input-2" v-model="ponNo"></b-form-input>
 							</b-form-group>
-							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="AM"
+							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="GM"
 								label-for="input-2">
-								<b-form-input id="input-2" v-model="AM"></b-form-input>
+								<b-form-input id="input-2" v-model="GM"></b-form-input>
 							</b-form-group>
 							<b-form-group style=" margin:10px; display: flex; flex-direction: column;" id="fieldset-2" label="Start Range"
 								label-for="input-2">
@@ -44,9 +44,9 @@
 
 
 
-							<b-button v-if="($mq === 'largeDevices' || $mq === 'mediumDevices')" type="submit" variant="primary" @click="onSubmit()"
+							<b-button v-if="($mq === 'largeDevices' || $mq === 'mediumDevices')" type="submit" variant="primary" @click="check()"
 								style="margin: 20px; width:300px">Submit</b-button>
-							<b-button v-if="($mq === 'smallDevices')" type="submit" variant="primary" @click="onSubmit()"
+							<b-button v-if="($mq === 'smallDevices')" type="submit" variant="primary" @click="check()"
 								style="margin: auto; width:100%">Submit</b-button>
 
 
@@ -55,18 +55,25 @@
 							<p v-if="error">{{ error }}</p>
 							<p v-else>Your Data is uploaded!</p>
 						</b-modal>
+						<b-modal ok-only ok-title="Continue" @ok="onSubmit()" v-model="warn">
+							<p>The OltId {{this.OltId}} and OltName {{this.OltName}} combination exist in the Database</p>
+							<p>Continue to confirm!</p>
+						</b-modal>
+						<b-modal ok-title="Continue" @ok="onSubmit()" v-model="danger">
+							<p>The OltId {{this.OltId}} and OltName {{this.OltName}} combination dosen't exist in the Database</p>
+							<p>Continue to confirm!</p>
+							<p>Cancel to abort!</p>
+
+						</b-modal>
 					</validation-observer>
 				</template>
 				<div class="configData">
-					<b-button @click="searchConfig" variant="primary">
-						Search All Config Data
-					</b-button>
-					<b-pagination
-      v-model="currentPage"
-      :total-rows="configData.length"
-      :per-page="perPage"
-      aria-controls="table"
-    ></b-pagination>
+					<center>
+
+						<b-button @click="searchConfig" style="margin:20px;" variant="primary">
+							Search All Config Data
+						</b-button>					
+					</center>
 					<b-table :current-page="currentPage" id="table" :per-page="perPage" style="width:100%;" ref="data" class="position-relative" :items="configData" responsive
 						:fields="tableColumns" primary-key="id" show-empty empty-text="No matching records found">
 						<template #cell(title)="data">
@@ -89,6 +96,12 @@
 							</b-dropdown>
 						</template>
 					</b-table>
+					<b-pagination
+      v-model="currentPage"
+      :total-rows="configData.length"
+      :per-page="perPage"
+      aria-controls="table"
+    ></b-pagination>
 				</div>
 			</div>
 			<v-idle
@@ -159,7 +172,10 @@ export default {
 			OltName: '',
 			OltId: '',
 			ponNo: '',
-			AM: '',
+			GM: '',
+			warn: false,
+			danger: false,
+			abort: false,
 			success: false,
 			startRange: 0,
 			endRange: 0,
@@ -167,7 +183,7 @@ export default {
 				{ key: 'OltId' },
 				{ key: 'OltName' },
 				{ key: 'ponNo' },
-				{ key: 'AM' },
+				{ key: 'GM' },
 				{ key: 'startRange' },
 				{ key: 'endRange' },
 				{ key: 'Actions' },
@@ -189,17 +205,32 @@ export default {
       this.$router.push({ name: "login" });
       this.logoutUser();
     },
+	async check(){
+		await this.searchConfigData()
+		for (var i=0;i<this.configData.length;i++){
+			if (this.configData[i].OltName==this.OltName && this.configData[i].OltId==this.OltId){
+				this.warn = true
+				break
+			}
+			else if (this.configData[i].OltName!=this.OltName && this.configData[i].OltId!=this.OltId){
+				this.danger = true
+				break
+			}
+		}
+	},
 		async onSubmit() {
-			await this.Configure({AM : this.AM, OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
-			this.reset()
+
+			
+			await this.Configure({GM : this.GM, OltName: this.OltName, OltId: this.OltId, ponNo: this.ponNo, startRange: this.startRange, endRange: this.endRange});
 			this.success = true
 			await this.searchConfigData()
+		this.reset()
 		},
 		reset() {
 			this.OltName = '',
 			this.OltId = '',
 			this.ponNo = '',
-			this.AM = '',
+			this.GM = '',
 			this.startRange = '',
 			this.endRange = ''
 		},
@@ -229,14 +260,8 @@ export default {
 <style lang="scss">
 
 
-.configData{
-	margin: 1.5%;
 	
-}
-.configData button{
-	margin-bottom: 1.5%;
-	
-}
+
 .root5{
 	padding: 20px 16px !important;
 gap: 5px;

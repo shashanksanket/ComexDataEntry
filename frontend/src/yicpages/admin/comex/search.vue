@@ -50,13 +50,13 @@
 						</b-button>
 
 					</div>
-					<div v-else-if="searchByGM" class="d-flex align-items-center justify-content-end">
+					<div v-else-if="searchByAM" class="d-flex align-items-center justify-content-end">
 						<div>
 
 						</div>
-						<b-form-input v-model="searchQueryGM" class="d-inline-block mr-1"
-							placeholder="Enter GM" />
-						<b-button style="margin-top:10px" variant="primary" @click="searchByGMs()">
+						<b-form-input v-model="searchQueryAM" class="d-inline-block mr-1"
+							placeholder="Enter AM" />
+						<b-button style="margin-top:10px" variant="primary" @click="searchByAMs()">
 							<span class="text-nowrap">Search</span>
 						</b-button>
 
@@ -161,14 +161,14 @@
 						</b-button>
 
 					</div>
-					<div v-else-if="searchByGM" class="d-flex align-items-center justify-content-end">
+					<div v-else-if="searchByAM" class="d-flex align-items-center justify-content-end">
 						<div>
 
 						</div>
-						<b-form-input v-model="searchQueryGM" class="d-inline-block mr-1"
-							placeholder="Enter GM" />
+						<b-form-input v-model="searchQueryAM" class="d-inline-block mr-1"
+							placeholder="Enter AM" />
 
-						<b-button style="" variant="primary" @click="searchByGMs()">
+						<b-button style="" variant="primary" @click="searchByAMs()">
 							Search
 						</b-button>
 
@@ -363,10 +363,14 @@
 							</b-form-group>
 							<b-form-group style="" id="fieldset-14" label="Pon No" label-for="input-14">
 								<b-form-select style="" id="input13" v-model="Pon"
-									:options="optionsPonNo"></b-form-select>
+									:options="optionsPonNo.slice(1,optionsPonNo.length)"></b-form-select>
 									<b-form-group style="" id="fieldset-4" label="Select GM"
 									label-for="input-4" >
 									<b-form-select  v-model="GM" :options="optionsGM" id="input-4" ></b-form-select>
+								</b-form-group>
+								<b-form-group style="" id="fieldset-4" label="Enter AM"
+									label-for="input-4" >
+									<b-form-input  v-model="AM" id="input-4" ></b-form-input>
 								</b-form-group>
 							</b-form-group>
 							<b-form-group style="" id="fieldset-10" label="VLAN ID" label-for="input-10">
@@ -487,6 +491,7 @@ export default {
 			Address: '',
 			CaNo: '',
 			TelNo: '',
+			AM: '',
 			GM: '',
 			Plan: '',
 			TypeOfPlan: '',
@@ -519,7 +524,7 @@ export default {
 			deleteModal: false,
 			// searchBy: '',
 			optionsPons: '',
-			searchQueryGM: '',
+			searchQueryAM: '',
 			OltId: '',
 			OltName: '',
 			editModalShow: false,
@@ -547,6 +552,7 @@ export default {
 				{ key: 'instrumentBoxProvidedBy' },
 				{ key: 'instrumentBoxProvided' },
 				{ key: 'typeOfInstrumentBox' },
+				{ key: 'AM' },
 				{ key: 'GM' },
 				{ key: 'Actions' }
 			],
@@ -567,7 +573,7 @@ export default {
 			// editEntry: "comex/editEntry",
 			deleteEntry: "comex/deleteEntry",
 			logoutUser: "auth/logoutUser",
-			getOptionsGM: "comex/getOptionsGM"
+			getOptionsAM: "comex/getOptionsAM"
 
 		}),
 		onidle() {
@@ -581,8 +587,8 @@ export default {
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
 		},
-		async searchByGMs(){
-			await this.searchData({GM: this.searchQueryGM})
+		async searchByAMs(){
+			await this.searchData({AM: this.searchQueryAM})
 		},
 		async searchByOltId() {
 			if (this.PonNo != 'All') {
@@ -593,6 +599,7 @@ export default {
 			}
 		},
 		async editRow(id, index) {
+			this.GM = this.searchRes[index].GM
 			this.Name = this.searchRes[index].Name,
 			this.Address = this.searchRes[index].Address,
 			this.CaNo = this.searchRes[index].CaNo
@@ -610,7 +617,7 @@ export default {
 			this.Ont_OnuProvidedBy = this.searchRes[index].Ont_OnuProvidedBy
 			this.instrumentBoxProvidedBy = this.searchRes[index].instrumentBoxProvidedBy
 			this.instrumentBoxProvided = this.searchRes[index].instrumentBoxProvided
-			this.GM = this.searchRes[index].GM
+			this.AM = this.searchRes[index].AM
 			this.typeOfInstrumentBox = this.searchRes[index].typeOfInstrumentBox
 			this.contactNumber = this.searchRes[index].contactNumber
 			this.idx = index
@@ -620,7 +627,7 @@ export default {
 			await this.optionsPon({ OltName: val })
 			let index = this.optionsOltName.indexOf(val)
 			this.OltId = this.optionsOltId[index]
-			await this.getOptionsGM({OltName: val})
+			await this.getOptionsAM({OltName: val})
 		},
 		async onSelectOltId(val) {
 			this.showVlan = false
@@ -634,7 +641,7 @@ export default {
 
 		},
 		async onSubmit() {
-			await this.editData({GM: this.GM, id: this.searchRes[this.idx].id, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy, instrumentBoxProvidedBy: this.instrumentBoxProvidedBy, instrumentBoxProvided: this.instrumentBoxProvided, typeOfInstrumentBox: this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.Pon, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.editData({GM: this.GM,AM: this.AM, id: this.searchRes[this.idx].id, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy, instrumentBoxProvidedBy: this.instrumentBoxProvidedBy, instrumentBoxProvided: this.instrumentBoxProvided, typeOfInstrumentBox: this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.Pon, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 			this.editModalShow = false
@@ -648,8 +655,14 @@ export default {
 
 		},
 		async Download(val) {
-			// if (val>=0){
-				var csv = Papa.unparse(this.searchRes[val])
+			let csv = []
+			if (val>=0){
+				csv = Papa.unparse([this.searchRes[val]])
+			}
+			else{
+				csv = Papa.unparse(this.searchRes)
+
+			}
 			// Papa.download(unparsedResults, 'LatestData')
 			let content = new Blob([csv]);
 			let urlObject = window.URL || window.webkitURL || window;
@@ -668,7 +681,7 @@ export default {
 				this.contactNumber = '',
 				this.TelNo = '',
 				this.Plan = '',
-				this.GM = '',
+				this.AM = '',
 				this.TypeOfPlan = '',
 				this.Month = '',
 				this.DateOfInstallation = '',
@@ -682,7 +695,8 @@ export default {
 				this.Ont_OnuProvidedBy = '',
 				this.instrumentBoxProvidedBy = '',
 				this.instrumentBoxProvided = false,
-				this.typeOfInstrumentBox = ''
+				this.typeOfInstrumentBox = '',
+				this.GM = ''
 		},
 		async deleteRow(val) {
 			await this.deleteEntry({ id: val, role: this.role })
@@ -730,8 +744,8 @@ export default {
 			searchByTelNo: (state) => {
 				return state.comex.searchByTelNo
 			},
-			searchByGM: (state) => {
-				return state.comex.searchByGM
+			searchByAM: (state) => {
+				return state.comex.searchByAM
 			},
 			text: (state) => {
 				return state.comex.text
@@ -740,7 +754,7 @@ export default {
 				return state.comex.showVlan
 			},
 			optionsGM: (state) => {
-				return state.comex.optionsGM
+				return state.comex.optionsAM
 			}
 		}),
 	},

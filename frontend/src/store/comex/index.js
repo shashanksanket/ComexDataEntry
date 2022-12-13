@@ -10,7 +10,7 @@ export default {
 	state: {
 		searchByOlt: true,
 		searchByTelNo: false,
-		searchByGM: false,
+		searchByAM: false,
 		text: '',
 		showVlan: true,
 		data: '',
@@ -79,6 +79,8 @@ export default {
 				instrumentBoxProvidedBy: payload.instrumentBoxProvidedBy,
 				instrumentBoxProvided: payload.instrumentBoxProvided,
 				typeOfInstrumentBox: payload.typeOfInstrumentBox,
+				AM: payload.AM,
+				GM: payload.GM
 			}, {})
 
 		}catch(e){
@@ -120,7 +122,7 @@ export default {
 					OltId: payload.OltId,
 					PonNo: payload.PonNo,
 					TelNo: payload.TelNo,
-					GM: payload.GM,
+					AM: payload.AM,
 					$total : true,
 					$sort: {
 						OltId : 1,
@@ -159,7 +161,7 @@ export default {
 				ponNo: payload.ponNo,
 				startRange: payload.startRange,
 				endRange: payload.endRange,
-				AM: payload.AM,
+				GM: payload.GM,
 
 			})
 		},
@@ -171,11 +173,11 @@ export default {
 					OltId: payload.OltId
 				}
 			})
-			state.optionsGM = []
+			state.optionsAM = []
 			for (var i=0;i<res.length; i++){
-				if (!state.optionsGM.includes(res[i].AM)){
+				if (!state.optionsGM.includes(res[i].GM)){
 
-					state.optionsGM.push(res[i].AM)
+					state.optionsGM.push(res[i].GM)
 				}
 			}
 		},
@@ -259,7 +261,11 @@ export default {
 		getConfigData: async ({commit,state},payload)=>{
 			const res = await feathersClient.service('/api/oltps').find({
 				query:{
-					$total : true
+					$total : true,
+					$sort:{
+						OltId: 1,
+						ponNo: 1
+					}
 				}
 			})
 			state.configData = res
@@ -305,20 +311,20 @@ export default {
 			if (payload=='Search By Olt'){
 				state.searchByOlt = true
 				state.searchByTelNo = false
-				state.searchByGM = true
+				state.searchByAM = true
 
 				state.showVlan = true
 
 			}else if (payload=='Search By TelNo'){
 				state.searchByTelNo = true
 				state.searchByOlt = false
-				state.searchByGM = false
+				state.searchByAM = false
 				state.showVlan = false
 			}else{
 				state.searchByOlt = false
 				state.showVlan = false
 				state.searchByTelNo = false
-				state.searchByGM = true
+				state.searchByAM = true
 			}
 		}
 

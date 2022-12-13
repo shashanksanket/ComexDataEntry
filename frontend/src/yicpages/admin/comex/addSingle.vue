@@ -145,12 +145,16 @@
 				</b-form-group>
 				<b-form-group style="" id="fieldset-14" label="Pon No"
 					label-for="input-14" >
-					<b-form-select style="" id="input-13" v-model="PonNo" :options="optionsPonNo"></b-form-select>
+					<b-form-select style="" id="input-13" v-model="PonNo" :options="optionsPonNo.slice(1,optionsPonNo.length)"></b-form-select>
 	
 				</b-form-group>
 				<b-form-group style="" id="fieldset-4" label="Select GM"
 					label-for="input-4" >
 					<b-form-select :options="optionsGM" id="input-4" v-model="GM" ></b-form-select>
+				</b-form-group>
+				<b-form-group style="" id="fieldset-4" label="Select AM"
+					label-for="input-4" >
+					<b-form-input id="input-4" v-model="AM" ></b-form-input>
 				</b-form-group>
 				<b-form-group style="" id="fieldset-10" label="VLAN ID"
 					label-for="input-10" >
@@ -289,6 +293,7 @@ export default {
 			contactNumber: '',
 			currentStep: 1,
 			GM: '',
+			AM: '',
         
 		}
 	},
@@ -336,12 +341,13 @@ export default {
       this.logoutUser();
     },
 		async onSubmit() {
-			await this.addData({GM :this.GM, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy,instrumentBoxProvidedBy: this.instrumentBoxProvidedBy,instrumentBoxProvided:this.instrumentBoxProvided,typeOfInstrumentBox:this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
+			await this.addData({AM: this.AM, GM :this.GM, Ont_OnuProvidedBy: this.Ont_OnuProvidedBy,instrumentBoxProvidedBy: this.instrumentBoxProvidedBy,instrumentBoxProvided:this.instrumentBoxProvided,typeOfInstrumentBox:this.typeOfInstrumentBox, contactNumber: this.contactNumber, Name: this.Name, Address: this.Address, CaNo: this.CaNo, TelNo: this.TelNo, Plan: this.Plan, TypeOfPlan: this.TypeOfPlan, DateOfInstallation: this.DateOfInstallation, TypeOfConnection: this.TypeOfConnection, VoipIpAddress: this.VoipIpAddress, VlanId: this.VlanId, OltId: this.OltId, OltName: this.OltName, PonNo: this.PonNo, Ont_Onu_Sn_Macadress: this.Ont_Onu_Sn_Macadress });
 			this.reset()
 			this.success = true
 		},
 		reset() {
 			this.GM = ''
+			this.AM= '',
 			this.Name = '',
 				this.Address = '',
 				this.CaNo = '',
