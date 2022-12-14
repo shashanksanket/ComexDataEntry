@@ -19,14 +19,15 @@ var info = {
     "comment": ""
 };
 
-var migrationCommands = [{
-        fn: "removeColumn",
-        params: ["datas", "GM"]
-    },
-    {
-        fn: "removeColumn",
-        params: ["oltps", "AM"]
-    },
+var migrationCommands = [
+    // {
+    //     fn: "removeColumn",
+    //     params: ["datas", "GM"]
+    // },
+    // {
+    //     fn: "removeColumn",
+    //     params: ["oltps", "AM"]
+    // },
     {
         fn: "addColumn",
         params: [
