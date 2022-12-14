@@ -28,18 +28,18 @@ var migrationCommands = [
     //     fn: "removeColumn",
     //     params: ["oltps", "AM"]
     // },
-    {
-        fn: "addColumn",
-        params: [
-            "datas",
-            "AM",
-            {
-                "type": Sequelize.STRING,
-                "field": "AM",
-                "allowNull": true
-            }
-        ]
-    },
+    // {
+    //     fn: "addColumn",
+    //     params: [
+    //         "datas",
+    //         "AM",
+    //         {
+    //             "type": Sequelize.STRING,
+    //             "field": "AM",
+    //             "allowNull": true
+    //         }
+    //     ]
+    // },
     {
         fn: "addColumn",
         params: [
