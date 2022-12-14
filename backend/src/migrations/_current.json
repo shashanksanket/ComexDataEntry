@@ -181,6 +181,11 @@
                     "field": "endRange",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "AM": {
+                    "allowNull": true,
+                    "field": "AM",
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "field": "createdAt",
@@ -249,5 +254,5 @@
             "indexes": []
         }
     },
-    "revision": 14
+    "revision": 15
 }

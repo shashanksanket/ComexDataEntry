@@ -118,6 +118,11 @@
                     "field": "instrumentBoxProvided",
                     "seqType": "Sequelize.STRING"
                 },
+                "GM": {
+                    "allowNull": true,
+                    "field": "GM",
+                    "seqType": "Sequelize.STRING"
+                },
                 "typeOfInstrumentBox": {
                     "allowNull": true,
                     "field": "typeOfInstrumentBox",
@@ -244,5 +249,5 @@
             "indexes": []
         }
     },
-    "revision": 13
+    "revision": 14
 }

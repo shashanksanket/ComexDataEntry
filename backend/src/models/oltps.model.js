@@ -32,6 +32,10 @@ module.exports = function (app) {
     endRange: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    AM: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     hooks: {
