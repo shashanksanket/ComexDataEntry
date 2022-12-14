@@ -60,9 +60,9 @@
                     "field": "VlanId",
                     "seqType": "Sequelize.STRING"
                 },
-                "GM": {
+                "AM": {
                     "allowNull": true,
-                    "field": "GM",
+                    "field": "AM",
                     "seqType": "Sequelize.STRING"
                 },
                 "OltId": {
@@ -151,9 +151,9 @@
                     "field": "OltName",
                     "seqType": "Sequelize.STRING"
                 },
-                "AM": {
+                "GM": {
                     "allowNull": true,
-                    "field": "AM",
+                    "field": "GM",
                     "seqType": "Sequelize.STRING"
                 },
                 "OltId": {
@@ -244,5 +244,5 @@
             "indexes": []
         }
     },
-    "revision": 12
+    "revision": 13
 }

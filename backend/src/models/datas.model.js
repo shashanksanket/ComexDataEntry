@@ -94,6 +94,10 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: true
     },
+    GM:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     typeOfInstrumentBox:{
       type: DataTypes.STRING,
       allowNull: true
