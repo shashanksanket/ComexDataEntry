@@ -40,18 +40,18 @@ var migrationCommands = [
     //         }
     //     ]
     // },
-    {
-        fn: "addColumn",
-        params: [
-            "oltps",
-            "GM",
-            {
-                "type": Sequelize.STRING,
-                "field": "GM",
-                "allowNull": true
-            }
-        ]
-    }
+    // {
+    //     fn: "addColumn",
+    //     params: [
+    //         "oltps",
+    //         "GM",
+    //         {
+    //             "type": Sequelize.STRING,
+    //             "field": "GM",
+    //             "allowNull": true
+    //         }
+    //     ]
+    // }
 ];
 
 module.exports = {
