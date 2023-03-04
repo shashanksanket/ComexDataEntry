@@ -61,6 +61,17 @@
 						</b-button>
 
 					</div>
+					<div v-else-if="searchByIP" class="d-flex align-items-center justify-content-end">
+						<div>
+
+						</div>
+						<b-form-input v-model="searchQueryIP" class="d-inline-block mr-1"
+							placeholder="Enter IP Address" />
+						<b-button style="margin-top:10px" variant="primary" @click="searchByIPs()">
+							<span class="text-nowrap">Search</span>
+						</b-button>
+
+					</div>
 					<br /><br />
 					<h3>Search Results</h3>
 
@@ -525,6 +536,7 @@ export default {
 			// searchBy: '',
 			optionsPons: '',
 			searchQueryAM: '',
+			searchQueryIP: '',
 			OltId: '',
 			OltName: '',
 			editModalShow: false,
@@ -587,6 +599,9 @@ export default {
 		async searchByTelno() {
 			await this.searchData({ TelNo: this.searchQueryTelNo })
 		},
+		async searchByIPs() {
+			await this.searchData({ VoipIpAddress: this.searchQueryIP })
+		},
 		async searchByAMs(){
 			await this.searchData({AM: this.searchQueryAM})
 		},
@@ -634,9 +649,6 @@ export default {
 			let index = this.optionsOltId.indexOf(val)
 			this.OltName = this.optionsOltName[index]
 			await this.optionsPon({ OltName: this.OltName })
-			// let arr = this.optionsPonNo
-			// let arr1 = ['All']
-			// this.optionsPons = arr1.concat(arr)
 			await this.getOptionsGM({OltId: val})
 
 		},
@@ -663,7 +675,6 @@ export default {
 				csv = Papa.unparse(this.searchRes)
 
 			}
-			// Papa.download(unparsedResults, 'LatestData')
 			let content = new Blob([csv]);
 			let urlObject = window.URL || window.webkitURL || window;
 			let url = urlObject.createObjectURL(content);
@@ -746,6 +757,9 @@ export default {
 			},
 			searchByAM: (state) => {
 				return state.comex.searchByAM
+			},
+			searchByIP: (state) => {
+				return state.comex.searchByIP
 			},
 			text: (state) => {
 				return state.comex.text

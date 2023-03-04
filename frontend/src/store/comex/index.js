@@ -13,6 +13,7 @@ export default {
 		searchByAM: false,
 		text: '',
 		showVlan: true,
+		searchByIP: false,
 		data: '',
 		Totaldata: 0,
 		TotalOlts: 0,
@@ -122,6 +123,7 @@ export default {
 					OltId: payload.OltId,
 					PonNo: payload.PonNo,
 					TelNo: payload.TelNo,
+					VoipIpAddress: payload.VoipIpAddress,
 					AM: payload.AM,
 					$total : true,
 					$sort: {
@@ -320,7 +322,15 @@ export default {
 				state.searchByOlt = false
 				state.searchByAM = false
 				state.showVlan = false
-			}else{
+			}
+			else if (payload=='Search By IP'){
+				state.searchByIP = true
+				state.searchByTelNo = false
+				state.searchByOlt = false
+				state.searchByAM = false
+				state.showVlan = false
+			}
+			else{
 				state.searchByOlt = false
 				state.showVlan = false
 				state.searchByTelNo = false

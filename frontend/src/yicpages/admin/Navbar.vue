@@ -29,6 +29,9 @@
             <b-dropdown-item @click="search('Search By GM')">
               Search by GM
             </b-dropdown-item>
+            <b-dropdown-item @click="search('Search By IP')">
+              Search by IP
+            </b-dropdown-item>
           
           
           </b-nav-item-dropdown>
