@@ -77,7 +77,7 @@
 	</b-form-group>
 				<b-form-group style="" id="fieldset-8" label="Type Of Connection"
 					label-for="input-8" >
-					<b-form-input id="input-8" v-model="TypeOfConnection"  ></b-form-input>
+					<b-form-select id="input-8" :options="['New','Migration','Porting']" v-model="TypeOfConnection"  ></b-form-select>
 				</b-form-group>
 				<div class="d-flex justify-content-between flex-wrap" style="">
 
@@ -101,11 +101,11 @@
 					label-for="input-4" >
 					<b-form-select :options="['Yes','No']" id="input-4" v-model="instrumentBoxProvided" ></b-form-select>
 				</b-form-group>
-				<b-form-group style="" id="fieldset-4" label="Type of Instrument Box"
+				<b-form-group v-if="instrumentBoxProvided=='Yes'" style="" id="fieldset-4" label="Type of Instrument Box"
 					label-for="input-4" >
 					<b-form-select :options="['Non-Caller Id','Caller Id']" id="input-4" v-model="typeOfInstrumentBox"  ></b-form-select>
 				</b-form-group>
-				<b-form-group style="" id="fieldset-4" label="Instrument Box provided by"
+				<b-form-group v-if="instrumentBoxProvided=='Yes'" style="" id="fieldset-4" label="Instrument Box provided by"
 					label-for="input-4" >
 					<b-form-select :options="['MTNL','Comex','Customer']" id="input-4" v-model="instrumentBoxProvidedBy"  ></b-form-select>
 				</b-form-group>
