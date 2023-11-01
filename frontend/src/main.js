@@ -41,11 +41,8 @@ require('@core/assets/fonts/feather/iconfont.css') // For form-wizard
 require('@core/scss/core.scss')
 
 // import assets styles
-require('@/assets/scss/style.scss')
+// require('@/assets/scss/style.scss')
 
-import vueCountryRegionSelect from 'vue-country-region-select'
-
-Vue.use(vueCountryRegionSelect);
 
 Vue.config.productionTip = false
 
