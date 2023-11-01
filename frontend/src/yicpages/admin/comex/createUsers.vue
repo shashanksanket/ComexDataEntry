@@ -11,80 +11,93 @@
 						<h2 class="mainTitle ">
 							Create New User
 						</h2>
-			</div>
-			<validation-observer ref="registerForm">
-				<b-form class="form" @submit.prevent>
-				<br/>
-				
-				<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Firstname"
-					label-for="input-4" >
-					<b-form-input id="input-4" v-model="firstName"  ></b-form-input>
-				</b-form-group>
-				<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Lastname"
-					label-for="input-4" >
-					<b-form-input id="input-4" v-model="lastName"  ></b-form-input>
-				</b-form-group>
-				<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Email"
-					label-for="input-4" >
-					<b-form-input id="input-4" v-model="email"  ></b-form-input>
-				</b-form-group>
-				<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Contact Number"
-					label-for="input-4" >
-					<b-form-input id="input-4" v-model="phoneNumber"  ></b-form-input>
-				</b-form-group>
-				<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Password"
-					label-for="input-4" >
-					<b-form-input type="password" id="input-4" v-model="password"></b-form-input>
-				</b-form-group>
-				<b-form-group v-if="currRole==='ADMIN'" style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Role"
-					label-for="input-4" >
-					<b-form-select :options="['ENDUSER']"  id="input-4" v-model="role"  ></b-form-select>
-				</b-form-group>
-				<b-form-group v-if="currRole==='SUPERADMIN'" style=" display: flex; flex-direction: column;" id="fieldset-4" label="Enter Role"
-					label-for="input-4" >
-					<b-form-select :options="['ENDUSER','ADMIN']"  id="input-4" v-model="role"  ></b-form-select>
-				</b-form-group>
-			
-			
-			
-				<b-button type="submit" variant="primary" @click="onSubmit()" style=" width:150px">Submit</b-button>
-			
-			<div>
+					</div>
+					<validation-observer ref="registerForm">
+						<b-form class="form" @submit.prevent>
+							<br />
+
+							<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4"
+								label="Enter Firstname" label-for="input-4">
+								<b-form-input id="input-4" v-model="firstName"></b-form-input>
+							</b-form-group>
+							<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4"
+								label="Enter Lastname" label-for="input-4">
+								<b-form-input id="input-4" v-model="lastName"></b-form-input>
+							</b-form-group>
+							<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4"
+								label="Enter Email" label-for="input-4">
+								<b-form-input id="input-4" v-model="email"></b-form-input>
+							</b-form-group>
+							<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4"
+								label="Enter Contact Number" label-for="input-4">
+								<b-form-input id="input-4" v-model="phoneNumber"></b-form-input>
+							</b-form-group>
+							<b-form-group style=" display: flex; flex-direction: column;" id="fieldset-4"
+								label="Enter Password" label-for="input-4">
+								<b-form-input type="password" id="input-4" v-model="password"></b-form-input>
+							</b-form-group>
+							<b-form-group v-if="currRole === 'ADMIN'" style=" display: flex; flex-direction: column;"
+								id="fieldset-4" label="Enter Role" label-for="input-4">
+								<b-form-select :options="['ENDUSER']" id="input-4" v-model="role"></b-form-select>
+							</b-form-group>
+							<b-form-group v-if="currRole === 'SUPERADMIN'" style=" display: flex; flex-direction: column;"
+								id="fieldset-4" label="Enter Role" label-for="input-4">
+								<b-form-select :options="['ENDUSER', 'ADMIN']" id="input-4" v-model="role"></b-form-select>
+							</b-form-group>
+
+
+
+							<b-button type="submit" variant="primary" @click="onSubmit()"
+								style=" width:150px">Submit</b-button>
+
+							<div>
 
 							</div>
 
 						</b-form>
-						<br/><br/>
+						<br /><br />
 						<div>
 							<b-table style="width:100%;" ref="data" class="position-relative" :items="totalUsers" responsive
-						:fields="tableColumns" primary-key="id" show-empty empty-text="No users found">
-						<template #cell(title)="data">
+								:fields="tableColumns" primary-key="id" show-empty empty-text="No users found">
+								<template #cell(title)="data">
 
-						</template>
-						
-					</b-table>
+								</template>
+								<template #cell(Actions)="data">
+
+									<b-dropdown variant="link" no-caret :right="$store.state.appConfig.isRTL">
+
+										<template #button-content>
+											<img src="./more-vertical.svg" size="16" class="align-middle text-body" />
+										</template>
+										<b-dropdown-item v-if="role != 'ENDUSER'" @click="deleteUser(data.item.id)">
+											<img src="./trash.svg" size="16" class="align-middle text-body" />
+
+											<span class="align-middle ml-50">Delete</span>
+										</b-dropdown-item>
+									</b-dropdown>
+								</template>
+
+							</b-table>
 						</div>
 						<b-modal ok-only v-model="success">
 							<p v-if="error">{{ error }}</p>
 							<p v-else>Your user is Created!</p>
 						</b-modal>
 					</validation-observer>
-					
+
 				</template>
-				
-			<v-idle
-  @idle="onidle" style="display:none" 
-  :duration="900" />
-			<br />
+
+				<v-idle @idle="onidle" style="display:none" :duration="900" />
+				<br />
+			</div>
 		</div>
-	</div>
 	</div>
 </template>
 <script>
 
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import {
-	BSidebar, BModal, BForm, BFormFile, BTable, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect, BFormDatepicker
+		BDropdown, BSidebar, BDropdownItem, BModal, BForm, BFormFile, BTable, BFormGroup, BFormInput, BFormInvalidFeedback, BButton, BFormSelect, BFormDatepicker
 } from 'bootstrap-vue'
 import { ref } from '@vue/composition-api'
 import Ripple from 'vue-ripple-directive'
@@ -99,11 +112,11 @@ import Vue from 'vue'
 import Vidle from 'v-idle'
 import VueMq from 'vue-mq'
 Vue.use(VueMq, {
-  breakpoints: {
-    smallDevices: 600,
-    mediumDevices: 1200,
-    largeDevices: Infinity,
-  }
+	breakpoints: {
+		smallDevices: 600,
+		mediumDevices: 1200,
+		largeDevices: Infinity,
+	}
 })
 
 export default {
@@ -118,7 +131,9 @@ export default {
 		BFormInput,
 		BFormInvalidFeedback,
 		BButton,
+		BDropdownItem,
 		vSelect,
+		BDropdown,
 		BModal,
 		Navbar,
 		BFormDatepicker,
@@ -144,11 +159,12 @@ export default {
 			password: '',
 			role: '',
 			tableColumns: [
-				{'key':'firstName'},
-				{'key':'lastName'},
-				{'key':'role'},
-				{'key':'email'},
-				{'key':'phoneNumber'},
+				{ 'key': 'firstName' },
+				{ 'key': 'lastName' },
+				{ 'key': 'role' },
+				{ 'key': 'email' },
+				{ 'key': 'phoneNumber' },
+				{ 'key': 'Actions' }
 
 
 			]
@@ -161,29 +177,34 @@ export default {
 		...mapActions({
 			addUser: "comex/addUser",
 			logoutUser: "auth/logoutUser",
-			getUsers: "auth/getUsers"
+			getUsers: "auth/getUsers",
+			deleteUsers: "auth/deleteUsers"
 
 		}),
-		
-		onidle(){
-      alert('You have been logged out due to inactivity of 15 minutes')
-      this.$router.push({ name: "login" });
-      this.logoutUser();
-    },
+
+		onidle() {
+			alert('You have been logged out due to inactivity of 15 minutes')
+			this.$router.push({ name: "login" });
+			this.logoutUser();
+		},
 		async onSubmit() {
-			await this.addUser({currRole: this.currRole, firstName: this.firstName, lastName: this.lastName, email: this.email, phoneNumber: this.phoneNumber, password: this.password, role: this.role})
+			await this.addUser({ currRole: this.currRole, firstName: this.firstName, lastName: this.lastName, email: this.email, phoneNumber: this.phoneNumber, password: this.password, role: this.role })
 			this.success = true
 			this.reset()
-		await this.getUsers()
+			await this.getUsers()
 
 		},
+		async deleteUser(id){
+			await this.deleteUsers({id:id})
+			await this.getUsers()
+		},
 		reset() {
-			this.firstName= '',
-			this.lastName= '',
-			this.email= '',
-			this.phoneNumber= '',
-			this.password= '',
-			this.role= ''
+			this.firstName = '',
+				this.lastName = '',
+				this.email = '',
+				this.phoneNumber = '',
+				this.password = '',
+				this.role = ''
 		}
 	},
 	computed: {
@@ -197,7 +218,7 @@ export default {
 			totalUsers: (state) => {
 				return state.auth.totalUsers
 			}
-			
+
 
 		}),
 	},
@@ -277,14 +298,17 @@ export default {
 		width: 80%;
 		margin: auto;
 	}
-.mainTitle {
-	width: 100%;
-	margin: auto !important;
-}
-.mainTitle h2{
-	width: 100% !important;
-	margin: auto;
-}
+
+	.mainTitle {
+		width: 100%;
+		margin: auto !important;
+	}
+
+	.mainTitle h2 {
+		width: 100% !important;
+		margin: auto;
+	}
+
 	.formgroup {
 		display: flex;
 		flex-direction: column;

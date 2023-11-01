@@ -73,17 +73,6 @@ export default {
 
 
 		},
-		getUsers:async ({commit,state}) =>{
-			state.totalUsers = ''
-
-			const res = await feathersClient.service('/api/users').find({
-				query:{
-					$total: true
-				}
-			})
-			state.totalUsers = res
-			console.log(state.totalUsers)
-		},
 		loginUserWithJwt: async ({ commit, state }) => {
 			const token = localStorage.getItem('feathers-jwt')
 			if (token) {
@@ -91,12 +80,12 @@ export default {
 					const result = await feathersClient.authenticate({
 						strategy: 'jwt',
 						accessToken: token,
-
+						
 					});
 					commit('SET_ISAUTHENTICATED', true)
 					commit('SET_CURRUSER', result.users)
-
-
+					
+					
 				}
 				catch (e) {
 					console.log("Authentication error", e)
@@ -108,6 +97,20 @@ export default {
 			feathersClient.logout()
 			commit('RESET_CURR_USER')
 		},
+		getUsers:async ({commit,state}) =>{
+			state.totalUsers = ''
+
+			const res = await feathersClient.service('/api/users').find({
+				query:{
+					$total: true
+				}
+			})
+			state.totalUsers = res
+		},
+		deleteUsers: async ({commit,state},payload) =>{
+			const res = await feathersClient.service('/api/users').remove(payload.id,{})
+			console.log(res)
+		}
 		
 	},
 }
