@@ -8,8 +8,7 @@ const hostprefix = window.location.hostname.split('.')[0];
 let apiUrl = ''
 
 if (hostprefix!='localhost'){
-  apiUrl = 'http://15.207.114.232'
-
+  apiUrl = 'http://3.110.223.60'
 }else{
   apiUrl = 'http://localhost:3030'
   }
