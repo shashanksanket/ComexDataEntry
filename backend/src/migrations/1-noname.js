@@ -14,7 +14,7 @@ var Sequelize = require('sequelize');
 var info = {
     "revision": 1,
     "name": "noname",
-    "created": "2022-11-25T20:02:57.356Z",
+    "created": "2023-11-24T18:49:36.491Z",
     "comment": ""
 };
 
@@ -80,6 +80,11 @@ var migrationCommands = [{
                     "field": "VlanId",
                     "allowNull": true
                 },
+                "AM": {
+                    "type": Sequelize.STRING,
+                    "field": "AM",
+                    "allowNull": true
+                },
                 "OltId": {
                     "type": Sequelize.STRING,
                     "field": "OltId",
@@ -98,6 +103,47 @@ var migrationCommands = [{
                 "Ont_Onu_Sn_Macadress": {
                     "type": Sequelize.STRING,
                     "field": "Ont_Onu_Sn_Macadress",
+                    "allowNull": true
+                },
+                "contactNumber": {
+                    "type": Sequelize.STRING,
+                    "field": "contactNumber",
+                    "allowNull": true
+                },
+                "dateOfUninstallation": {
+                    "type": Sequelize.STRING,
+                    "field": "dateOfUninstallation",
+                    "allowNull": true
+                },
+                "Active": {
+                    "type": Sequelize.BOOLEAN,
+                    "field": "Active",
+                    "allowNull": true,
+                    "defaultValue": true
+                },
+                "Ont_OnuProvidedBy": {
+                    "type": Sequelize.STRING,
+                    "field": "Ont_OnuProvidedBy",
+                    "allowNull": true
+                },
+                "instrumentBoxProvidedBy": {
+                    "type": Sequelize.STRING,
+                    "field": "instrumentBoxProvidedBy",
+                    "allowNull": true
+                },
+                "instrumentBoxProvided": {
+                    "type": Sequelize.STRING,
+                    "field": "instrumentBoxProvided",
+                    "allowNull": true
+                },
+                "GM": {
+                    "type": Sequelize.STRING,
+                    "field": "GM",
+                    "allowNull": true
+                },
+                "typeOfInstrumentBox": {
+                    "type": Sequelize.STRING,
+                    "field": "typeOfInstrumentBox",
                     "allowNull": true
                 },
                 "createdAt": {
@@ -131,6 +177,11 @@ var migrationCommands = [{
                     "field": "OltName",
                     "allowNull": true
                 },
+                "GM": {
+                    "type": Sequelize.STRING,
+                    "field": "GM",
+                    "allowNull": true
+                },
                 "OltId": {
                     "type": Sequelize.STRING,
                     "field": "OltId",
@@ -149,6 +200,11 @@ var migrationCommands = [{
                 "endRange": {
                     "type": Sequelize.INTEGER,
                     "field": "endRange",
+                    "allowNull": true
+                },
+                "AM": {
+                    "type": Sequelize.STRING,
+                    "field": "AM",
                     "allowNull": true
                 },
                 "createdAt": {
@@ -202,6 +258,11 @@ var migrationCommands = [{
                     "field": "email",
                     "unique": true,
                     "allowNull": false
+                },
+                "role": {
+                    "type": Sequelize.STRING,
+                    "field": "role",
+                    "allowNull": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
